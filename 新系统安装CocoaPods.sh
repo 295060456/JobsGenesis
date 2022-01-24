@@ -1,5 +1,7 @@
 #! /bin/sh
 
+# 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
+
 # Mac安装Ruby版本管理器（RVM）
 # 资料来源
 ## https://www.jianshu.com/p/e36c0a1c6b49

@@ -1,5 +1,7 @@
 #! /bin/sh
 
+# 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
+
 echo "正在安装Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo "安装一些插件"
