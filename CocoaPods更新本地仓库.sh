@@ -1,8 +1,7 @@
 #! /bin/sh
 
 # 使用方法：直接将本脚本文件拖动到终端即可
-# 如果没有执行权限：
-# chmod +u+x xxx.sh 或者 chmod 777 xxx.sh
+# 如果没有执行权限： chmod +u+x xxx.sh 或者 chmod 777 xxx.sh
 
 # 获取当前的相对路径
 basedir=`cd $(dirname $0); pwd -P`

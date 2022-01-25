@@ -105,8 +105,3 @@ echo "xcrunCommand => $xcrunCommand"
 $xcrunCommand
 echo "[OK]打包完成!ipa路径: $ipaPath"
 open $ipaDir
-
-
-
-
-
