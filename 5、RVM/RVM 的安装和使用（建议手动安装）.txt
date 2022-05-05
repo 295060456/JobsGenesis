@@ -1,0 +1,37 @@
+
+echo "Ruby Version Manager (RVM) 是一个允许用户安装、管理、工作在多个 ruby 环境中的命令行工具"
+
+echo "1、安装 gpg"
+brew install gpg
+echo "1.1、安装 GPG keys"
+gpg --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+echo "1.2、curl方式安装rvm"
+\curl -sSL https://get.rvm.io | bash -s stable
+rvm -v
+
+echo "2、使用"
+echo "2.1、将Mac系统系统自带的ruby导入rvm"
+echo "在导入系统自带的ruby过程中会需要用户输入ruby的名称以为以后切换ruby版本做铺垫，这样我们就可以在系统ruby和新下载的ruby之间切换了"
+#rvm mount的功能是加载安装本地已有编译好的Ruby版本到rvm中，方便统一的管理
+#rvm automount可以自动加载在PATH环境变量中能识别的ruby
+rvm automount 
+echo "2.2、查看rvm管理的本地ruby版本"
+rvm list
+echo "2.3、查看rvm可以安装的所有远程ruby版本"
+rvm list known
+echo "2.4、安装远程ruby版本（❤️需要手动输入❤️）"
+rvm install 2.6.6
+echo "查看当前已安装 ruby 版本，检查是否上述动作安装成功"
+rvm list
+echo "2.5、如果需要切换ruby版本并设置为默认"
+rvm use ext-ruby-2.6.3 --default
+
+echo "3、卸载ruby"
+rvm remove 2.6.6
+
+echo "4、使用rvm管理ruby引起问题"
+echo "使用rvm管理ruby会导致pod相关命令不能使用引起以下gem找不到问题，卸载并重新安装Cocoapods即可。"
+sudo gem uninstall cocoapods
+gem install cocoapods
+
+

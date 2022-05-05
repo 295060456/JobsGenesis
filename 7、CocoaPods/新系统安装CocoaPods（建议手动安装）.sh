@@ -17,6 +17,10 @@ echo "Mac OS 打开任何来源"
 sudo spctl --master-disable
 echo "正在安装Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo "环境变量设置..."
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 brew install wget
 brew install cake
 #brew install clang-format
@@ -34,6 +38,7 @@ echo "使用Ruby原因：
 3、使用自带ruby更新,管理不方便
 4、一系列无原因的报错"
 echo "============== 废话完 =============="
+echo "检查使用的是否是系统自带的Ruby还是我们自定义的Ruby环境"
 echo "如果您使用的是Ruby系统，OS X将回应： /usr/bin/ruby"
 which ruby
 echo "检查使用哪个版本的Ruby OS X"
@@ -100,9 +105,13 @@ echo "===== RVM的前导工作结束 ====="
 
 echo "安装最新版本的Ruby的RVM"
 \curl -sSL https://get.rvm.io | bash -s stable --ruby
-echo "切换rvm"
-source /Users/sino/.rvm/scripts/rvm
+echo "通过手动输入版本号来切换ruby"
+ruby -v
+rvm automount
+echo "查看当前已安装 ruby 版本，检查是否上述动作安装成功"
+rvm list
 echo "检查使用的是否是系统自带的Ruby还是我们自定义的Ruby环境"
+echo "如果您使用的是Ruby系统，OS X将回应： /usr/bin/ruby"
 which ruby
 echo "============== Gem ==============="
 echo "ruby 是一种语言，是某些软件包代码的执行环境。而Gem是管理这些基于ruby程序的程序。"
