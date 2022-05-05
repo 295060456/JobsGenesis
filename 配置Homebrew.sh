@@ -28,6 +28,10 @@ echo "正在安装Homebrew..."
 sudo chown -R $(whoami) /usr/local/var/homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+echo "环境变量设置..."
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)" 
+
 echo "安装一些插件"
 brew install --cask cakebrew
 brew install --cask launchrocket
