@@ -1,7 +1,10 @@
 #!/bin/bash
 
 echo $"打开Apple Develop官网下载页面"
-open -a "/Applications/Safari.app" https://developer.apple.com/
+open -a "/Applications/Safari.app" 
+https://developer.apple.com/develop/
+https://support.apple.com/zh_CN/downloads
+https://developer.apple.com/
 
 echo 安装xcode-install
 sudo gem install -n /usr/local/bin xcode-install
