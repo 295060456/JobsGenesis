@@ -21,6 +21,9 @@ echo "环境变量设置..."
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+brew update
+brew upgrade
+brew install llvm
 brew install wget
 brew install cake
 #brew install clang-format
@@ -43,6 +46,8 @@ echo "如果您使用的是Ruby系统，OS X将回应： /usr/bin/ruby"
 which ruby
 echo "检查使用哪个版本的Ruby OS X"
 ruby -v
+echo "https://mac.install.guide/ruby/13.html"
+brew install ruby
 echo "============== ❤️开始安装RVM❤️ =============="
 echo "开始安装mpapis公钥。但是，正如安装页面所记录的，您可能需要gpg。Mac OS X不附带gpg，因此在安装公钥之前，需要安装gpg。这里用Homebrew安装了gpg"
 brew install gnupg
@@ -94,17 +99,34 @@ echo "已知问题是，如果您的主机未启用 IPv6（通常发生在 docke
 echo "确保没有现有dirmngr进程仍在运行（如果有，则将其杀死），然后gpg --recv-keys按照最初指定的方式再次尝试命令，它应该可以工作。
 请注意，这里的风险是，如果您稍后确实需要 IPv6，您可能会忘记此设置，但对于大多数人来说，这不太可能。"
 
-echo "运行验证安装"
-\curl -sSL https://get.rvm.io | bash -s stable
-
 echo "定期刷新Key"
 echo "定期刷新密钥状态以确保它们都没有被撤销是一种很好的做法。您也可以将其添加到 cron。"
 gpg --refresh-keys
 
+echo "===== 升级安装 Command Line Tools ====="
+
+echo "方式1：更新"
+echo "查看软件更新列表"
+softwareupdate --list
+echo "安装所有更新"
+softwareupdate --install -a
+# echo "方式2：删除后重新下载"
+echo "亦可前往👉🏻苹果官网手动下载：https://developer.apple.com/download/more/   【个别地区如柬埔寨，是禁止对其进行访问，此时需要开启VPN，将IP置于美国，方可访问】"
+# sudo rm -rf /Library/Developer/CommandLineTools
+# xcode-select --install
+echo "查看Command Line Tools的版本"
+llvm-gcc --version
+
+echo "删除rvm"
+rvm implode
+
 echo "===== RVM的前导工作结束 ====="
 
 echo "安装最新版本的Ruby的RVM"
-\curl -sSL https://get.rvm.io | bash -s stable --ruby
+echo "如果安装失败则参考👉🏻https://ruby-china.org/topics/40922"
+#\curl -sSL https://get.rvm.io | bash -s stable --ruby
+curl -L get.rvm.io | bash -s stable
+\curl -sSL https://get.rvm.io | bash -s stable
 echo "通过手动输入版本号来切换ruby"
 ruby -v
 rvm automount
@@ -124,13 +146,16 @@ gem sources --add https://gems.ruby-china.com/
 echo "更新安装源缓存"
 gem sources -u
 echo "更新Gem本身"
-gem update --system
+#sudo gem update --system
+sudo gem update --system -n /usr/local/bin
+sudo gem install -n /usr/local/bin rubygems-update
 echo "查看下目前的Gem的版本"
 gem -v
-echo "更新所有程序包"
+echo "更新所有程序包"??
 gem update
 echo "============== 使用Gem安装CocoaPods =============="
-sudo gem install -n /usr/local/bin cocoapods
+sudo gem install cocoapods
+#sudo gem install -n /usr/local/bin cocoapods
 #sudo gem install cocoapods --pre # 如果你要选择预览版CocoaPods，请使用这一句
 echo "如果安装了多个Xcode使用下面的命令选择（一般需要选择最近的Xcode版本）"
 sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
