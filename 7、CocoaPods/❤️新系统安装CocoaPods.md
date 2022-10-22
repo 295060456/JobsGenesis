@@ -38,14 +38,23 @@ rvm implode
 which ruby
 ### 2、使用brew安装一个新的ruby环境，并准备和系统ruby环境进行切换，这里用到RVM
 brew install ruby
-### 3、安装Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-### brew环境变量设置
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-### brew 升级
-brew update
-brew upgrade
+### 3、检测安装Homebrew:已经安装进行升级保持最新版本;没有安装则下载安装
+
+if brew -v;then
+    echo "The package is installed"
+    ### brew 升级
+    brew update
+    brew doctor
+    brew -v
+else
+    echo "The package is not installed"
+    open https://brew.sh/
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ### brew环境变量设置
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 ### 通过brew安装一些软件
 brew install ruby
 ......
