@@ -8,6 +8,14 @@ https://mac.install.guide/ruby/index.html
 https://mac.install.guide/faq/do-not-use-mac-system-ruby/index.html
 https://www.jianshu.com/p/6ddeade2c565
 https://www.shuzhiduo.com/A/qVdeEK1gdP/
+https://blog.csdn.net/shentian885/article/details/113548167
+
+## 一些说明
+### MacOS Monterey 中的系统 Ruby 是 Ruby 2.6.8(相对较老的版本)。
+### 如果您刚开始使用 Ruby，请使用 Homebrew 安装并使用 Ruby 最新版 进行项目。
+### 当您开始构建另一个项目时，可能是时候安装一个版本管理器，以便您可以使用不同的 Ruby 版本来处理项目。
+### 在您安装了另一个版本的 Ruby 之后，将系统 Ruby 留在原处。不要试图删除它。某些应用程序（或 Apple 的系统软件）可能希望找到它。
+### Mac OS 自带 Gem
 
 ## 一些准备工作
 ### 显示Mac OS X上的隐藏文件和文件夹
@@ -25,26 +33,28 @@ llvm-gcc --version
 ### 删除rvm
 rvm implode
 
-## MacOS Monterey 中的系统 Ruby 是 Ruby 2.6.8(相对较老的版本)。
-## 如果您刚开始使用 Ruby，请使用 Homebrew 安装并使用 Ruby 最新版 进行项目。
-## 当您开始构建另一个项目时，可能是时候安装一个版本管理器，以便您可以使用不同的 Ruby 版本来处理项目。
-## 在您安装了另一个版本的 Ruby 之后，将系统 Ruby 留在原处。不要试图删除它。某些应用程序（或 Apple 的系统软件）可能希望找到它。
-## Mac OS 自带 Gem
-
+## 开始安装
 ### 1、查看当前使用的Ruby的安装位置,如果报/usr/bin/ruby,则是系统Ruby环境
 which ruby
-
 ### 2、使用brew安装一个新的ruby环境，并准备和系统ruby环境进行切换，这里用到RVM
 brew install ruby
+### 3、检测安装Homebrew:已经安装进行升级保持最新版本;没有安装则下载安装
 
-### 3、安装Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-### brew环境变量设置
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-### brew 升级
-brew update
-brew upgrade
+if brew -v;then
+    echo "The package is installed"
+    ### brew 升级
+    brew update
+    brew doctor
+    brew -v
+else
+    echo "The package is not installed"
+    open https://brew.sh/
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ### brew环境变量设置
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 ### 通过brew安装一些软件
 brew install ruby
 ......
@@ -59,7 +69,7 @@ brew install openjdk
 brew install tomcat
 brew install yarn
 
-### 4、安装gpg2
+### 4、安装gpg2(可以跳过省略)
 
 brew uninstall gpg gnupg gnupg2
 rm -rf /usr/local/etc/gnupg
@@ -74,12 +84,16 @@ brew cleanup
 #### 之后想使用gpg2命令还需要创建symlink
 ln -s /usr/local/bin/gpg /usr/local/bin/gpg2
 
-### 5、安装 RVM：RVM 是一个命令行工具，可以提供一个便捷的多版本 Ruby 环境的管理和切换。RVM官网 https://rvm.io。安装RVM之前需要安装Homebrew以及gpg2
-
-curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
-curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
-gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-\curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+### 5、RVM：RVM 是一个命令行工具，可以提供一个便捷的多版本 Ruby 环境的管理和切换。RVM官网 https://rvm.io。安装RVM之前需要安装Homebrew以及gpg2
+#### 5.1、自动安装 RVM：\curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+#### 5.2、手动安装 RVM，解决：[zsh: command not found: RVM]
+参考文献：https://blog.csdn.net/shentian885/article/details/113548167
+##### 5.2.1、下载RVM
+git clone https://github.com/rvm/rvm.git
+##### 5.2.2、安装RVM
+打开rvm/bin文件夹，双击rvm-installer
+##### 5.2.3、启用RVM指令
+source ~/.rvm/scripts/rvm
 
 【❤️国内用户需知❤️】
 在执行过程中可能会遇到类似curl: (7) Failed to connect to raw.githubusercontent.com port 443: Connection refused的问题；
@@ -96,15 +110,14 @@ echo "ruby_url=https://cache.ruby-china.com/pub/ruby" > ~/.rvm/user/db
 修改~/.bash_profile增加下面的内容：
 [[ -s"$HOME/.rvm/scripts/rvm"]] && source"$HOME/.rvm/scripts/rvm"# Load RVM into a shell session *as afunction*
 
-### 查看已知ruby所有版本
-rvm list known
+找到ruby-head之前的版本号 rvm list known;例：3.0.0
 
 ### 找到ruby-head之前的版本号,例：3.0.0
 rvm install 3.0.0
-❎
-Error running '__rvm_make -j8',
-please read /Users/jobs/.rvm/log/1664825347_ruby-2.7.2/make.log
-There has been an error while running make. Halting the installation.
+<!--❎-->
+<!--Error running '__rvm_make -j8',-->
+<!--please read /Users/jobs/.rvm/log/1664825347_ruby-2.7.2/make.log-->
+<!--There has been an error while running make. Halting the installation.-->
 
 ### 设置 Ruby 版本
 rvm use 2.6.6 --default
@@ -135,7 +148,6 @@ sudo gem install -n /usr/local/bin cocoapods
 sudo gem install cocoapods --pre # 如果你要选择预览版CocoaPods，请使用这一句
 ### 如果安装了多个Xcode使用下面的命令选择（一般需要选择最近的Xcode版本）
 sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
-
 
 ###安装CocoaPods本地库
 git clone https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/trunk
