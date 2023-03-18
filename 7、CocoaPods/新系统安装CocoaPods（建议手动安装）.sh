@@ -5,6 +5,7 @@
 # Mac安装Ruby版本管理器（RVM）
 # 资料来源
 ## https://www.jianshu.com/p/e36c0a1c6b49
+## https://www.jianshu.com/p/00ef52c4cd3f
 
 # brew->ruby->Gem->CocoaPods
 
@@ -124,9 +125,8 @@ echo "===== RVM的前导工作结束 ====="
 
 echo "安装最新版本的Ruby的RVM"
 echo "如果安装失败则参考👉🏻https://ruby-china.org/topics/40922"
-#\curl -sSL https://get.rvm.io | bash -s stable --ruby
-curl -L get.rvm.io | bash -s stable
-\curl -sSL https://get.rvm.io | bash -s stable
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
+#curl -L get.rvm.io | bash -s stable
 echo "通过手动输入版本号来切换ruby"
 ruby -v
 rvm automount
@@ -135,6 +135,9 @@ rvm list
 echo "检查使用的是否是系统自带的Ruby还是我们自定义的Ruby环境"
 echo "如果您使用的是Ruby系统，OS X将回应： /usr/bin/ruby"
 which ruby
+# 某些时候因使用 brew 安装工具导致 ruby 环境错乱，执行 pod install 时报错提示找不到 gem 可执行文件的解决方案👇🏻
+echo "重新安装 ruby 环境（默认安装最新版本）"
+rvm reinstall ruby --disable-binary
 echo "============== Gem ==============="
 echo "ruby 是一种语言，是某些软件包代码的执行环境。而Gem是管理这些基于ruby程序的程序。"
 echo "Mac OS 自带Gem"
