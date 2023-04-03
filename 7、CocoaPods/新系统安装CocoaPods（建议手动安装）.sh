@@ -209,6 +209,8 @@ echo "查看下目前的Gem的版本"
 gem -v
 echo "更新所有程序包"??
 gem update
+echo "清理gem"
+gem clean
 echo "============================ 使用Gem安装CocoaPods ============================\n"
 sudo gem install cocoapods
 #sudo gem install -n /usr/local/bin cocoapods

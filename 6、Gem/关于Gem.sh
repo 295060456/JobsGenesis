@@ -12,3 +12,5 @@ echo "查看下目前的Gem的版本"
 gem -v
 echo "更新所有程序包"
 gem update
+echo "清理gem"
+gem clean

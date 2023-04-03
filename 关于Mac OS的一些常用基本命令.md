@@ -21,3 +21,11 @@ curl ipinfo.io/json
 ## 查看一个域名（百度）的IP
 
 nslookup www.baidu.com
+
+## Mac修改hosts文件并使其立即生效
+
+sudo killall -HUP mDNSResponder
+
+## Mac查看命令位置（以nginx为例）
+
+whereis nginx

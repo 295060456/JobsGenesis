@@ -6,7 +6,11 @@ https://blog.51cto.com/willis/1852083
 
 ## ======  前言 ====== 
 
-建议都用brew进行管理
+MacOS 自带tomcat和apache，但是建议都用brew重新下载进行额外的管理
+
+which -a apache
+
+which apache
 
 查找用brew管理的软件的安装路径（以tomat为例）：brew list tomcat
 
@@ -62,6 +66,8 @@ https://blog.51cto.com/willis/1852083
 
 【停止】nginx -s quit（待nginx进程处理任务完毕进行停止）
 
+【重读日志文件】nginx -s reopen
+
 【备注】
 
 ​	1、默认占用系统8080端口
@@ -80,4 +86,12 @@ https://blog.51cto.com/willis/1852083
 
 ​	nginx: [emerg] still could not bind()
 
-​	3、如果遇到怀疑是端口占用导致的问题，查询端口占用情况（比如查询8080端口）：lsof -i tcp:8080
+​	3、查询
+
+​		3.1、查询某个软件（比如：Nginx）的进程号： ps aux|grep nginx
+
+​		3.2、查询端口占用情况（比如查询8080端口）：lsof -i tcp:8080
+
+​		3.3、查询由brew管理的nginx的安装目录：brew list nginx
+
+​		3.4、【查询nginx的配置文件目录】nginx -t（安装目录 ≠ 配置文件目录）
