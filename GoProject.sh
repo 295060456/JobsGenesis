@@ -126,4 +126,12 @@ if [ $? -ne 0 ] ;then
     source ~/.bash_profile
 fi
 
+grep GOPATH ~/.zshrc
+if [ $? -ne 0 ] ;then
+    echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.zshrc
+    source ~/.zshrc
+fi
+
+
+
 

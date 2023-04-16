@@ -12,6 +12,13 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 
 echo "安装oh-my-zsh" # https://ohmyz.sh/#install
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# 兼容系统配置（因为安装zsh，~/.bash_profile就不会被执行）
+grep GOPATH ~/.zshrc
+# 防止有些没有安装zsh
+if [ $? -eq 1 ] ;then
+  echo 'source ~/.bash_profile' >> ~/.zshrc
+  source ~/.zshrc
+fi
 
 echo "ZSH权限问题"
 # 更新完zsh目录权限问题的解决 https://www.jianshu.com/p/03bcc3e2930e
