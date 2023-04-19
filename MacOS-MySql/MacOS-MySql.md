@@ -1,6 +1,35 @@
 # MacOS（本机）- MySql
 
-[TOC]
+- [MacOS（本机）- MySql](#macos本机--mysql)
+  - [1、多种方式安装和管理MySql](#1多种方式安装和管理mysql)
+    - [1.1、用 brew 容器管理 MySql](#11用-brew-容器管理-mysql)
+    - [1.2、从官网下载 MySql直接安装在本机（未验证）](#12从官网下载-mysql直接安装在本机未验证)
+    - [1.3、用 Macport/brew/MySql 官网下载直接安装到本机的区别](#13用-macportbrewmysql-官网下载直接安装到本机的区别)
+    - [1.4、关于版本号](#14关于版本号)
+  - [2、MySql 登录报错分析](#2mysql-登录报错分析)
+  - [3、查询本机的MySql的版本号，以及用什么容器进行下载管理](#3查询本机的mysql的版本号以及用什么容器进行下载管理)
+  - [4、查询本机的MySql的安装路径](#4查询本机的mysql的安装路径)
+  - [5、查询本机的MySql的PID](#5查询本机的mysql的pid)
+  - [6、`mysql`与`mysqld`的区别](#6mysql与mysqld的区别)
+  - [7、关闭`mysqld`进程](#7关闭mysqld进程)
+  - [8、找出MySql的全部用户](#8找出mysql的全部用户)
+  - [9、更改 MySql 数据库用户名](#9更改-mysql-数据库用户名)
+  - [10、语法提示且高亮](#10语法提示且高亮)
+  - [11、卸载删除MySql](#11卸载删除mysql)
+  - [12、MySql忘记密码](#12mysql忘记密码)
+  - [13、MySql的配置文件`my.cnf`](#13mysql的配置文件mycnf)
+    - [13.1、mysql的安装目录](#131mysql的安装目录)
+    - [13.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效](#132按照brewmysqlrb的配置逻辑修改mycnf并使其生效)
+  - [14、查看MySql数据库物理文件存放位置](#14查看mysql数据库物理文件存放位置)
+  - [15、命令行建库（test\_jobs）建表（user\_time\_login\_stat）](#15命令行建库test_jobs建表user_time_login_stat)
+  - [16、MySql密码设置](#16mysql密码设置)
+  - [17、MySql日志](#17mysql日志)
+    - [17.1、mysql有以下几种日志👇🏻](#171mysql有以下几种日志)
+    - [17.2、日志的查询](#172日志的查询)
+  - [18、MySql 和Shell 命令的互相调用](#18mysql-和shell-命令的互相调用)
+    - [18.1、在Shell中执行MySQL相关查询](#181在shell中执行mysql相关查询)
+    - [18.2、在MySQL命令行中执行Shell相关命令](#182在mysql命令行中执行shell相关命令)
+
 
 ## 1、多种方式安装和管理MySql
 
