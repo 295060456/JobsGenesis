@@ -1,6 +1,6 @@
 # MacOS（本机）- MySql
 
-[toc]
+[TOC]
 
 ## 多种方式安装和管理MySql
 
