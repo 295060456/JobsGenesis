@@ -11,7 +11,6 @@ cd folderPath
 fileFullName=$(basename $0)
 chmod u+x $fileFullName
 
-
 clear
 BLACK="\033[0;30m"  
 DARK_GRAY="\033[1;30m"  

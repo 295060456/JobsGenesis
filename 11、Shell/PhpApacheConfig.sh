@@ -1,8 +1,19 @@
-#! /bin/sh
+#!/bin/bash
 
 # 参考资料
 ## https://getgrav.org/blog/macos-monterey-apache-multiple-php-versions
 ## https://www.cnblogs.com/ice5/p/15783811.html
+
+# 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
+filePath=$(dirname $0)/$(basename $0)
+echo "我在这里：$filePath" 
+
+# 定位📌于该文件的垂直文件夹
+folderPath=$(dirname $0)
+cd folderPath
+# 加权限
+fileFullName=$(basename $0)
+chmod u+x $fileFullName
 
 if brew -v;then
     echo "The package is installed"

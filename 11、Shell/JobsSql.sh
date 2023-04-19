@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
+filePath=$(dirname $0)/$(basename $0)
+echo "我在这里：$filePath" 
+
+# 定位📌于该文件的垂直文件夹
+folderPath=$(dirname $0)
+cd folderPath
+# 加权限
+fileFullName=$(basename $0)
+chmod u+x $fileFullName
+
 echo "先关闭mysql的服务"
 brew services stop mysql
 read -p "是否先清理后安装brew_mysql?回车跳过:" cleanUp
