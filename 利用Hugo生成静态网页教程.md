@@ -1,12 +1,18 @@
 # 利用Hugo生成静态网页教程
 
-资料来源：https://www.gohugo.org/
+资料来源
+
+```javascript
+https://www.gohugo.org/
+```
 
 使用终端：Oh-My-Zsh
 
 ## 利用brew自动配置安装Hugo（其他方式不推荐）
 
+```bash
 brew install hugo
+```
 
 ## 生成站点
 
@@ -20,33 +26,50 @@ brew install hugo
 
 ### 2、创建一些页面资源
 
-​	2.1、【创建文章页面】 hugo new about.md
-
-​	2.2、【创建第一篇文章，放到 `post` 目录，方便之后生成聚合页面】 hugo new post/first.md
+```bash
+	2.1、【创建文章页面】 hugo new about.md
+	2.2、【创建第一篇文章，放到 `post` 目录，方便之后生成聚合页面】 hugo new post/first.md
+```
 
 ### 3、安装皮肤
 
-​	cd命令进入themes文件夹，执行命令  git **clone** https://github.com/spf13/hyde.git
+​	cd命令进入themes文件夹，执行命令
+
+```javascript
+git clone https://github.com/spf13/hyde.git
+```
 
 ## 运行Hugo
 
 【本地运行】
 
-跳出themes文件目录，并且回到Test_Hugo目录，执行命令 hugo server --theme=hyde --buildDrafts
+跳出themes文件目录，并且回到Test_Hugo目录，执行命令：
+
+```bash
+hugo server --theme=hyde --buildDrafts
+```
 
 ![image-20230404000715846](/Users/jobs/Library/Application Support/typora-user-images/image-20230404000715846.png)
 
 此时，页面服务（监听默认端口1313）已经开启，可以在浏览器里面进行访问
 
+```javascript
 http://localhost:1313
+```
 
-注意：只要关闭Mac终端或者Ctrl+C，都会结束掉页面服务，导致http://localhost:1313无法打开
+注意：只要关闭Mac终端或者Ctrl+C，都会结束掉页面服务，导致 http://localhost:1313 无法打开
 
 【远程发布到GitHub】
 
 1、首先在GitHub上创建一个Repository，命名为：`295060456.github.io` （295060456替换为你的github用户名）
 
-2、回到Test_Hugo目录，运行：hugo --theme=hyde --baseUrl="http://coderzh.github.io/"，此时"public"目录下生成一些文件，如下图所示👇🏻：
+2、回到Test_Hugo目录，运行：
+
+```
+hugo --theme=hyde --baseUrl="http://coderzh.github.io/"
+```
+
+此时"public"目录下生成一些文件，如下图所示👇🏻：
 
 ![image-20230404015126775](/Users/jobs/Library/Application Support/typora-user-images/image-20230404015126775.png)
 

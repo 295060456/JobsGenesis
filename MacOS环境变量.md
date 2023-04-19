@@ -1,6 +1,8 @@
 # 【MacOS环境变量】
 
+```javascript
 相关资料来源：https://www.jianshu.com/p/acb1f062a925
+```
 
 ## MacOS的环境变量，加载顺序为：
 
@@ -53,7 +55,7 @@ source ~/.zshrc
 
 ## 编辑
 
-```
+```bash
 编辑环境变量（亦可以使用vi）
 
 vim /etc/profile
@@ -64,7 +66,7 @@ vim ./.profile
 vim ./.bashrc
 ```
 
-```
+```bash
 环境信息生效：source
 
 source /etc/profile
@@ -75,7 +77,7 @@ source ./.profile
 source ./.bashrc
 ```
 
-```
+```bash
 PATH的语法：中间用冒号隔开
 export PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
 ```
@@ -84,13 +86,13 @@ export PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
 
 1、竖排打印环境变量，并输出到本目录下面的 localGoEnvInfo.md文件（易读）
 
-```
+```bash
 sed 's/:/\n/g' <<< "$PATH" >> localGoEnvInfo.md
 ```
 
 2、直接输出（不易读）
 
-```
+```bash
 echo $PATH
 ```
 
@@ -98,7 +100,7 @@ echo $PATH
 
 注意sed的用法，linux和MacOS不同，linux是Gnu的，MacOS是BSD的
 
-```
+```bash
 export PATH=$$PATH | tr ':' '\n' | sort | uniq | tr -s '\n' ':' | sed 's/:$//g')
 export PATH=$(echo $PATH | sed 's/:/\'$'\n/g' | sort | uniq | tr -s '\n' ':' | sed 's/:$//g')
 ```
@@ -109,11 +111,13 @@ export PATH=$(echo $PATH | sed 's/:/\'$'\n/g' | sort | uniq | tr -s '\n' ':' | s
 
 1.1、官方网站
 
+```javascript
 https://ohmyz.sh/
+```
 
 1.2、安装
 
-```
+```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 或者
 sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
@@ -121,13 +125,13 @@ sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/ins
 
 1.3、打开配置文件
 
-```
+```bash
 open ~/.zshrc
 ```
 
 1.4、兼容系统配置（新建生成.sh文件）
 
-```
+```bash
 #!/bin/bash
 
 grep GOPATH ~/.zshrc
