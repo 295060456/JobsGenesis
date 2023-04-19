@@ -81,8 +81,7 @@ filepath=$(cd "$(dirname "$0")"; pwd)
 ```shell
 read -p "请输入项目文件夹名字,以回车结束:" folder_name
 defaultInput $folder_name
-folder_name=${result}
-# echo "The value of var is ${result}"
+# echo "The value of var is ${defaultInput}"
 ```
 
 ```shell
@@ -177,6 +176,8 @@ EOF
 全局搜索文件（ ~/.bash_profile），
 进行文件内查找字符串（GOPATH），
 并对其进行写入（export PATH="$GOPATH/bin:$PATH"），并刷新配置
+
+【唯一性】
 ```
 
 ```shell
@@ -193,4 +194,3 @@ fi
 echo "查看本地安装过的cocopods相关东西"
 gem list --local | grep cocoapods
 ```
-
