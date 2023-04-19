@@ -27,7 +27,7 @@ brew services start mysql // 启动MySQL
 运行(sudo) mysql.server start 前台启动mysql
 ```
 
-![通过brew安装的MySql目录结构](/Users/jobs/Documents/GitHub/JobsGenesis/MacOS-MySql/通过brew安装的MySql目录结构.jpg)
+![通过brew安装的MySql目录结构](/Users/jobs/Documents/GitHub/JobsGenesis/MacOS-MySql/MacOS-MySql.pic/通过brew安装的MySql目录结构.jpg)
 
 ### 1.2、从官网下载 MySql直接安装在本机（未验证）
 
@@ -237,7 +237,7 @@ brew list mysql
 cp /opt/homebrew/Cellar/mysql/8.0.32/.bottle/etc/my.cnf /etc  
 ```
 
-![使得my.cnf生效](/Users/jobs/Documents/GitHub/JobsGenesis/MacOS-MySql/使得my.cnf生效.jpg)
+![使得my.cnf生效](/Users/jobs/Documents/GitHub/JobsGenesis/MacOS-MySql/MacOS-MySql.pic/使得my.cnf生效.jpg)
 
 ​	13.2.4、重启mysql
 
