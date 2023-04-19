@@ -30,10 +30,9 @@
     - [18.1、在Shell中执行MySQL相关查询](#181在shell中执行mysql相关查询)
     - [18.2、在MySQL命令行中执行Shell相关命令](#182在mysql命令行中执行shell相关命令)
 
-
 ## 1、多种方式安装和管理MySql
 
-### 1.1、用 brew 容器管理 MySql
+### 	1.1、用 brew 容器管理 MySql
 
 ```mysql
 brew install mysql // 安装mysql
@@ -58,13 +57,13 @@ brew services start mysql // 启动MySQL
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E9%80%9A%E8%BF%87brew%E5%AE%89%E8%A3%85%E7%9A%84MySql%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg?raw=true)
 
-### 1.2、从官网下载 MySql直接安装在本机（未验证）
+### 	1.2、从官网下载 MySql直接安装在本机（未验证）
 
 ```javascript
 open https://juejin.cn/post/6844903956305412104
 ```
 
-### 1.3、用 Macport/brew/MySql 官网下载直接安装到本机的区别
+### 	1.3、用 Macport/brew/MySql 官网下载直接安装到本机的区别
 
 ```
 	3.1、Macport 和 brew 作为容器管理着 MySql 的生命周期，那么对于 MySql 的服务开启\关闭、重启 等的命令方式不一样
@@ -73,7 +72,7 @@ open https://juejin.cn/post/6844903956305412104
 	3.4、因为安全原因，MySql的某些版本对于忘记密码的操作不一样，也就是说可能都不存在教程上的文件和路径
 ```
 
-### 1.4、关于版本号
+### 	1.4、关于版本号
 
 ```bash
   4.1、MySql 忽然从5.7升级到了8.0，直接跳过了6和7。即，版本号码：5.5/5.6/5.7/8.0
@@ -238,7 +237,7 @@ sudo mysqld_safe --skip-grant-tables
 
 ## 13、MySql的配置文件`my.cnf`
 
-### 13.1、mysql的安装目录
+### 	13.1、mysql的安装目录
 
 由：
 
@@ -252,7 +251,7 @@ brew list mysql
 /opt/homebrew/Cellar/mysql
 ```
 
-### 13.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效
+### 	13.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg?raw=true)
 
@@ -338,7 +337,7 @@ Query OK, 0 rows affected (0.01 sec)
 https://blog.csdn.net/Kirito_j/article/details/82714515
 ```
 
-### 17.1、mysql有以下几种日志👇🏻
+### 	17.1、mysql有以下几种日志👇🏻
 
 | 错误日志   |     -log-err      |
 | :--------- | :---------------: |
@@ -347,7 +346,7 @@ https://blog.csdn.net/Kirito_j/article/details/82714515
 | 更新日志   |    -log-update    |
 | 二进制日志 |     -log-bin      |
 
-### 17.2、日志的查询
+### 	17.2、日志的查询
 
 ```
 查看日志
@@ -383,7 +382,7 @@ https://blog.csdn.net/chengyuqiang/article/details/121340775
 https://blog.csdn.net/wocjj/article/details/7459033
 ```
 
-### 18.1、在Shell中执行MySQL相关查询
+### 	18.1、在Shell中执行MySQL相关查询
 
 通过参数-e
 
@@ -391,7 +390,7 @@ https://blog.csdn.net/wocjj/article/details/7459033
 mysql -uroot -p -e "show databases"
 ```
 
-### 18.2、在MySQL命令行中执行Shell相关命令
+### 	18.2、在MySQL命令行中执行Shell相关命令
 
 system + 系统shell命令（不需要分号） 或者 `\! 系统shell命令`
 
