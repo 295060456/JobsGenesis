@@ -254,7 +254,7 @@ brew list mysql
 
 ### 13.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效
 
-![关于.brew:mysql.rb](/Users/jobs/Documents/GitHub/JobsGenesis/MacOS-MySql/关于.brew:mysql.rb.jpg)
+![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg)
 
 ​	13.2.1、`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为mysql 配置文件
 
