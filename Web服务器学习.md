@@ -1,12 +1,14 @@
 # Web服务器学习
 
-## 资料来源：
+[toc]
+
+## 资料来源
 
 ```
 https://blog.51cto.com/willis/1852083
 ```
 
-## ======  前言 ====== 
+## 前言
 
 MacOS 自带tomcat和apache，但是建议都用brew重新下载进行额外的管理
 
@@ -21,13 +23,13 @@ which apache
 brew list tomcat
 ```
 
-## ====== tomcat ======
+## tomcat
 
 【安装】brew install tomcat
 
 进入tomcat安装目录下的libexec/bin，执行里面对应的sh，以实现【开启】【关闭】【重启】
 
-## ====== httpd ======
+## httpd
 
 ```
 【安装】brew install httpd
@@ -51,7 +53,7 @@ brew list tomcat
 </IfDefine>
 ```
 
-## ====== nginx ======
+## nginx
 
 ```bash
 【安装】brew install nginx

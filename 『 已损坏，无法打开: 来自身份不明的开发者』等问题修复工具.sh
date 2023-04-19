@@ -1,4 +1,17 @@
 #!/bin/bash
+
+# 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
+filePath=$(dirname $0)/$(basename $0)
+echo "我在这里：$filePath" 
+
+# 定位📌于该文件的垂直文件夹
+folderPath=$(dirname $0)
+cd folderPath
+# 加权限
+fileFullName=$(basename $0)
+chmod u+x $fileFullName
+
+
 clear
 BLACK="\033[0;30m"  
 DARK_GRAY="\033[1;30m"  
@@ -19,6 +32,7 @@ WHITE="\033[1;37m"
 NC="\033[0m"
 
 echo ""
+
 echo ""
 echo -e "${LIGHT_CYAN}Mac ${NC} - 软件、技巧、教程分享"
 

@@ -1,10 +1,14 @@
 # 利用Hugo生成静态网页教程
 
-资料来源
+[toc]
+
+## 资料来源
 
 ```javascript
 https://www.gohugo.org/
 ```
+
+## 环境配置
 
 使用终端：Oh-My-Zsh
 
@@ -41,7 +45,7 @@ git clone https://github.com/spf13/hyde.git
 
 ## 运行Hugo
 
-【本地运行】
+### 1、本地运行
 
 跳出themes文件目录，并且回到Test_Hugo目录，执行命令：
 
@@ -59,7 +63,7 @@ http://localhost:1313
 
 注意：只要关闭Mac终端或者Ctrl+C，都会结束掉页面服务，导致 http://localhost:1313 无法打开
 
-【远程发布到GitHub】
+### 2、远程发布到GitHub
 
 1、首先在GitHub上创建一个Repository，命名为：`295060456.github.io` （295060456替换为你的github用户名）
 

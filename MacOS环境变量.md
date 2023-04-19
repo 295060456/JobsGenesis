@@ -1,10 +1,14 @@
-# 【MacOS环境变量】
+# MacOS环境变量
+
+[toc]
+
+## 资料来源
 
 ```javascript
-相关资料来源：https://www.jianshu.com/p/acb1f062a925
+https://www.jianshu.com/p/acb1f062a925
 ```
 
-## MacOS的环境变量，加载顺序为：
+## MacOS的环境变量，加载顺序为
 
 1、🇨🇳【系统级别】
 
@@ -105,7 +109,7 @@ export PATH=$$PATH | tr ':' '\n' | sort | uniq | tr -s '\n' ':' | sed 's/:$//g')
 export PATH=$(echo $PATH | sed 's/:/\'$'\n/g' | sort | uniq | tr -s '\n' ':' | sed 's/:$//g')
 ```
 
-# 【第三方Bash】
+# 第三方的Bash
 
 ## 1、Oh-My-Zsh
 
