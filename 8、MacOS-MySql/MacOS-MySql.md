@@ -56,7 +56,7 @@ brew services start mysql // 启动MySQL
 运行(sudo) mysql.server start 前台启动mysql
 ```
 
-https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E9%80%9A%E8%BF%87brew%E5%AE%89%E8%A3%85%E7%9A%84MySql%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg
+![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E9%80%9A%E8%BF%87brew%E5%AE%89%E8%A3%85%E7%9A%84MySql%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg?raw=true)
 
 ### 1.2、从官网下载 MySql直接安装在本机（未验证）
 
@@ -254,7 +254,7 @@ brew list mysql
 
 ### 13.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效
 
-![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg)
+![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg?raw=true)
 
 ​	13.2.1、`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为mysql 配置文件
 
@@ -266,7 +266,7 @@ brew list mysql
 cp /opt/homebrew/Cellar/mysql/8.0.32/.bottle/etc/my.cnf /etc  
 ```
 
-![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E4%BD%BF%E5%BE%97my.cnf%E7%94%9F%E6%95%88.jpg)
+![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E4%BD%BF%E5%BE%97my.cnf%E7%94%9F%E6%95%88.jpg?raw=true)
 
 ​	13.2.4、重启mysql
 
