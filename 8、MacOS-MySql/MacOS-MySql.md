@@ -238,7 +238,7 @@ sudo mysqld_safe --skip-grant-tables
 
 ## 13、MySql的配置文件`my.cnf`
 
-### 13.1、mysql的安装目录
+### 13.1、MySql的安装目录
 
 由：
 
@@ -338,7 +338,7 @@ Query OK, 0 rows affected (0.01 sec)
 https://blog.csdn.net/Kirito_j/article/details/82714515
 ```
 
-### 17.1、mysql有以下几种日志👇🏻
+### 17.1、Mysql有以下几种日志👇🏻
 
 | 错误日志   |     -log-err      |
 | :--------- | :---------------: |
@@ -383,7 +383,7 @@ https://blog.csdn.net/chengyuqiang/article/details/121340775
 https://blog.csdn.net/wocjj/article/details/7459033
 ```
 
-### 18.1、在Shell中执行MySQL相关查询
+### 18.1、在Shell中执行MySql相关查询
 
 通过参数-e
 
@@ -391,13 +391,20 @@ https://blog.csdn.net/wocjj/article/details/7459033
 mysql -uroot -p -e "show databases"
 ```
 
-### 18.2、在MySQL命令行中执行Shell相关命令
+### 18.2、在MySql命令行中执行Shell相关命令
 
 system + 系统shell命令（不需要分号） 或者 `\! 系统shell命令`
 
 ```
 mysql> system date
 mysql> system pwd
+```
+
+## 18.2、MySql执行外部`x.sql`
+
+```
+关键词：source
+mysql> source /Users/jobs/Desktop/test.sql 
 ```
 
 
