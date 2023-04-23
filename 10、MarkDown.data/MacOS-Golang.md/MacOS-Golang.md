@@ -4,6 +4,7 @@
 
 ```javascript
 资料来源
+
 https://www.jianshu.com/p/7f9f73327fd8
 ```
 
@@ -11,14 +12,14 @@ https://www.jianshu.com/p/7f9f73327fd8
 
 ### 1、直接安装到系统的
 
-```
+```bash
 ➜  ~ whereis go
 go: /usr/local/go
 ```
 
 ### 2、通过 brew 安装的（推荐）
 
-```
+```bash
 ➜  ~ whereis go
 go: /opt/homebrew/bin/go
 ```
@@ -45,11 +46,35 @@ go: /opt/homebrew/bin/go
 
 `git clone https://github.com/golang/tools.git tools`
 
+## 查询 Golang 环境变量（以 GOPATH 为例）
+
+```bash
+go env | grep GOPATH
+```
+
 ## 配置 GOPATH
 
-```
+```javascript
 资料来源
+
 https://www.topgoer.com/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/%E9%85%8D%E7%BD%AEgopath.html
+https://studygolang.com/articles/28913
+```
+
+```
+1、编辑 ~/.bash_profile
+open ~/.bash_profile 
+
+2、文末加上
+export GOPATH=/usr/local/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+
+3、使得配置生效
+source ~/.bash_profile
+
+4、查看最新的 GOPATH 配置
+go env | grep GOPATH
 ```
 
 ### GOPATH 目录说明
@@ -72,6 +97,7 @@ https://www.topgoer.com/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/%E9%85%8D%E7%BD%AEg
 
 ```javascript
 资料来源
+
 https://blog.csdn.net/weixin_36908494/article/details/126096277
 ```
 
@@ -96,8 +122,6 @@ PATH 配置在 `$~/.bash_profile` 或者` /etc/profile`，根据实际情况删�
 `source ~/.bash_profile`
 
 1.5、删除GOPATH目录
-
-
 
 ### 2、【删除】通过 brew 安装的
 

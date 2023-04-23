@@ -114,18 +114,89 @@ export PATH=$(echo $PATH | sed 's/:/\'$'\n/g' | sort | uniq | tr -s '\n' ':' | s
 
 # 第三方的 Bash
 
-## 1、Oh-My-Zsh
+```javascript
+资料来源
+https://rutger-t.medium.com/installing-zsh-and-oh-my-zsh-on-mac-using-homebrew-af80d266515d
+```
 
-### 1.1、官方网站
+## 1、Zsh
+
+从 MacOS Catalina Zsh 开始，Zsh 成为 MacOS 默认的登录 shell 和交互 shell
+
+### 1.1、【安装】使用 brew 管理的Zsh，而非 MacOS 自带的
+
+```bash
+通过 brew 下载安装 zsh
+
+brew install zsh
+```
+
+```bash
+得到 brew 管理的 Zsh 的安装路径
+
+brew list zsh
+
+返回👉🏻
+/opt/homebrew/Cellar/zsh/5.9/bin/zsh
+/opt/homebrew/Cellar/zsh/5.9/bin/zsh-5.9
+/opt/homebrew/Cellar/zsh/5.9/lib/zsh/ (37 files)
+/opt/homebrew/Cellar/zsh/5.9/share/info/ (7 files)
+/opt/homebrew/Cellar/zsh/5.9/share/man/ (17 files)
+/opt/homebrew/Cellar/zsh/5.9/share/zsh/ (1509 files)
+
+路径为：/opt/homebrew/Cellar/zsh/5.9/bin/zsh
+```
+
+```bash
+写入环境变量
+
+sudo vi /etc/shells
+```
+
+```bash
+因为是 MacOS 系统受保护区，所以需要复制到新建一个文件，修改并进行整体替换
+在 /etc/shells 文末加入：/opt/homebrew/Cellar/zsh/5.9/bin/zsh
+
+// ToDu 期望用shell脚本：echo '/opt/homebrew/Cellar/zsh/5.9/bin/zsh' >> /etc/shells
+```
+
+```bash
+更改默认终端
+chsh -s /opt/homebrew/Cellar/zsh/5.9/bin/zsh
+
+更改以后重启 Terminal
+```
+
+```bash
+检查安装
+echo $SHELL
+
+它应该给出以下结果
+/usr/local/bin.zsh
+```
+
+### 1.2、【卸载】使用 brew 管理的Zsh，而非 MacOS 自带的
+
+```
+删除已经配置的环境变量
+brew list zsh
+sudo vi /etc/shells
+
+卸载程序包
+brew uninstall zsh
+```
+
+## 2、Oh-My-Zsh
+
+### 2.1、官方网站
 
 ```javascript
 https://ohmyz.sh/
-https://ohmyposh.dev/
 ```
 
-### 1.2、安装
+### 2.2、【安装】Oh-My-Zsh
 
-#### 1.2.1、直接安装到本系统
+#### 2.2.1、直接安装到本系统
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -133,20 +204,19 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 ```
 
-#### 1.2.2、通过 brew 安装
+#### 2.2.2、通过 brew 安装 Oh-My-Zsh
 
 ```
-brew install Oh-My-Zsh
-brew install oh-my-posh
+暂未提供
 ```
 
-### 1.3、兼容系统配置（新建生成.sh脚本文件）
+### 2.3、兼容系统配置（新建生成.sh脚本文件）
 
-#### 1.3.1、【方式一】手动添加到文件末尾
+#### 2.3.1、【方式一】手动添加到文件末尾
 
 `source ~/.bash_profile`
 
-#### 1.3.2、【方式二】通过运行脚本文件写入
+#### 2.3.2、【方式二】通过运行脚本文件写入
 
 ```bash
 #!/bin/bash
@@ -159,18 +229,71 @@ if [ $? -eq 1 ] ;then
 fi
 ```
 
-### 1.4、卸载
+### 2.4、安装 Oh-My-Zsh 插件
 
-#### 1.4.1、【卸载】直接安装到本系统
+```
+Oh My Zsh 的一大优点是我们可以使用插件自定义 Zsh
+让我们安装一些最有用的:
+
+zsh-语法高亮
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+zsh-完成
+git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+
+zsh-自动建议
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+编辑 ~/.zshrc 文件
+将克隆存储库的名称添加到插件列表中：替换 plugins=(git)
+plugins=(
+ git
+ zsh-syntax-highlighting
+ zsh-autosuggestions
+ zsh-completions
+)
+# 用于 zsh-completions 
+autoload -U compinit && compinit 的命令
+
+更新设置后重启 Terminal
+source ~/.zshrc
+```
+
+### 2.5、【卸载】 Oh-My-Zsh
+
+#### 2.5.1、【卸载】直接安装 Oh-My-Zsh 到本系统
 
 ```
 uninstall_oh_my_zsh
 ```
 
-#### 1.4.2、【卸载】通过 brew 安装
+#### 2.5.2、【卸载】通过 brew 安装 Oh-My-Zsh
 
 ```
-brew uninstall Oh-My-Zsh
+暂不提供
+```
+
+## 3、Oh My Posh
+
+### 3.1、Oh My Posh 官方网站
+
+```
+https://ohmyposh.dev/
+```
+
+### 3.2、【安装】 Oh My Posh
+
+#### 3.2.1、直接安装 Oh My Posh 到本系统
+
+#### 3.2.2、通过 brew 安装 Oh My Posh
+
+```
+brew install oh-my-posh
+```
+
+### 3.3、【卸载】Oh My Posh
+
+```
 brew uninstall oh-my-posh
 ```
 
