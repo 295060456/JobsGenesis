@@ -144,6 +144,19 @@ fi
 COMMENT
 ```
 
+## 字符串比较
+
+```shell
+## 判定路径不允许是桌面
+if [ "$folderPath" = "/Users/"${USER}"/Desktop" ]; then
+    # echo "Paths are equal."
+    echo "桌面不允许执行此操作！"
+else
+    # echo "Paths are different."
+    cp $filePath $"/Users/"${USER}"/Desktop"
+fi
+```
+
 ## for/in 和 do/done举例
 
 ```shell

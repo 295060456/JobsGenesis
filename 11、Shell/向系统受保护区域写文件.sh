@@ -3,7 +3,7 @@
 <<'COMMENT'
     # 📌定位到桌面
     cd Desktop/
-    echo "Users/"${USER}"/Desktop"
+    echo "/Users/"${USER}"/Desktop"
 
     cp /private/etc/hosts /Users/jobs/Desktop/  
 COMMENT
@@ -30,13 +30,16 @@ folderPath=${filePath%/*}
 ## 文件所在文件夹名
 folderName=${folderPath##*/}
 
-# 判定路径不允许是桌面
-if [[ $folderPath -ne "Users/"${USER}"/Desktop" ]];then
+# cp $filePath $"/Users/"${USER}"/Desktop"
 
+## 判定路径不允许是桌面
+if [ "$folderPath" = "/Users/"${USER}"/Desktop" ]; then
+    # echo "Paths are equal."
+    echo "桌面不允许执行此操作！"
 else
-    echo "Desktop!!!"
+    # echo "Paths are different."
+    cp $filePath $"/Users/"${USER}"/Desktop"
 fi
-
 
 
 
