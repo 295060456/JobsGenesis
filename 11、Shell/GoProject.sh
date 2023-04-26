@@ -17,7 +17,7 @@ function addExe(){
     chmod u+x $fileFullName
 }
 
-## 通过 brew 安装golong语言环境，以及IDE：vscode
+## 通过 brew 安装 golong 语言环境，以及 IDE：vscode
 function sysGoConf() {
 <<'COMMENT'
     【参考资料】
@@ -130,11 +130,8 @@ go.mod文件一旦创建后，它的内容将会被go toolchain全面掌控。
 go toolchain会在各类命令执行时，比如go get、go build、go mod等修改和维护go.mod文件。
 COMMENT
     go mod init gone
-
     # 用Visual Studio Code作为IDE编辑代码[可以放在最后]
     code .
-
-    
 }
 
 # 🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛

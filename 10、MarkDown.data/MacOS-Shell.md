@@ -202,11 +202,31 @@ echo "" > localGoEnvInfo.md
 
 ## 写文件 
 
-### 向文件写一段内容
+### 接受键盘输入，向文件写一段内容
 
 ```shell
-cat>$file_name<<EOF
-// 你想写入的内容
+#【覆盖写入 和 追加写入 共用的前置条件】
+## 文件全名（包含后缀名）
+fileFullName=${filePath##*/}
+fileCopy_fullname=$"/Users/"${USER}"/Desktop/"$fileFullName
+echo $fileCopy_fullname
+## 键盘输入
+read -p "请输入需要追加写入的内容，以回车结束:" file_content
+```
+
+```shell
+# 覆盖写入
+cat>$fileCopy_fullname<<EOF
+// 接受键盘输入的覆盖写入的内容
+$file_content
+EOF
+```
+
+```shell
+# 追加写入
+cat>>$fileCopy_fullname<<EOF
+// 接受键盘输入的追加写入的内容
+$file_content
 EOF
 ```
 
