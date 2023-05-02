@@ -8,13 +8,37 @@
 https://studygolang.com/articles/14642
 ```
 
-## 1、下载 Mysql 的驱动包
+## 1、本地查看 Mysql 数据库
+
+*参见 `MacOS-MySql.md`*
+
+### 1.1、**启动/关闭/重启 Mysql 服务（大前提）**
+
+```mysql
+brew services restart mysql // 重启MySQL
+brew services stop mysql // 关闭MySQL
+brew services start mysql // 启动MySQL
+
+或者
+
+(sudo) mysql.server stop // 关闭MySQL
+(sudo) mysql.server start // 启动MySQL
+(sudo) mysql.server restart // 重启MySQL
+```
+
+### 1.2、**命令行进入 Mysql 数据库**
+
+```mysql
+MySQL -u root -p
+```
+
+## 2、下载 Mysql 的驱动包
 
 ```go
 go get github.com/go-sql-driver/mysql
 ```
 
-## 2、建表和字段
+## 3、建表和字段
 
 ```mysql
 CREATE TABLE IF NOT EXISTS `test`.`user` (
@@ -30,9 +54,9 @@ CREATE TABLE IF NOT EXISTS `test`.`user` (
  COMMENT = '用户表'
 ```
 
-## 3、数据库的操作代码
+## 4、数据库的操作代码
 
-### 3.1、**对数据的增（insert）操作**
+### 4.1、**对数据的增（insert）操作**
 
 ```go
 package main
@@ -68,7 +92,7 @@ func main(){
 }
 ```
 
-### 3.2、**实现对数据的删（delete）操作**
+### 4.2、**实现对数据的删（delete）操作**
 
 ```go
 package main
@@ -103,7 +127,7 @@ func main(){
 }
 ```
 
-### 3.3、**实现对数据库的改（update）操作**
+### 4.3、**实现对数据库的改（update）操作**
 
 ```go
 package main

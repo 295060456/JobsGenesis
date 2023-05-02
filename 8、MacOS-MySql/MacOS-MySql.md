@@ -1,41 +1,13 @@
 # MacOS（本机）- MySql
 
-- [MacOS（本机）- MySql](#macos本机--mysql)
-  - [1、多种方式安装和管理MySql](#1多种方式安装和管理mysql)
-    - [1.1、用 brew 容器管理 MySql](#11用-brew-容器管理-mysql)
-    - [1.2、从官网下载 MySql直接安装在本机（未验证）](#12从官网下载-mysql直接安装在本机未验证)
-    - [1.3、用 Macport/brew/MySql 官网下载直接安装到本机的区别](#13用-macportbrewmysql-官网下载直接安装到本机的区别)
-    - [1.4、关于版本号](#14关于版本号)
-  - [2、MySql 登录报错分析](#2mysql-登录报错分析)
-  - [3、查询本机的MySql的版本号，以及用什么容器进行下载管理](#3查询本机的mysql的版本号以及用什么容器进行下载管理)
-  - [4、查询本机的MySql的安装路径](#4查询本机的mysql的安装路径)
-  - [5、查询本机的MySql的PID](#5查询本机的mysql的pid)
-  - [6、`mysql`与`mysqld`的区别](#6mysql与mysqld的区别)
-  - [7、关闭`mysqld`进程](#7关闭mysqld进程)
-  - [8、找出MySql的全部用户](#8找出mysql的全部用户)
-  - [9、更改 MySql 数据库用户名](#9更改-mysql-数据库用户名)
-  - [10、语法提示且高亮](#10语法提示且高亮)
-  - [11、卸载删除MySql](#11卸载删除mysql)
-  - [12、MySql忘记密码](#12mysql忘记密码)
-  - [13、MySql的配置文件`my.cnf`](#13mysql的配置文件mycnf)
-    - [13.1、mysql的安装目录](#131mysql的安装目录)
-    - [13.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效](#132按照brewmysqlrb的配置逻辑修改mycnf并使其生效)
-  - [14、查看MySql数据库物理文件存放位置](#14查看mysql数据库物理文件存放位置)
-  - [15、命令行建库（test\_jobs）建表（user\_time\_login\_stat）](#15命令行建库test_jobs建表user_time_login_stat)
-  - [16、MySql密码设置](#16mysql密码设置)
-  - [17、MySql日志](#17mysql日志)
-    - [17.1、mysql有以下几种日志👇🏻](#171mysql有以下几种日志)
-    - [17.2、日志的查询](#172日志的查询)
-  - [18、MySql 和Shell 命令的互相调用](#18mysql-和shell-命令的互相调用)
-    - [18.1、在Shell中执行MySQL相关查询](#181在shell中执行mysql相关查询)
-    - [18.2、在MySQL命令行中执行Shell相关命令](#182在mysql命令行中执行shell相关命令)
+[toc]
 
 
-## 1、多种方式安装和管理MySql
+## 1、多种方式安装和管理 MySql
 
 ### 1.1、用 brew 容器管理 MySql
 
-```mysql
+```bash
 brew install mysql // 安装mysql
 brew uninstall mysql 或者 brew remove mysql // 卸载mysql
 brew info mysql // mysql的安装信息
@@ -45,26 +17,26 @@ brew services stop mysql // 关闭MySQL
 brew services start mysql // 启动MySQL
 ```
 
-```
+```bash
 (sudo) mysql.server stop // 关闭MySQL
 (sudo) mysql.server start // 启动MySQL
 (sudo) mysql.server restart // 重启MySQL
 ```
 
-```
+```bash
 运行brew service start mysql 可以后台启动mysql
 运行(sudo) mysql.server start 前台启动mysql
 ```
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E9%80%9A%E8%BF%87brew%E5%AE%89%E8%A3%85%E7%9A%84MySql%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg?raw=true)
 
-### 1.2、从官网下载 MySql直接安装在本机（未验证）
+### 1.2、从官网下载 MySql 直接安装在本机（未验证）
 
 ```javascript
 open https://juejin.cn/post/6844903956305412104
 ```
 
-### 1.3、用 Macport/brew/MySql 官网下载直接安装到本机的区别
+### 1.3、用 `Macport`/`brew`/`MySql` 官网下载直接安装到本机的区别
 
 ```
 	3.1、Macport 和 brew 作为容器管理着 MySql 的生命周期，那么对于 MySql 的服务开启\关闭、重启 等的命令方式不一样
@@ -104,24 +76,24 @@ ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mys
 如果密码有误，则报错：ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
 ```
 
-## 3、查询本机的MySql的版本号，以及用什么容器进行下载管理
+## 3、查询本机的 MySql 的版本号，以及用什么容器进行下载管理
 
 ```bash
 mysql --version
 ```
 
-## 4、查询本机的MySql的安装路径
+## 4、查询本机的 MySql 的安装路径
 
 ```bash
 whereis mysql
 ```
 
-## 5、查询本机的MySql的PID
+## 5、查询本机的 MySql 的 PID
+
+*👇🏻能和"活动监视器"的数据对得上*
 
 ```bash
 lsof -nP -i | grep mysql   
-
-👆🏻能和"活动监视器"的数据对得上
 ```
 
 ## 6、`mysql`与`mysqld`的区别
@@ -134,10 +106,10 @@ mysql是命令行客户端程序
 ## 7、关闭`mysqld`进程
 
 ```
-mysqld的守护进程mysqld_safe,也是mysqld的父进程（守护进程）
+mysqld 的守护进程 mysqld_safe ,也是 mysqld 的父进程（守护进程）
 ```
 
-## 8、找出MySql的全部用户
+## 8、找出 MySql 的全部用户
 
 ```javascript
 资料来源
@@ -160,6 +132,10 @@ MySQL> exit
 
 ## 10、语法提示且高亮
 
+*以这一种方式进入，既有语法提示，且高亮*
+
+*但是以这一种方式运行 show 命令，会在另外的界面进行展示结果，按q退出*
+
 ```bash
 brew install mycli
 ```
@@ -171,13 +147,7 @@ brew install mycli
 mycli -u Jobs -h localhost -p password --database db_book
 ```
 
-```
-以这一种方式进入，既有语法提示，且高亮
-
-但是以这一种方式运行 show 命令，会在另外的界面进行展示结果，按q退出
-```
-
-## 11、卸载删除MySql
+## 11、卸载删除 MySql
 
 ```javascript
 资料来源
@@ -186,7 +156,7 @@ mycli -u Jobs -h localhost -p password --database db_book
 https://newsn.net/say/brew-uninstall-mysql.html
 ```
 
-【用brew管理】
+*用 brew 管理*
 
 ```bash
 brew remove mysql 
@@ -202,6 +172,8 @@ brew uninstall mysql
 brew cleanup
 ```
 
+*直接安装在 MacOS 上，清除残留*
+
 ```mysql
 sudo rm /usr/local/MySQL
 sudo rm -rf /usr/local/MySQL*
@@ -215,7 +187,9 @@ sudo rm -rf /private/var/db/receipts/MySQL*
 sudo rm -rf /var/db/receipts/com.mysql.*
 ```
 
-## 12、MySql忘记密码
+## 12、MySql 密码
+
+### 12.1、MySql 忘记密码
 
 ```javascript
 资料来源
@@ -225,42 +199,48 @@ sudo rm -rf /var/db/receipts/com.mysql.*
 【MySql root密码忘记，原来还有更优雅的解法！】https://www.cnblogs.com/ivictor/p/9243259.html
 ```
 
-```mysql
-12.1、关闭MySql服务
-不同容器方式管理的Mysql，关闭的方式不一样
+*大体思路*
 
-12.2、进入安全模式
+```mysql
+12.1.1、关闭 MySql 服务
+不同容器方式管理的Mysql，关闭的方式不一样
+brew services stop mysql,或者 
+(sudo) mysql.server stop
+
+12.1.2、进入安全模式
 sudo mysqld_safe --skip-grant-tables
 
 注意：这个地方可能会提示错误 mysqld_safe A mysqld process already exists
 解决方式：killall mysqld mysqld_safe，至少等待 10 秒，以便它干净地关闭
 ```
 
-## 13、MySql的配置文件`my.cnf`
+### 12.2、通过修改 MySql 的配置文件`my.cnf`来修改密码❤️
 
-### 13.1、MySql的安装目录
+```javascript
+资料来源
 
-由：
+【忘记 mysql root用户密码的解决办法（skip-grant-tables）】https://blog.csdn.net/lxpbs8851/article/details/10895085
+```
+
+**`mysql` 的安装目录👇🏻**
 
 ```bash
 brew list mysql
 ```
 
-得出mysql的安装目录👇🏻
-
 ```bash
 /opt/homebrew/Cellar/mysql
 ```
 
-### 13.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效
+**按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效**
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg?raw=true)
 
-​	13.2.1、`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为mysql 配置文件
+**`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为mysql 配置文件**
 
-​	13.2.2、编辑`.bottle/etc/my.cnf`，在其末尾增添一句话：`skip-grant-tables`
+**编辑`.bottle/etc/my.cnf`，在其末尾增添一句话：`skip-grant-tables`**
 
-​	13.2.3、复制`.bottle/etc/my.cnf  `→ `/etc  `
+**复制`.bottle/etc/my.cnf  `→ `/etc  `**
 
 ```bash
 cp /opt/homebrew/Cellar/mysql/8.0.32/.bottle/etc/my.cnf /etc  
@@ -268,13 +248,13 @@ cp /opt/homebrew/Cellar/mysql/8.0.32/.bottle/etc/my.cnf /etc
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E4%BD%BF%E5%BE%97my.cnf%E7%94%9F%E6%95%88.jpg?raw=true)
 
-​	13.2.4、重启mysql
+**重启 `mysql`**
 
-```
+```mysql
 mysql.server restart
 ```
 
-​    13.2.5、进入root用户（无密码）
+**🎉🍺进入 `root` 用户（无密码）🎉🍺**
 
 ```mysql
 ➜  mysql -uroot -p
@@ -292,7 +272,22 @@ owners.
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 ```
 
-## 14、查看MySql数据库物理文件存放位置
+### 12.3、MySql 无密码状态的密码设置
+
+```javascript
+参考资料
+
+https://cloud.tencent.com/developer/article/2097188
+```
+
+*无密码状态，不能用任何客户端链接成功*
+
+```
+(sudo) mysql_secure_installation
+Aass1122
+```
+
+## 13、查看 MySql 数据库物理文件存放位置
 
 ```javascript
 资料来源
@@ -311,7 +306,7 @@ mysql> show global variables like "%datadir%" ;
 1 row in set (0.02 sec)
 ```
 
-## 15、命令行建库（test_jobs）建表（user_time_login_stat）
+## 14、命令行建库（test_jobs）建表（user_time_login_stat）
 
 ```mysql
 mysql> CREATE TABLE user_time_login_stat ( id int NOT NULL AUTO_INCREMENT,  PRIMARY KEY (id)) ;
@@ -319,18 +314,13 @@ mysql> CREATE TABLE user_time_login_stat ( id int NOT NULL AUTO_INCREMENT,  PRIM
 Query OK, 0 rows affected (0.01 sec)
 ```
 
+*数据库本地化文件路径地址*
+
 ```javascript
-数据库本地化文件路径地址
 /opt/homebrew/var/mysql/test_jobs/user_time_login_stat.ibd
 ```
 
-## 16、MySql密码设置
-
-```mysql
-(sudo) mysql_secure_installation
-```
-
-## 17、MySql日志
+## 15、MySql 日志
 
 ```javascript
 资料来源
@@ -338,7 +328,7 @@ Query OK, 0 rows affected (0.01 sec)
 https://blog.csdn.net/Kirito_j/article/details/82714515
 ```
 
-### 17.1、Mysql有以下几种日志👇🏻
+### 15.1、Mysql 有以下几种日志👇🏻
 
 | 错误日志   |     -log-err      |
 | :--------- | :---------------: |
@@ -347,73 +337,159 @@ https://blog.csdn.net/Kirito_j/article/details/82714515
 | 更新日志   |    -log-update    |
 | 二进制日志 |     -log-bin      |
 
-### 17.2、日志的查询
+### 15.2、日志的查询
 
-```
-查看日志
+*查看日志*
+
+```mysql
 mysql>SHOW VARIABLES LIKE "general_log%";
 ```
 
-```
-启用日志
+*启用日志*
+
+```mysql
 mysql>SET GLOBAL general_log = 'ON';
 ```
 
-```
-是否启用了日志 
+*是否启用了日志*
+
+```mysql
 mysql>show variables like 'log_%'; 
 ```
 
-```
-怎样知道当前的日志 
+*怎样知道当前的日志*
+
+```mysql
 mysql> show master status; 
 ```
 
-```
-显示二进制日志数目
+*显示二进制日志数目*
+
+```mysql
 mysql> show master logs; 
 ```
 
-## 18、MySql 和Shell 命令的互相调用
+## 16、MySql 和 Shell 命令的互相调用
 
-```
+```javascript
 资料来源
 
 https://blog.csdn.net/chengyuqiang/article/details/121340775
 https://blog.csdn.net/wocjj/article/details/7459033
 ```
 
-### 18.1、在Shell中执行MySql相关查询
+### 16.1、在 Shell 中执行 MySql 相关查询
 
-通过参数-e
+*通过参数-e*
 
-```
+```mysql
 mysql -uroot -p -e "show databases"
 ```
 
-### 18.2、在MySql命令行中执行Shell相关命令
+### 16.2、在 MySql 命令行中执行 Shell 相关命令
 
-system + 系统shell命令（不需要分号） 或者 `\! 系统shell命令`
+*system + 系统shell命令（不需要分号） 或者 `\! 系统shell命令`*
 
-```
+```mysql
 mysql> system date
 mysql> system pwd
 ```
 
-## 18.2、MySql执行外部`x.sql`
+### 16.3、MySql 执行外部`x.sql`
 
-```
-关键词：source
+*关键词：`source`*
+
+```mysql
 mysql> source /Users/jobs/Desktop/test.sql 
 ```
 
+## 17、命令行使用 MySql
 
+*说明：此例中存在一个名为`test`的数据库，库下面存在一张名为`user`的表*
 
+```sql
+CREATE database test;
+CREATE TABLE IF NOT EXISTS `test`.`user` (
+ `user_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+ `user_name` VARCHAR(45) NOT NULL COMMENT '用户名称',
+ `user_age` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户年龄',
+ `user_sex` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户性别',
+ PRIMARY KEY (`user_id`))
+ ENGINE = InnoDB
+ AUTO_INCREMENT = 1
+ DEFAULT CHARACTER SET = utf8
+ COLLATE = utf8_general_ci
+ COMMENT = '用户表'
+```
 
+```
+mysql -uroot -p //进入数据库命令行
+create database go_db //创建名为go_db的数据库
+use go_db //使用数据库
+create table user_tbl//创建一个名为user_tbl的表
 
+CREATE TABLE user_tbl (
+     student_id int primary key, 
+     student_name varchar(25), 
+     student_age int, 
+     gender char (1), 
+     DOA date, 
+     city_name varchar(20)
+)
+```
 
+*显示所有的数据库（注意：`databases` 是复数末尾要加`s`）* **关键词`show`**
 
+```mysql
+mysql> show databases;
+```
 
+*删除名为`test`的数据库*  **关键词`drop`**
+
+```mysql
+mysql> drop test database;
+```
+
+*创建名为`test`的数据库*  **关键词`create`**
+
+```mysql
+mysql> create database test;
+```
+
+*使用用名为`test`的数据库（可以不用 `;`结尾）* **关键词`use`**
+
+```mysql
+use test;
+```
+
+*查看数据库`test`名下有什么表（当前只有一张名为`user`的表）* **关键词`show`**
+
+```mysql
+show tables;
+
+mysql> show tables;
++----------------+
+| Tables_in_test |
++----------------+
+| user           |
++----------------+
+1 row in set (0.00 sec)
+```
+
+*查看数据表`user`的表结构*   **关键词`describe`**
+
+```mysql
+mysql> describe user;
++-----------+------------------+------+-----+---------+----------------+
+| Field     | Type             | Null | Key | Default | Extra          |
++-----------+------------------+------+-----+---------+----------------+
+| user_id   | int unsigned     | NO   | PRI | NULL    | auto_increment |
+| user_name | varchar(45)      | NO   |     | NULL    |                |
+| user_age  | tinyint unsigned | NO   |     | 0       |                |
+| user_sex  | tinyint unsigned | NO   |     | 0       |                |
++-----------+------------------+------+-----+---------+----------------+
+4 rows in set (0.01 sec)
+```
 
 
 
