@@ -2,6 +2,23 @@
 
 [toc]
 
+- [MacOS 配置 Golang 环境](#macos-配置-golang-环境)
+  - [检查 golang 的安装位置](#检查-golang-的安装位置)
+    - [1、直接安装到系统的](#1直接安装到系统的)
+    - [2、通过 brew 安装的（推荐）](#2通过-brew-安装的推荐)
+  - [安装 Golang 环境](#安装-golang-环境)
+    - [1、Golang API](#1golang-api)
+    - [2、vscode 中 Go 的相关插件安装](#2vscode-中-go-的相关插件安装)
+  - [查询 Golang 环境变量（以 GOPATH 为例）](#查询-golang-环境变量以-gopath-为例)
+  - [配置 GOPATH](#配置-gopath)
+    - [GOPATH 目录说明](#gopath-目录说明)
+    - [GOPATH目前流行的项目结构](#gopath目前流行的项目结构)
+    - [适合个人开发者的目录结构](#适合个人开发者的目录结构)
+    - [适合企业开发者的目录结构](#适合企业开发者的目录结构)
+  - [删除 Golang 环境](#删除-golang-环境)
+    - [1、【删除】直接安装到系统的](#1删除直接安装到系统的)
+    - [2、【删除】通过 brew 安装的](#2删除通过-brew-安装的)
+
 ```javascript
 资料来源
 
