@@ -263,6 +263,16 @@ ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mys
 *ERROR 1290 (HY000)*
 
 ```mysql
+相关说明：
+MySQL`--skip-grant-tables`选项用于在不加载授权表的情况下启动 MySQL 服务器
+--skip-grant-tables当该选项处于活动状态时，与帐户管理相关的 SQL 语句将被禁用
+例如，您不能使用ALTER USERorSET PASSWORD语句。运行这样的语句会导致ERROR 1290
+
+解决方案：
+mysql> FLUSH PRIVILEGES;
+或者，重启 Mysql 服务：
+brew services restart mysql
+
 mysql> DROP USER 'root'@'localhost';
 ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement
 
@@ -579,9 +589,7 @@ MySQL> flush privileges;    // 刷新权限【一定要这一步，否则不成�
 MySQL> exit
 ```
 
-## 6、MySql 密码
-
-### 6.1、MySql 忘记密码🌛
+## 6、MySql 密码修改
 
 ```javascript
 资料来源
@@ -589,11 +597,12 @@ MySQL> exit
 【MySql修改密码的3种方式】 http://c.biancheng.net/view/7152.html
 【MySql修改root密码的4种方法】 https://blog.csdn.net/qq_33285112/article/details/78982766
 【MySql root密码忘记，原来还有更优雅的解法！】https://www.cnblogs.com/ivictor/p/9243259.html
+【mysql修改用户密码的方法及命令】https://cloud.tencent.com/developer/article/2097188
 ```
 
-*修改密码*
+**温馨提示：无密码状态，不能用任何客户端链接成功**
 
-#### 6.1.1、修改非 root 账户对应的密码
+### 6.1、修改非 root 账户对应的密码
 
 ```mysql
 举例：
@@ -601,7 +610,7 @@ MySQL> exit
 mysql> ALTER USER 'Jobs'@'%' IDENTIFIED BY '123456';
 ```
 
-#### 6.1.2、修改 root 账户对应的密码
+### 6.2、修改 root 账户对应的密码
 
 ```mysql
 一般情况下，新安装的mysql的root账户是没有密码的
@@ -712,42 +721,7 @@ owners.
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 ```
 
-### 6.3、MySql 无密码状态的密码设置
-
-```javascript
-参考资料
-
-https://cloud.tencent.com/developer/article/2097188
-```
-
-*温馨提示：无密码状态，不能用任何客户端链接成功*
-
-*相关报错解决*
-
-```mysql
-ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement
-
-相关说明：
-MySQL`--skip-grant-tables`选项用于在不加载授权表的情况下启动 MySQL 服务器
---skip-grant-tables当该选项处于活动状态时，与帐户管理相关的 SQL 语句将被禁用
-例如，您不能使用ALTER USERorSET PASSWORD语句。运行这样的语句会导致ERROR 1290
-
-解决方案：
-mysql> FLUSH PRIVILEGES;
-或者，重启 Mysql 服务：
-brew services restart mysql
-```
-
-
-
-```
-(sudo) mysql_secure_installation
-Aass1122
-```
-
-
-
-### 6.4、MySql 的密码策略❤️
+### 6.3、MySql 的密码策略❤️
 
 *查看密码管理策略*
 
