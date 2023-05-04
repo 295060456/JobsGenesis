@@ -555,6 +555,49 @@ DROP USER 'Jobs'@'localhost';
 https://blog.csdn.net/weixin_42521856/article/details/113152530
 ```
 
+#### 5.5.1、运行脚本
+
+```shell
+# !/bin/bash
+
+echo '关闭本机通过 brew 方式安装的 MySql 服务'
+brew services stop mysql
+mysql.server stop
+
+echo '本机通过 brew 形式安装的 MySql 安装目录'
+brew list mysql
+# 不出意外，会对外输出 /opt/homebrew/Cellar/mysql
+mysql --version
+
+read -p "请输入本机的 Mysql 版本号，以回车结束。默认8.0.33:" mysqlVersion
+if [[ $mysqlVersion = "" ]];then
+    mysqlVersion="8.0.33"
+fi
+fileCopy_fullname=$"/opt/homebrew/Cellar/mysql/"${mysqlVersion}"/.bottle/etc/my.cnf"
+echo "fileCopy_fullname:"$fileCopy_fullname
+
+# 直接追加写入
+cat>>${fileCopy_fullname}<<EOF
+# 这里写入需要修改的配置信息
+gtid_mode=ON  
+log-slave-updates=1  
+enforce-gtid-consistency=1  
+skip-grant-tables  
+
+EOF
+
+code $fileCopy_fullname
+read -p "检查完毕并保存:通过brew管理的Mysql配置文件【my.cnf】" 
+sudo cp $fileCopy_fullname /etc/my.cnf
+code /etc/my.cnf
+brew services restart mysql 
+
+echo "不需要验证密码，直接登录 mysql"
+mysql -p   
+```
+
+#### 5.5.2、以系统用户名进行登录 Mysql ，并执行相关 sql
+
 ```mysql
 mysql -p
 
