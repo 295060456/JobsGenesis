@@ -244,11 +244,11 @@ mysql -u root -p
 
 ### 2.9、MySql 常见报错分析（欢迎补充）❤️
 
-*ERROR 2002 (HY000)*
+#### 2.9.1、ERROR 2002 (HY000)
 
 ```mysql
 【 mysql 服务没有启动】
-登录root账户
+登录 root 账户
 mysql -u root -p
 返回 →
 ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
@@ -260,7 +260,7 @@ ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mys
 如果密码有误，则报错：ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
 ```
 
-*ERROR 1290 (HY000)*
+#### 2.9.2、ERROR 1290 (HY000)
 
 ```mysql
 相关说明：
@@ -273,6 +273,7 @@ mysql> FLUSH PRIVILEGES;
 或者，重启 Mysql 服务：
 brew services restart mysql
 
+举例：删除系统 root 账户
 mysql> DROP USER 'root'@'localhost';
 ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement
 
@@ -546,7 +547,7 @@ DROP USER 'username'@'host';
 DROP USER 'Jobs'@'localhost';
 ```
 
-### 5.5、误删 root 用户的解决办法
+### 5.5、误删 root 用户的解决办法❤️
 
 ```javascript
 资料来源
@@ -554,7 +555,13 @@ DROP USER 'Jobs'@'localhost';
 https://blog.csdn.net/weixin_42521856/article/details/113152530
 ```
 
-// TODO
+```mysql
+mysql -p
+
+mysql> use mysql;
+mysql> insert into user set user='root',ssl_cipher=",x509_issuer=",x509_subject=";
+mysql> update user set Host='localhost',select_priv='y', insert_priv='y',update_priv='y', Alter_priv='y',delete_priv='y',create_priv='y',drop_priv='y',reload_priv='y',shutdown_priv='y',Process_priv='y',file_priv='y',grant_priv='y',References_priv='y',index_priv='y',create_user_priv='y',show_db_priv='y',super_priv='y',create_tmp_table_priv='y',Lock_tables_priv='y',execute_priv='y',repl_slave_priv='y',repl_client_priv='y',create_view_priv='y',show_view_priv='y',create_routine_priv='y',alter_routine_priv='y',create_user_priv='y' where user='root';  
+```
 
 ### 5.6、授权给新建的用户
 
@@ -606,7 +613,7 @@ MySQL> exit
 
 ```mysql
 举例：
-修改普通用户账户Jobs密码为123456
+修改普通用户账户 Jobs 密码为 123456
 mysql> ALTER USER 'Jobs'@'%' IDENTIFIED BY '123456';
 ```
 

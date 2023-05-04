@@ -21,9 +21,9 @@ brew list mysql
 # 不出意外，会对外输出 /opt/homebrew/Cellar/mysql
 mysql --version
 
-read -p "请输入本机的 Mysql 版本号，以回车结束。默认8.0.32:" mysqlVersion
+read -p "请输入本机的 Mysql 版本号，以回车结束。默认8.0.33:" mysqlVersion
 if [[ $mysqlVersion = "" ]];then
-    mysqlVersion="8.0.32"
+    mysqlVersion="8.0.33"
 fi
 fileCopy_fullname=$"/opt/homebrew/Cellar/mysql/"${mysqlVersion}"/.bottle/etc/my.cnf"
 echo "fileCopy_fullname:"$fileCopy_fullname
