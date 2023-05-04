@@ -11,44 +11,47 @@
     - [2.3、用 `Macport`/`brew`/`MySql` 官网下载直接安装到本机的区别](#23用-macportbrewmysql-官网下载直接安装到本机的区别)
     - [2.4、查询本机的 MySql 的版本号，以及用什么容器进行下载管理](#24查询本机的-mysql-的版本号以及用什么容器进行下载管理)
     - [2.5、关于版本号](#25关于版本号)
+    - [2.6、查询本机的 MySql 的 PID](#26查询本机的-mysql-的-pid)
+    - [2.7、`mysql`与`mysqld`](#27mysql与mysqld)
+    - [2.8、登录 Mysql](#28登录-mysql)
+    - [2.9、MySql 常见报错分析（欢迎补充）❤️](#29mysql-常见报错分析欢迎补充️)
+  - [3、关于 Mysql 配置文件 `my.cnf`](#3关于-mysql-配置文件-mycnf)
+    - [3.1、修改 Mysql 配置文件 `my.cnf` 的脚本](#31修改-mysql-配置文件-mycnf-的脚本)
   - [4、查询本机的 MySql 的路径](#4查询本机的-mysql-的路径)
     - [4.1、安装路径](#41安装路径)
     - [4.2、安装目录](#42安装目录)
     - [4.3、存放数据的物理文件目录](#43存放数据的物理文件目录)
-  - [5、查询本机的 MySql 的 PID](#5查询本机的-mysql-的-pid)
-  - [6、`mysql`与`mysqld`](#6mysql与mysqld)
-  - [7、 MySql 用户](#7-mysql-用户)
-    - [7.1、显示全部用户](#71显示全部用户)
-    - [7.2、显示当前用户](#72显示当前用户)
-    - [7.3、新建用户](#73新建用户)
-    - [7.4、删除新建的用户](#74删除新建的用户)
-    - [7.5、误删root用户的解决办法](#75误删root用户的解决办法)
-    - [7.6、授权给新建的用户](#76授权给新建的用户)
-    - [7.7、设置与更改用户密码](#77设置与更改用户密码)
-    - [7.8、更改 MySql 数据库用户名](#78更改-mysql-数据库用户名)
-  - [8、MySql 密码](#8mysql-密码)
-    - [8.1、MySql 忘记密码](#81mysql-忘记密码)
-    - [8.2、通过修改 MySql 的配置文件`my.cnf`来修改密码【附脚本】❤️](#82通过修改-mysql-的配置文件mycnf来修改密码附脚本️)
-    - [8.3、MySql 无密码状态的密码设置](#83mysql-无密码状态的密码设置)
-    - [8.4、MySql 的密码策略❤️](#84mysql-的密码策略️)
-  - [9、查看 MySql 数据库物理文件存放位置❤️](#9查看-mysql-数据库物理文件存放位置️)
-  - [10、命令行建库（test\_jobs）建表（user\_time\_login\_stat）](#10命令行建库test_jobs建表user_time_login_stat)
-  - [11、MySql 日志](#11mysql-日志)
-    - [11.1、Mysql 有以下几种日志👇🏻](#111mysql-有以下几种日志)
-    - [11.2、日志的查询](#112日志的查询)
-  - [12、MySql 和 Shell 命令的互相调用](#12mysql-和-shell-命令的互相调用)
-    - [12.1、在 Shell 中执行 MySql 相关查询](#121在-shell-中执行-mysql-相关查询)
-    - [12.2、在 MySql 命令行中执行 Shell 相关命令](#122在-mysql-命令行中执行-shell-相关命令)
-    - [12.3、MySql 执行外部`x.sql`](#123mysql-执行外部xsql)
-  - [13、命令行使用 MySql](#13命令行使用-mysql)
-    - [13.1、 显示所有的数据库（注意：`databases` 是复数末尾要加`s`）](#131-显示所有的数据库注意databases-是复数末尾要加s)
-    - [13.2、删除名为`test`的数据库](#132删除名为test的数据库)
-    - [13.3、创建名为`test`的数据库](#133创建名为test的数据库)
-    - [13.4、使用用名为`test`的数据库（可以不用 `;`结尾）](#134使用用名为test的数据库可以不用-结尾)
-    - [13.5、查看数据库`test`名下有什么表（当前只有一张名为`user`的表）](#135查看数据库test名下有什么表当前只有一张名为user的表)
-    - [13.6、查看数据表`user`的表结构](#136查看数据表user的表结构)
-  - [14、一些插件](#14一些插件)
-
+  - [5、 MySql 用户](#5-mysql-用户)
+    - [5.1、显示全部用户](#51显示全部用户)
+    - [5.2、显示当前用户](#52显示当前用户)
+    - [5.3、新建用户](#53新建用户)
+    - [5.4、删除新建的用户](#54删除新建的用户)
+    - [5.5、误删root用户的解决办法](#55误删root用户的解决办法)
+    - [5.6、授权给新建的用户](#56授权给新建的用户)
+    - [5.7、设置与更改用户密码](#57设置与更改用户密码)
+    - [5.8、更改 MySql 数据库用户名](#58更改-mysql-数据库用户名)
+  - [6、MySql 密码](#6mysql-密码)
+    - [6.1、MySql 忘记密码🌛](#61mysql-忘记密码)
+    - [6.2、通过修改 MySql 的配置文件`my.cnf`来修改密码【附脚本】❤️](#62通过修改-mysql-的配置文件mycnf来修改密码附脚本️)
+    - [6.3、MySql 无密码状态的密码设置](#63mysql-无密码状态的密码设置)
+    - [6.4、MySql 的密码策略❤️](#64mysql-的密码策略️)
+  - [7、查看 MySql 数据库物理文件存放位置❤️](#7查看-mysql-数据库物理文件存放位置️)
+  - [8、命令行建库（test\_jobs）建表（user\_time\_login\_stat）](#8命令行建库test_jobs建表user_time_login_stat)
+  - [9、MySql 日志](#9mysql-日志)
+    - [9.1、Mysql 有以下几种日志👇🏻](#91mysql-有以下几种日志)
+    - [9.2、日志的查询](#92日志的查询)
+  - [10、MySql 和 Shell 命令的互相调用](#10mysql-和-shell-命令的互相调用)
+    - [10.1、在 Shell 中执行 MySql 相关查询](#101在-shell-中执行-mysql-相关查询)
+    - [10.2、在 MySql 命令行中执行 Shell 相关命令](#102在-mysql-命令行中执行-shell-相关命令)
+    - [10.3、MySql 执行外部`x.sql`](#103mysql-执行外部xsql)
+  - [11、命令行使用 MySql](#11命令行使用-mysql)
+    - [11.1、 显示所有的数据库（注意：`databases` 是复数末尾要加`s`）](#111-显示所有的数据库注意databases-是复数末尾要加s)
+    - [11.2、删除名为`test`的数据库](#112删除名为test的数据库)
+    - [11.3、创建名为`test`的数据库](#113创建名为test的数据库)
+    - [11.4、使用用名为`test`的数据库（可以不用 `;`结尾）](#114使用用名为test的数据库可以不用-结尾)
+    - [11.5、查看数据库`test`名下有什么表（当前只有一张名为`user`的表）](#115查看数据库test名下有什么表当前只有一张名为user的表)
+    - [11.6、查看数据表`user`的表结构](#116查看数据表user的表结构)
+  - [12、一些插件](#12一些插件)
 
 ## 1、卸载 和 删除 MySql
 
@@ -196,20 +199,130 @@ mysql> select version();
  mysql -uroot -p
 ```
 
-3、MySql 登录报错分析
+### 2.6、查询本机的 MySql 的 PID
+
+*👇🏻能和"活动监视器"的数据对得上*
+
+```bash
+lsof -nP -i | grep mysql   
+```
+
+### 2.7、`mysql`与`mysqld`
+
+*区别*
+
+```
+mysqld 是服务端程序
+mysql是命令行客户端程序
+```
+
+*关闭`mysqld`进程*
+
+```
+mysqld 的守护进程 mysqld_safe ,也是 mysqld 的父进程（守护进程）
+```
+
+### 2.8、登录 Mysql
+
+*查询当前登录账户*
 
 ```mysql
-【MySql服务没有启动】
+mysql> select user();
+```
+
+*以系统登录名进行登录*
+
+```mysql
+mysql -p 
+```
+
+*以root账户登录*
+
+```mysql
+mysql -u root -p
+```
+
+### 2.9、MySql 常见报错分析（欢迎补充）❤️
+
+*ERROR 2002 (HY000)*
+
+```mysql
+【 mysql 服务没有启动】
 登录root账户
-MySQL -u root -p
+mysql -u root -p
 返回 →
 ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)
 错误原因：服务未启动。
 因为通过命令验证brew services stop mysql，返回 Warning: Service `mysql` is not started.
 
-【MySql账密错误】
+【mysql 账密错误】
 那么开启服务。
 如果密码有误，则报错：ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+```
+
+*ERROR 1290 (HY000)*
+
+```mysql
+mysql> DROP USER 'root'@'localhost';
+ERROR 1290 (HY000): The MySQL server is running with the --skip-grant-tables option so it cannot execute this statement
+
+mysql>  FLUSH privileges;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> DROP USER 'root'@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+```
+
+## 3、关于 Mysql 配置文件 `my.cnf`
+
+```
+用 brew 管理的 mysql 有2个配置文件：
+1、brew_mysql 的配置文件`/opt/homebrew/Cellar/mysql/"8.0.32"/.bottle/etc/my.cnf`
+2、系统的 mysql 配置文件 `/etc/my.cnf`
+brew_mysql 的配置文件 需要映射到 系统的 mysql 配置文件 方可生效
+```
+
+### 3.1、修改 Mysql 配置文件 `my.cnf` 的脚本
+
+*温馨提示：先修改再运行*
+
+```shell
+# !/bin/bash
+
+echo '关闭本机通过 brew 方式安装的 MySql 服务'
+brew services stop mysql
+mysql.server stop
+
+echo '本机通过 brew 形式安装的 MySql 安装目录'
+brew list mysql
+# 不出意外，会对外输出 /opt/homebrew/Cellar/mysql
+mysql --version
+
+read -p "请输入本机的 Mysql 版本号，以回车结束。默认8.0.32:" mysqlVersion
+if [[ $mysqlVersion = "" ]];then
+    mysqlVersion="8.0.32"
+fi
+fileCopy_fullname=$"/opt/homebrew/Cellar/mysql/"${mysqlVersion}"/.bottle/etc/my.cnf"
+echo "fileCopy_fullname:"$fileCopy_fullname
+
+# 直接追加写入
+cat>>${fileCopy_fullname}<<EOF
+# 这里写入需要修改的配置信息
+gtid_mode=ON  
+log-slave-updates=1  
+enforce-gtid-consistency=1  
+skip-grant-tables  
+
+EOF
+
+code $fileCopy_fullname
+read -p "检查完毕并保存:通过brew管理的Mysql配置文件【my.cnf】" 
+sudo cp $fileCopy_fullname /etc/my.cnf
+code /etc/my.cnf
+brew services restart mysql 
+
+echo "不需要验证密码，直接登录 mysql"
+mysql -p   
 ```
 
 ## 4、查询本机的 MySql 的路径
@@ -315,30 +428,7 @@ mysql> show global variables like "%datadir%" ;
 1 row in set (0.02 sec)
 ```
 
-## 5、查询本机的 MySql 的 PID
-
-*👇🏻能和"活动监视器"的数据对得上*
-
-```bash
-lsof -nP -i | grep mysql   
-```
-
-## 6、`mysql`与`mysqld`
-
-*区别*
-
-```
-mysqld 是服务端程序
-mysql是命令行客户端程序
-```
-
-*关闭`mysqld`进程*
-
-```
-mysqld 的守护进程 mysqld_safe ,也是 mysqld 的父进程（守护进程）
-```
-
-## 7、 MySql 用户
+## 5、 MySql 用户
 
 ```javascript
 资料来源
@@ -347,7 +437,7 @@ mysqld 的守护进程 mysqld_safe ,也是 mysqld 的父进程（守护进程）
 【MySQL创建用户与授权】https://www.jianshu.com/p/d7b9c468f20d
 ```
 
-### 7.1、显示全部用户
+### 5.1、显示全部用户
 
 USE mysql;SELECT user FROM user; 
 
@@ -369,7 +459,7 @@ mysql> SELECT user FROM user;
 4 rows in set (0.00 sec)
 ```
 
-### 7.2、显示当前用户
+### 5.2、显示当前用户
 
 ```mysql
 mysql> select user();
@@ -381,7 +471,7 @@ mysql> select user();
 1 row in set (0.00 sec)
 ```
 
-### 7.3、新建用户
+### 5.3、新建用户
 
 FLUSH privileges;CREATE USER 'Jobs'@'host' IDENTIFIED BY 'Jobs295060456';USE mysql;SELECT user FROM user; 
 
@@ -390,9 +480,8 @@ FLUSH privileges;CREATE USER 'Jobs'@'host' IDENTIFIED BY 'Jobs295060456';USE mys
 CREATE USER 'username'@'host' IDENTIFIED BY 'password';
 说明：
 host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%
-
-举例：以root用户进入，并刷新权限
-
+举例：
+以root用户进入，并刷新权限
 建立一个用户：Jobs
 对应的密码：Jobs295060456
 ```
@@ -401,20 +490,53 @@ host：指定该用户在哪个主机上可以登陆，如果是本地用户可�
 MySQL -u root -p
 
 mysql> FLUSH privileges;
-mysql> CREATE USER 'Jobs'@'host' IDENTIFIED BY 'Jobs295060456';
+
+注意：这个地方正确的写法是'localhost' 或者是'%'。是以字符串形式无验证写库，但是不这么写后续会出问题
+mysql> CREATE USER 'Jobs'@'localhost' IDENTIFIED BY 'Jobs295060456';
+或者
+mysql> CREATE USER 'Jobs'@'%' IDENTIFIED BY 'Jobs295060456';
 ```
 
-### 7.4、删除新建的用户
+验证查看用户表中：user 和 host 字段值
+
+```mysql
+use mysql;select user,host from user;
+```
+
+*相关报错解决*
+
+```javascript
+参考资料
+
+https://juejin.cn/s/mysql%20%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7%E6%97%A0%E6%B3%95%E7%99%BB%E9%99%86
+```
+
+```mysql
+新建用户，却无法正常登录使用的问题排查方案：
+
+1、账密错误,略
+2、主机限制：
+MySQL 中的用户可以通过主机名或IP地址限制访问。
+例如，如果您创建了一个用户，限制只能从本地主机登录，而您尝试从远程主机登录，那么您将无法成功登录。
+3、授权问题：
+// 查看用户权限
+SHOW GRANTS FOR 'username'@'hostname';
+// 用户授权
+// permission为需要授权的权限，如SELECT、INSERT、UPDATE、DELETE等；
+// database和table为需要授权的数据库和表名。
+GRANT permission ON database.table TO 'username'@'hostname';
+```
+
+### 5.4、删除新建的用户
 
 ```mysql
 命令格式：
 DROP USER 'username'@'host';
-
 举例：
-drop user 'Jobs'@'host';
+DROP USER 'Jobs'@'localhost';
 ```
 
-### 7.5、误删root用户的解决办法
+### 5.5、误删 root 用户的解决办法
 
 ```javascript
 资料来源
@@ -424,7 +546,7 @@ https://blog.csdn.net/weixin_42521856/article/details/113152530
 
 // TODO
 
-### 7.6、授权给新建的用户
+### 5.6、授权给新建的用户
 
 ```mysql
 命令格式：
@@ -434,45 +556,32 @@ host：指定该用户在哪个主机上可以登陆，如果是本地用户可�
 privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所有的权限则使用ALL
 databasename：数据库名
 tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用*表示，如*.*
-
 举例：
-
-mysql> GRANT SELECT, INSERT ON *.* TO 'Jobs'@'host';
+注意：这个地方是'localhost'
+mysql> GRANT SELECT, INSERT ON *.* TO 'Jobs'@'localhost';
 Query OK, 0 rows affected (0.01 sec)
 
-GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'Jobs'@'host';
+GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'Jobs'@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 ```
 
-### 7.7、设置与更改用户密码
-
-*非当前登录用户*
-
-```mysql
-SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
-```
-
-*当前登录用户*
-
-```mysql
-SET PASSWORD = PASSWORD("newpassword");
-```
-
-### 7.8、更改 MySql 数据库用户名
+### 5.7、更改 MySql 数据库用户名
 
 ```mysql
 MySQL -u root -p
 Enter password：***
-MySQL> use MySQL;  // 选择数据库
+MySQL> use MySql; 
 Database changed
-MySQL> update user set user="新用户名" where user="root";    // 将用户名为root的改为新用户名
+
+MySQL> update user set user="新用户名" where user="root";    // 将用户名为 root 的改为新用户名
+
 MySQL> flush privileges;    // 刷新权限【一定要这一步，否则不成功】
 MySQL> exit
 ```
 
-## 8、MySql 密码
+## 6、MySql 密码
 
-### 8.1、MySql 忘记密码
+### 6.1、MySql 忘记密码🌛
 
 ```javascript
 资料来源
@@ -482,22 +591,26 @@ MySQL> exit
 【MySql root密码忘记，原来还有更优雅的解法！】https://www.cnblogs.com/ivictor/p/9243259.html
 ```
 
-*大体思路*
+*修改密码*
+
+#### 6.1.1、修改非 root 账户对应的密码
 
 ```mysql
-8.1.1、关闭 MySql 服务
-不同容器方式管理的Mysql，关闭的方式不一样
-brew services stop mysql,或者 
-(sudo) mysql.server stop
-
-8.1.2、进入安全模式
-sudo mysqld_safe --skip-grant-tables
-
-注意：这个地方可能会提示错误 mysqld_safe A mysqld process already exists
-解决方式：killall mysqld mysqld_safe，至少等待 10 秒，以便它干净地关闭
+举例：
+修改普通用户账户Jobs密码为123456
+mysql> ALTER USER 'Jobs'@'%' IDENTIFIED BY '123456';
 ```
 
-### 8.2、通过修改 MySql 的配置文件`my.cnf`来修改密码【附脚本】❤️
+#### 6.1.2、修改 root 账户对应的密码
+
+```mysql
+一般情况下，新安装的mysql的root账户是没有密码的
+mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+注意：一定要刷新完权限以后才能exit;
+mysql> flush privileges;
+```
+
+### 6.2、通过修改 MySql 的配置文件`my.cnf`来修改密码【附脚本】❤️
 
 ```javascript
 资料来源
@@ -505,7 +618,7 @@ sudo mysqld_safe --skip-grant-tables
 【忘记 mysql root用户密码的解决办法（skip-grant-tables）】https://blog.csdn.net/lxpbs8851/article/details/10895085
 ```
 
-**8.2.1、`mysql` 的安装目录👇🏻**
+**6.2.1、`mysql` 的安装目录👇🏻**
 
 ```bash
 brew list mysql
@@ -513,15 +626,15 @@ brew list mysql
 /opt/homebrew/Cellar/mysql
 ```
 
-**8.2.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效**
+**6.2.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效**
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg?raw=true)
 
 *`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为mysql 配置文件*
 
-**8.2.3、编辑`.bottle/etc/my.cnf`，在其末尾增添一句话：`skip-grant-tables`**
+**6.2.3、编辑`.bottle/etc/my.cnf`，在其末尾增添一句话：`skip-grant-tables`**
 
-**8.2.4、复制`.bottle/etc/my.cnf  `→ `/etc  `**
+**6.2.4、复制`.bottle/etc/my.cnf  `→ `/etc  `**
 
 ```bash
 cp /opt/homebrew/Cellar/mysql/8.0.32/.bottle/etc/my.cnf /etc  
@@ -529,7 +642,7 @@ cp /opt/homebrew/Cellar/mysql/8.0.32/.bottle/etc/my.cnf /etc
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E4%BD%BF%E5%BE%97my.cnf%E7%94%9F%E6%95%88.jpg?raw=true)
 
-**8.2.5、重启 `mysql`**
+**6.2.5、重启 `mysql`**
 
 ```mysql
 mysql.server restart
@@ -546,6 +659,14 @@ mysql.server stop
 echo '彻底删除本机通过 brew 方式安装的 MySql'
 brew uninstall mysql
 # brew cleanup
+
+open /opt/homebrew/var/mysql
+read -p "是否删除本地 mysql 的 database？回车删除，其他任意字符不删除" delMysqlDB
+if [[ $delMysqlDB = "" ]];then
+    mySqlDBPATH=$"/opt/homebrew/var/mysql"
+    rm -r $mySqlDBPATH
+fi
+
 echo '本机重新通过 brew 形式安装 MySql'
 brew install mysql
 echo '本机通过 brew 形式安装的 MySql 安装目录'
@@ -559,6 +680,7 @@ if [[ $mysqlVersion = "" ]];then
 fi
 fileCopy_fullname=$"/opt/homebrew/Cellar/mysql/"${mysqlVersion}"/.bottle/etc/my.cnf"
 echo "fileCopy_fullname:"$fileCopy_fullname
+
 grep skip-grant-tables $fileCopy_fullname
 if [ $? -ne 0 ] ;then
 cat>>${fileCopy_fullname}<<EOF
@@ -566,8 +688,9 @@ skip-grant-tables
 EOF
 fi
 
+code $fileCopy_fullname
 sudo cp $fileCopy_fullname /etc/my.cnf
-
+code /etc/my.cnf
 brew services restart mysql 
 ```
 
@@ -589,7 +712,7 @@ owners.
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 ```
 
-### 8.3、MySql 无密码状态的密码设置
+### 6.3、MySql 无密码状态的密码设置
 
 ```javascript
 参考资料
@@ -617,8 +740,6 @@ brew services restart mysql
 
 
 
-
-
 ```
 (sudo) mysql_secure_installation
 Aass1122
@@ -626,7 +747,7 @@ Aass1122
 
 
 
-### 8.4、MySql 的密码策略❤️
+### 6.4、MySql 的密码策略❤️
 
 *查看密码管理策略*
 
@@ -694,7 +815,7 @@ MySQL> flush privileges;
 brew services restart mysql
 ```
 
-## 9、查看 MySql 数据库物理文件存放位置❤️
+## 7、查看 MySql 数据库物理文件存放位置❤️
 
 ```javascript
 资料来源
@@ -713,7 +834,11 @@ mysql> show global variables like "%datadir%" ;
 1 row in set (0.02 sec)
 ```
 
-## 10、命令行建库（test_jobs）建表（user_time_login_stat）
+```bash
+open /opt/homebrew/var/mysql/
+```
+
+## 8、命令行建库（test_jobs）建表（user_time_login_stat）
 
 ```mysql
 mysql> CREATE TABLE user_time_login_stat ( id int NOT NULL AUTO_INCREMENT,  PRIMARY KEY (id)) ;
@@ -727,7 +852,7 @@ Query OK, 0 rows affected (0.01 sec)
 /opt/homebrew/var/mysql/test_jobs/user_time_login_stat.ibd
 ```
 
-## 11、MySql 日志
+## 9、MySql 日志
 
 ```javascript
 资料来源
@@ -735,7 +860,7 @@ Query OK, 0 rows affected (0.01 sec)
 https://blog.csdn.net/Kirito_j/article/details/82714515
 ```
 
-### 11.1、Mysql 有以下几种日志👇🏻
+### 9.1、Mysql 有以下几种日志👇🏻
 
 | 错误日志   |     -log-err      |
 | :--------- | :---------------: |
@@ -744,7 +869,7 @@ https://blog.csdn.net/Kirito_j/article/details/82714515
 | 更新日志   |    -log-update    |
 | 二进制日志 |     -log-bin      |
 
-### 11.2、日志的查询
+### 9.2、日志的查询
 
 *查看日志*
 
@@ -776,7 +901,7 @@ mysql> show master status;
 mysql> show master logs; 
 ```
 
-## 12、MySql 和 Shell 命令的互相调用
+## 10、MySql 和 Shell 命令的互相调用
 
 ```javascript
 资料来源
@@ -785,7 +910,7 @@ https://blog.csdn.net/chengyuqiang/article/details/121340775
 https://blog.csdn.net/wocjj/article/details/7459033
 ```
 
-### 12.1、在 Shell 中执行 MySql 相关查询
+### 10.1、在 Shell 中执行 MySql 相关查询
 
 *通过参数-e*
 
@@ -793,7 +918,7 @@ https://blog.csdn.net/wocjj/article/details/7459033
 mysql -uroot -p -e "show databases"
 ```
 
-### 12.2、在 MySql 命令行中执行 Shell 相关命令
+### 10.2、在 MySql 命令行中执行 Shell 相关命令
 
 *system + 系统shell命令（不需要分号） 或者 `\! 系统shell命令`*
 
@@ -802,7 +927,7 @@ mysql> system date
 mysql> system pwd
 ```
 
-### 12.3、MySql 执行外部`x.sql`
+### 10.3、MySql 执行外部`x.sql`
 
 *关键词：`source`*
 
@@ -810,7 +935,7 @@ mysql> system pwd
 mysql> source /Users/jobs/Desktop/test.sql 
 ```
 
-## 13、命令行使用 MySql
+## 11、命令行使用 MySql
 
 *说明：此例中存在一个名为`test`的数据库，库下面存在一张名为`user`的表*
 
@@ -845,7 +970,7 @@ CREATE TABLE user_tbl (
 )
 ```
 
-### 13.1、 显示所有的数据库（注意：`databases` 是复数末尾要加`s`）
+### 11.1、 显示所有的数据库（注意：`databases` 是复数末尾要加`s`）
 
 **关键词`show`**
 
@@ -853,7 +978,7 @@ CREATE TABLE user_tbl (
 mysql> show databases;
 ```
 
-### 13.2、删除名为`test`的数据库
+### 11.2、删除名为`test`的数据库
 
   **关键词`drop`**
 
@@ -861,7 +986,7 @@ mysql> show databases;
 mysql> drop test database;
 ```
 
-### 13.3、创建名为`test`的数据库
+### 11.3、创建名为`test`的数据库
 
 **关键词`create`**
 
@@ -869,7 +994,7 @@ mysql> drop test database;
 mysql> create database test;
 ```
 
-### 13.4、使用用名为`test`的数据库（可以不用 `;`结尾）
+### 11.4、使用用名为`test`的数据库（可以不用 `;`结尾）
 
 **关键词`use`**
 
@@ -877,7 +1002,7 @@ mysql> create database test;
 use test;
 ```
 
-### 13.5、查看数据库`test`名下有什么表（当前只有一张名为`user`的表）
+### 11.5、查看数据库`test`名下有什么表（当前只有一张名为`user`的表）
 
 **关键词`show`**
 
@@ -893,7 +1018,7 @@ mysql> show tables;
 1 row in set (0.00 sec)
 ```
 
-### 13.6、查看数据表`user`的表结构
+### 11.6、查看数据表`user`的表结构
 
 **关键词`describe`**
 
@@ -910,7 +1035,7 @@ mysql> describe user;
 4 rows in set (0.01 sec)
 ```
 
-## 14、一些插件
+## 12、一些插件
 
 **语法提示且高亮**
 
