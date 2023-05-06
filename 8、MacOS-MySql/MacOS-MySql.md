@@ -234,6 +234,8 @@ mysql> select user();
 
 ```mysql
 mysql -p 
+或者
+mysql
 ```
 
 *以root账户登录*

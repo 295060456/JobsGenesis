@@ -22,9 +22,7 @@ brew list mysql
 mysql --version
 
 # 字符串截取 mysql 的版本号
-mysqlVersion=`mysql --version`
-# mysql  Ver 8.0.33 for macos13.3 on arm64 (Homebrew)
-echo $mysqlVersion | awk -F 'Ver ' '{ print $2 }' | awk -F ' for' '{ print $1 }'
+mysqlVersion=$(mysql --version | awk -F 'Ver ' '{ print $2 }' | awk -F ' for' '{ print $1 }')
 fileCopy_fullname=$"/opt/homebrew/Cellar/mysql/"${mysqlVersion}"/.bottle/etc/my.cnf"
 echo "fileCopy_fullname:"$fileCopy_fullname
 
