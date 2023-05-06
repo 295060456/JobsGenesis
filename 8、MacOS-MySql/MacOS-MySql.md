@@ -161,7 +161,38 @@ open https://juejin.cn/post/6844903956305412104
 
 *因为安全原因，MySql的某些版本对于忘记密码的操作不一样，也就是说可能都不存在教程上的文件和路径*
 
-### 2.4、查询本机的 MySql 的版本号，以及用什么容器进行下载管理
+### 2.4、端口号
+
+*查看MySQL默认端口号*
+
+```mysql
+mysql> show global variables like 'port';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| port          | 0     |
++---------------+-------+
+1 row in set (0.04 sec)
+```
+
+### 2.5、关于版本号
+
+*MySql 忽然从5.7升级到了8.0，直接跳过了6和7。即，版本号码：5.5/5.6/5.7/8.0*
+
+*MySql-8.0 以前的版本需要使用命令'brew link',不主动link的话，连mysql命令行都不能使用。即使能使用mysql命令行的话，也是会提示不能登陆，缺少caching_sha2_password.so文件*
+
+*无奈之下，就只能选择清理 MySql 了*
+
+**以 MySql-5.7 版本为例，即：**
+
+```bash
+ brew install mysql@5.7
+ brew link mysql@5.7 --force
+ brew services start mysql@5.7
+ mysql -uroot -p
+```
+
+**查询本机的 MySql 的版本号，以及用什么容器进行下载管理**
 
 *在 bash 环境下查询*
 
@@ -180,23 +211,6 @@ mysql> select version();
 | 8.0.32    |
 +-----------+
 1 row in set (0.00 sec)
-```
-
-### 2.5、关于版本号
-
-*MySql 忽然从5.7升级到了8.0，直接跳过了6和7。即，版本号码：5.5/5.6/5.7/8.0*
-
-*MySql-8.0 以前的版本需要使用命令'brew link',不主动link的话，连mysql命令行都不能使用。即使能使用mysql命令行的话，也是会提示不能登陆，缺少caching_sha2_password.so文件*
-
-*无奈之下，就只能选择清理 MySql 了*
-
-**以 MySql-5.7 版本为例，即：**
-
-```bash
- brew install mysql@5.7
- brew link mysql@5.7 --force
- brew services start mysql@5.7
- mysql -uroot -p
 ```
 
 ### 2.6、查询本机的 MySql 的 PID
@@ -286,6 +300,20 @@ mysql> DROP USER 'root'@'localhost';
 Query OK, 0 rows affected (0.02 sec)
 ```
 
+#### 2.9.3、ERROR 1227 (42000)
+
+```mysql
+mysql> FLUSH privileges;
+ERROR 1227 (42000): Access denied; you need (at least one of) the RELOAD privilege(s) for this operation
+```
+
+#### 2.9.5、ERROR 1044 (42000)
+
+```mysql
+mysql> create database go_db;
+ERROR 1044 (42000): Access denied for user 'Jobs'@'localhost' to database 'go_db'
+```
+
 ## 3、关于 Mysql 配置文件 `my.cnf`
 
 ```
@@ -295,7 +323,24 @@ Query OK, 0 rows affected (0.02 sec)
 brew_mysql 的配置文件 需要映射到 系统的 mysql 配置文件 方可生效
 ```
 
-### 3.1、修改 Mysql 配置文件 `my.cnf` 的脚本
+### 3.1、配置文件的加载顺序
+
+```javascript
+资料来源
+
+【MySQL修改启动端口无效】https://blog.csdn.net/luxiaoruo/article/details/113730007
+【MySQL服务读取参数文件my.cnf的规律研究探索】https://www.cnblogs.com/kerrycode/p/8582249.html
+```
+
+**如果在启动 Mysql的时候未指定 `my.cnf ` 那么他将从左至右依次去找寻` /etc/my.cnf` `/etc/mysql/my.cnf` `/opt/homebrew/etc/my.cnf ` `~/.my.cnf `**
+
+```bash
+➜  ~ mysql --help | grep 'my.cnf'
+                      order of preference, my.cnf, $MYSQL_TCP_PORT,
+/etc/my.cnf /etc/mysql/my.cnf /opt/homebrew/etc/my.cnf ~/.my.cnf 
+```
+
+### 3.2、修改 Mysql 配置文件 `my.cnf` 的脚本
 
 *温馨提示：先修改再运行*
 
@@ -338,9 +383,13 @@ echo "不需要验证密码，直接登录 mysql"
 mysql -p   
 ```
 
+### 3.3、一些参数
+
+`skip_networking`该变量控制是否关闭TCP/IP连接，默认允许，如果启用，则只能本地socker连接。如果只是本地客户端连接，强烈建议开启。
+
 ## 4、查询本机的 MySql 的路径
 
-### 4.1、安装路径
+###  4.1、安装路径
 
 ```bash
 ➜  ~ whereis mysql
