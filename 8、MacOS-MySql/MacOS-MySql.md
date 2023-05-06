@@ -452,7 +452,7 @@ mysql> show global variables like "%datadir%" ;
 
 ### 5.1、显示全部用户
 
-USE mysql;SELECT user FROM user; 
+USE mysql;select user,host from user;
 
 ```mysql
 mysql> USE mysql;
@@ -460,16 +460,17 @@ Reading table information for completion of table and column names
 You can turn off this feature to get a quicker startup with -A
 
 Database changed
-mysql> SELECT user FROM user; 
-+------------------+
-| user             |
-+------------------+
-| mysql.infoschema |
-| mysql.session    |
-| mysql.sys        |
-| root             |
-+------------------+
-4 rows in set (0.00 sec)
+mysql> select user,host from user;
++------------------+-----------+
+| user             | host      |
++------------------+-----------+
+| Jobs             | host      |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| root             | localhost |
++------------------+-----------+
+5 rows in set (0.04 sec)
 ```
 
 ### 5.2、显示当前用户
@@ -486,7 +487,7 @@ mysql> select user();
 
 ### 5.3、新建用户
 
-FLUSH privileges;CREATE USER 'Jobs'@'host' IDENTIFIED BY 'Jobs295060456';USE mysql;SELECT user FROM user; 
+FLUSH privileges;CREATE USER 'Jobs'@'localhost' IDENTIFIED BY 'Jobs295060456';USE mysql;select user,host from user;
 
 ```
 命令格式：
@@ -571,10 +572,7 @@ brew list mysql
 # 不出意外，会对外输出 /opt/homebrew/Cellar/mysql
 mysql --version
 
-read -p "请输入本机的 Mysql 版本号，以回车结束。默认8.0.33:" mysqlVersion
-if [[ $mysqlVersion = "" ]];then
-    mysqlVersion="8.0.33"
-fi
+mysqlVersion=$(mysql --version | awk -F 'Ver ' '{ print $2 }' | awk -F ' for' '{ print $1 }')
 fileCopy_fullname=$"/opt/homebrew/Cellar/mysql/"${mysqlVersion}"/.bottle/etc/my.cnf"
 echo "fileCopy_fullname:"$fileCopy_fullname
 
@@ -735,10 +733,7 @@ brew list mysql
 # 不出意外，会对外输出 /opt/homebrew/Cellar/mysql
 mysql --version
 
-read -p "请输入本机的 Mysql 版本号，以回车结束。默认8.0.32:" mysqlVersion
-if [[ $mysqlVersion = "" ]];then
-    mysqlVersion="8.0.32"
-fi
+mysqlVersion=$(mysql --version | awk -F 'Ver ' '{ print $2 }' | awk -F ' for' '{ print $1 }')
 fileCopy_fullname=$"/opt/homebrew/Cellar/mysql/"${mysqlVersion}"/.bottle/etc/my.cnf"
 echo "fileCopy_fullname:"$fileCopy_fullname
 
