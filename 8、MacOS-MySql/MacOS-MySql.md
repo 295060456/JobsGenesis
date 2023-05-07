@@ -53,6 +53,12 @@
     - [11.6、查看数据表`user`的表结构](#116查看数据表user的表结构)
   - [12、一些插件](#12一些插件)
 
+```javascript
+资料来源
+
+http://c.biancheng.net/view/7498.html
+```
+
 ## 1、卸载 和 删除 MySql
 
 ```javascript
@@ -245,6 +251,8 @@ mysql> select user();
 ```
 
 *以系统登录名进行登录*
+
+**注意：只有在 Mysql 的配置文件 `my.cnf`里面 开放了 `skip-grant-tables` 才可以免密登录，当然此时的端口为0**
 
 ```mysql
 mysql -p 
@@ -495,8 +503,34 @@ mysql> show global variables like "%datadir%" ;
 ```javascript
 资料来源
 
-【MySql列出所有用户】https://www.yiibai.com/mysql/show-users.html
-【MySQL创建用户与授权】https://www.jianshu.com/p/d7b9c468f20d
+【 MySql 列出所有用户】https://www.yiibai.com/mysql/show-users.html
+【 MySql 创建用户与授权】https://www.jianshu.com/p/d7b9c468f20d
+```
+
+```mysql
+// 举例：新建用户（账:Jobs;密:Jobs295060456） + 授权（库 + 表）+ 刷新 + 查询 + 建库（Test_db）用库
+mysql> select user();FLUSH privileges;CREATE USER 'Jobs'@'localhost' IDENTIFIED BY 'Jobs295060456';GRANT ALL PRIVILEGES ON *.* TO 'Jobs'@'localhost';GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'Jobs'@'localhost';USE mysql;select user,host from user;FLUSH privileges;create database Test_db;use Test_db;
+
+// 查询权限
+mysql> SHOW GRANTS FOR 'Jobs'@'localhost';
+// 查询全部用户
+mysql> USE mysql;select user,host from user;
+// 查询当前用户
+mysql> select user();
+
+// 用户加库权限
+GRANT ALL PRIVILEGES ON *.* TO 'Jobs'@'localhost';
+// 用户加表权限
+GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'Jobs'@'localhost';
+// 刷新权限
+mysql> FLUSH privileges;
+// 删除用户
+mysql> DROP USER 'Jobs'@'localhost';
+// 建库，用库
+mysql> create database Test_db;use Test_db;
+
+// 导入sql
+source /Users/jobs/Desktop/Test_db.sql 
 ```
 
 ### 5.1、显示全部用户
@@ -536,21 +570,20 @@ mysql> select user();
 
 ### 5.3、新建用户
 
-FLUSH privileges;CREATE USER 'Jobs'@'localhost' IDENTIFIED BY 'Jobs295060456';USE mysql;select user,host from user;
-
-```
-命令格式：
+```mysql
+命令格式：mysql>
 CREATE USER 'username'@'host' IDENTIFIED BY 'password';
 说明：
 host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%
 举例：
-以root用户进入，并刷新权限
-建立一个用户：Jobs
-对应的密码：Jobs295060456
+1、以root用户进入，并刷新权限
+2、建立一个用户：Jobs
+3、对应的密码：Jobs295060456
+mysql> FLUSH privileges;CREATE USER 'Jobs'@'localhost' IDENTIFIED BY 'Jobs295060456';USE mysql;select user,host from user;
 ```
 
 ```mysql
-MySQL -u root -p
+mysql -u root -p
 
 mysql> FLUSH privileges;
 
@@ -590,16 +623,60 @@ SHOW GRANTS FOR 'username'@'hostname';
 GRANT permission ON database.table TO 'username'@'hostname';
 ```
 
-### 5.4、删除新建的用户
+### 5.4、授权
+
+```javascript
+资料来源
+
+【Mysql 查看用户授予的权限】https://www.cnblogs.com/kerrycode/p/7423850.html
+```
+
+#### 5.4.1、用户授权
 
 ```mysql
 命令格式：
-DROP USER 'username'@'host';
-举例：
-DROP USER 'Jobs'@'localhost';
+GRANT privileges ON databasename.tablename TO 'username'@'host'
+说明：
+host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%
+privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所有的权限则使用ALL
+databasename：数据库名
+tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用*表示，如*.*
 ```
 
-### 5.5、误删 root 用户的解决办法❤️
+##### 5.4.1.1、加库权限
+
+**注意：这个地方是`localhost`**
+
+```mysql
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'Jobs'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+```
+
+##### 5.4.1.2、加表权限
+
+**注意：这个地方是`localhost`**
+
+```mysql
+mysql> GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'Jobs'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+```
+
+#### 5.4.2、用户权限查询
+
+```mysql
+mysql> SHOW GRANTS FOR 'Jobs'@'localhost';
+```
+
+### 5.5、删除用户
+
+```mysql
+命令格式：
+drop user 'username'@'host';
+举例：
+mysql> drop user 'Jobs'@'localhost';
+```
+
+### 5.6、误删 root 用户的解决办法❤️
 
 ```javascript
 资料来源
@@ -607,7 +684,7 @@ DROP USER 'Jobs'@'localhost';
 https://blog.csdn.net/weixin_42521856/article/details/113152530
 ```
 
-#### 5.5.1、运行脚本
+#### 5.6.1、运行脚本
 
 ```shell
 # !/bin/bash
@@ -645,7 +722,7 @@ echo "不需要验证密码，直接登录 mysql"
 mysql -p   
 ```
 
-#### 5.5.2、以系统用户名进行登录 Mysql ，并执行相关 sql
+#### 5.6.2、以系统用户名进行登录 Mysql ，并执行相关 sql
 
 ```mysql
 mysql -p
@@ -655,37 +732,18 @@ mysql> insert into user set user='root',ssl_cipher=",x509_issuer=",x509_subject=
 mysql> update user set Host='localhost',select_priv='y', insert_priv='y',update_priv='y', Alter_priv='y',delete_priv='y',create_priv='y',drop_priv='y',reload_priv='y',shutdown_priv='y',Process_priv='y',file_priv='y',grant_priv='y',References_priv='y',index_priv='y',create_user_priv='y',show_db_priv='y',super_priv='y',create_tmp_table_priv='y',Lock_tables_priv='y',execute_priv='y',repl_slave_priv='y',repl_client_priv='y',create_view_priv='y',show_view_priv='y',create_routine_priv='y',alter_routine_priv='y',create_user_priv='y' where user='root';  
 ```
 
-### 5.6、授权给新建的用户
-
-```mysql
-命令格式：
-GRANT privileges ON databasename.tablename TO 'username'@'host'
-说明：
-host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%
-privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所有的权限则使用ALL
-databasename：数据库名
-tablename：表名，如果要授予该用户对所有数据库和表的相应操作权限则可用*表示，如*.*
-举例：
-注意：这个地方是'localhost'
-mysql> GRANT SELECT, INSERT ON *.* TO 'Jobs'@'localhost';
-Query OK, 0 rows affected (0.01 sec)
-
-GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'Jobs'@'localhost';
-Query OK, 0 rows affected (0.00 sec)
-```
-
 ### 5.7、更改 MySql 数据库用户名
 
 ```mysql
-MySQL -u root -p
+mysql -u root -p
 Enter password：***
-MySQL> use MySql; 
+mysql> use MySql; 
 Database changed
 
-MySQL> update user set user="新用户名" where user="root";    // 将用户名为 root 的改为新用户名
+mysql> update user set user="新用户名" where user="root";    // 将用户名为 root 的改为新用户名
 
-MySQL> flush privileges;    // 刷新权限【一定要这一步，否则不成功】
-MySQL> exit
+mysql> flush privileges;    // 刷新权限【一定要这一步，否则不成功】
+mysql> exit
 ```
 
 ## 6、MySql 密码修改
@@ -713,7 +771,7 @@ mysql> ALTER USER 'Jobs'@'%' IDENTIFIED BY '123456';
 
 ```mysql
 一般情况下，新安装的mysql的root账户是没有密码的
-mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
+mysql> alter user 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123456';
 注意：一定要刷新完权限以后才能exit;
 mysql> flush privileges;
 ```
@@ -738,7 +796,7 @@ brew list mysql
 
 ![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg?raw=true)
 
-*`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为mysql 配置文件*
+*`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为 mysql 配置文件*
 
 **6.2.3、编辑`.bottle/etc/my.cnf`，在其末尾增添一句话：`skip-grant-tables`**
 
@@ -789,7 +847,7 @@ echo "fileCopy_fullname:"$fileCopy_fullname
 grep skip-grant-tables $fileCopy_fullname
 if [ $? -ne 0 ] ;then
 cat>>${fileCopy_fullname}<<EOF
-skip-grant-tables
+# skip-grant-tables // 放开这句，Mysql 的端口将为 0。且强行定义端口都始终为0
 EOF
 fi
 
@@ -879,8 +937,8 @@ set global validate_password.policy=LOW;
 
 **修改了`my.cnf`需要重启 Mysql 服务方可生效**
 
-```
-MySQL> flush privileges;
+```mysql
+mysql> flush privileges;
 或者
 brew services restart mysql
 ```
@@ -1005,39 +1063,25 @@ mysql> system pwd
 mysql> source /Users/jobs/Desktop/test.sql 
 ```
 
-## 11、命令行使用 MySql
+## 11、命令行使用 MySql ❤️
 
-*说明：此例中存在一个名为`test`的数据库，库下面存在一张名为`user`的表*
+*说明：此例中存在一个名为`Test_db`的数据库，库下面存在一张名为`user_tbl`的表*
+
+**Test_db.sql**
 
 ```sql
-CREATE database test;
-CREATE TABLE IF NOT EXISTS `test`.`user` (
- `user_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户编号',
- `user_name` VARCHAR(45) NOT NULL COMMENT '用户名称',
- `user_age` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户年龄',
- `user_sex` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户性别',
- PRIMARY KEY (`user_id`))
- ENGINE = InnoDB
+create database Test_db;use Test_db;
+
+CREATE TABLE IF NOT EXISTS `Test_db`.`user_tbl` (
+ `student_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+ `student_name` VARCHAR(45) NOT NULL COMMENT '用户名称',
+ `student_age` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户年龄',
+ `student_sex` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户性别',
+ PRIMARY KEY (`student_id`))
  AUTO_INCREMENT = 1
  DEFAULT CHARACTER SET = utf8
  COLLATE = utf8_general_ci
  COMMENT = '用户表'
-```
-
-```sql
-mysql -uroot -p //进入数据库命令行
-create database go_db //创建名为go_db的数据库
-use go_db //使用数据库
-create table user_tbl//创建一个名为user_tbl的表
-
-CREATE TABLE user_tbl (
-     student_id int primary key, 
-     student_name varchar(25), 
-     student_age int, 
-     gender char (1), 
-     DOA date, 
-     city_name varchar(20)
-)
 ```
 
 ### 11.1、 显示所有的数据库（注意：`databases` 是复数末尾要加`s`）
@@ -1105,7 +1149,138 @@ mysql> describe user;
 4 rows in set (0.01 sec)
 ```
 
-## 12、一些插件
+## 12、Go语言操作（增删改查）数据库（举例）
+
+### 12.1、新建用户（账:Jobs;密:Jobs295060456） + 授权（库 + 表）+ 刷新 + 查询 + 建库（Test_db）用库
+
+```mysql
+mysql> select user();FLUSH privileges;CREATE USER 'Jobs'@'localhost' IDENTIFIED BY 'Jobs295060456';GRANT ALL PRIVILEGES ON *.* TO 'Jobs'@'localhost';GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'Jobs'@'localhost';USE mysql;select user,host from user;FLUSH privileges;create database Test_db;use Test_db;
+```
+
+### 12.2、Test_db.sql
+
+```mysql
+create database Test_db;use Test_db;
+
+CREATE TABLE IF NOT EXISTS `Test_db`.`user_tbl` (
+ `student_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+ `student_name` VARCHAR(45) NOT NULL COMMENT '用户名称',
+ `student_age` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户年龄',
+ `student_sex` TINYINT(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '用户性别',
+ PRIMARY KEY (`student_id`))
+ AUTO_INCREMENT = 1
+ DEFAULT CHARACTER SET = utf8
+ COLLATE = utf8_general_ci
+ COMMENT = '用户表'
+```
+
+### 12.3、Go语言代码
+
+```go
+package main
+
+import (
+	"database/sql"
+	"fmt"
+
+	_ "github.com/go-sql-driver/mysql"
+)
+
+var db *sql.DB
+
+type USER struct {
+	student_id   int
+	student_name string
+	student_age  int
+	student_sex  int
+}
+
+func main() {
+	initDB()
+	insert()
+	queryOneRow()
+}
+
+// 获得数据库连接
+func initDB() (err error) {
+	dsn := "Jobs:Jobs295060456@tcp(127.0.0.1:3306)/Test_db"
+	db, err = sql.Open("mysql", dsn)
+	if err != nil {
+		return err
+	}
+	err = db.Ping()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// 数据库插入数据
+func insert() {
+	s := "insert into user_tbl (student_name,student_age,student_sex) values(?,?,?)"
+	r, err := db.Exec(s, "zhangsan", "123", "23")
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	} else {
+		i, _ := r.LastInsertId()
+		fmt.Printf("i: %v\n", i)
+	}
+}
+
+// 单行查询
+func queryOneRow() {
+	s := "select * from user_tbl where student_id = ?"
+	var u USER
+	err := db.QueryRow(s, 1).Scan(&u.student_id, &u.student_name, &u.student_age, &u.student_sex)
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	} else {
+		fmt.Printf("u: %v\n", u)
+	}
+}
+
+// 查询多行
+func queryOneSome() {
+	s := "select * from user_tbl"
+	r, err := db.Query(s)
+	var u USER
+	// defer r.Close()
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	} else {
+		for r.Next() {
+			r.Scan(&u.student_id, &u.student_name, &u.student_age, &u.student_sex)
+			fmt.Printf("u: %v\n", u)
+		}
+	}
+}
+
+// 更新数据
+func queryUpdate() {
+	s := "update user_tbl set student_name=?,student_age=?,student_sex=? where student_id=?"
+	r, err := db.Exec(s, "new kate", "123123", "2")
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	} else {
+		i, _ := r.RowsAffected()
+		fmt.Printf("i: %v\n", i)
+	}
+}
+
+// 删除数据
+func queryDelete() {
+	s := "delete from user_tbl where student_id=?"
+	r, err := db.Exec(s, 3)
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	} else {
+		i, _ := r.RowsAffected()
+		fmt.Printf("i: %v\n", i)
+	}
+}
+```
+
+## 13、一些插件
 
 **语法提示且高亮**
 
