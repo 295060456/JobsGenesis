@@ -1,4 +1,4 @@
-# MacOS_MongoDB
+# MacOS 平台上 关于芒果🥭数据库
 
 [toc]
 
@@ -6,12 +6,17 @@
 资料来源
 
 https://www.toutiao.com/article/7199175994111033871/?tt_from=copy_link&utm_campaign=client_share&app=news_article&utm_source=copy_link&iid=424846500052268&utm_medium=toutiao_ios&use_new_style=1&share_token=68F663DD-D220-4190-9013-E541DEEABF55
+https://www.runoob.com/mongodb/mongodb-tutorial.html
+https://www.w3cschool.cn/mongodb/mongodb-query.html
 ```
 
-## 1、简介
+## 1、MacOS_MongoDB
+
+### 1.1、简介
 
 ```json
 MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统
+MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的
 MongoDB 将数据存储为一个文档，数据结构由键值(key=>value)对组成
 MongoDB 文档类似于 JSON 对象
 字段值可以包含其他文档，数组及文档数组
@@ -24,7 +29,7 @@ MongoDB 文档类似于 JSON 对象
 }
 ```
 
-## 2、安装
+### 1.2、安装 `MongoDB`
 
 ```javascript
 资料来源
@@ -35,7 +40,7 @@ https://github.com/gcollazo/mongodbapp
 https://juejin.cn/post/7069566026655989767
 ```
 
-### 2.1、使用 Homebrew 安装 mongodb（废弃）
+#### 2.1、使用`Homebrew`安装 `mongodb`（废弃）
 
 ```bash
 ➜  ~ brew install mongodb
@@ -81,7 +86,7 @@ To install gcollazo-mongodb ✔, run:
   brew install --cask gcollazo-mongodb ✔
 ```
 
-### 2.1、使用 Homebrew Cask 安装 gcollazo-mongodb
+#### 2.1、使用 `Homebrew Cask` 安装 `gcollazo-mongodb`
 
 ```bash
 ➜  ~ brew reinstall --cask gcollazo-mongodb
@@ -103,7 +108,38 @@ To install gcollazo-mongodb ✔, run:
 /Applications/MongoDB.app (185 files, 224.7MB)
 ```
 
-### 2.2、使用 Homebrew Cask 安装 MongoDB 6.0 Community Edition
+```bash
+➜  ~ brew info gcollazo-mongodb      
+==> gcollazo-mongodb: 6.0.0-build.1
+https://elweb.co/mongodb-app/
+/opt/homebrew/Caskroom/gcollazo-mongodb/6.0.0-build.1 (121B)
+From: https://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/gcollazo-mongodb.rb
+==> Name
+MongoDB
+==> Description
+App wrapper for MongoDB
+==> Artifacts
+MongoDB.app (App)
+==> Analytics
+install: 9 (30 days), 286 (90 days), 1,129 (365 days)
+```
+
+```bash
+➜  ~ mongod --version
+db version v6.0.5
+Build Info: {
+    "version": "6.0.5",
+    "gitVersion": "c9a99c120371d4d4c52cbb15dac34a36ce8d3b1d",
+    "modules": [],
+    "allocator": "system",
+    "environment": {
+        "distarch": "aarch64",
+        "target_arch": "aarch64"
+    }
+}
+```
+
+#### 2.2、使用 `Homebrew Cask` 安装 `MongoDB 6.0 Community Edition`
 
 ```bash
 ➜  ~ brew reinstall mongodb-community
@@ -169,7 +205,251 @@ Or, if you don't want/need a background service you can just run:
 /opt/homebrew/Cellar/mongodb-community/6.0.5/THIRD-PARTY-NOTICES
 ```
 
-## 3、端口
+### 1.3、端口
 
 `默认端口：27017`
+
+## 2、`MongoDB Compass`
+
+### 2.1、安装 `MongoDB Compass`
+
+```javascript
+相关资料
+
+https://formulae.brew.sh/cask/mongodb-compass
+https://www.tizi365.com/topic/59.html
+```
+
+```bash
+brew install --cask mongodb-compass
+
+==> Downloading https://formulae.brew.sh/api/cask.jws.json
+######################################################################### 100.0%
+==> Downloading https://downloads.mongodb.com/compass/mongodb-compass-1.36.4-dar
+######################################################################### 100.0%
+==> Installing Cask mongodb-compass
+==> Moving App 'MongoDB Compass.app' to '/Applications/MongoDB Compass.app'
+🍺  mongodb-compass was successfully installed!
+```
+
+### 2.2、相关说明
+
+```
+MongoDB Compass是一个可视化GUI工具，方便我们通过可视化页面操作MongoDB
+```
+
+## 3、`Mongosh`
+
+*MongoDB Shell工具：mongosh*
+
+```javascript
+资料来源
+
+https://juejin.cn/post/7091969764024647710
+```
+
+### 3.1、安装 `mongosh`
+
+```bash
+➜  ~ brew install Mongosh                      
+==> Downloading https://formulae.brew.sh/api/formula.jws.json
+######################################################################### 100.0%
+==> Downloading https://formulae.brew.sh/api/cask.jws.json
+#=#=#                                                                          
+Warning: mongosh 1.8.2 is already installed and up-to-date.
+To reinstall 1.8.2, run:
+  brew reinstall mongosh
+```
+
+```bash
+➜  ~ mongosh --version
+1.8.2
+```
+
+### 3.2、利用`mongosh`访问`MongoDB`
+
+```bash
+➜  ~ mongosh
+Current Mongosh Log ID:	645a7441bc18d837c3730a34
+Connecting to:		mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2
+Using MongoDB:		6.0.0
+Using Mongosh:		1.8.2
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2023-05-09T21:20:21.356+07:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+   2023-05-09T21:20:21.356+07:00: Soft rlimits for open file descriptors too low
+------
+
+------
+   Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+   metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+   
+   The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+   and anyone you share the URL with. MongoDB may use this information to make product
+   improvements and to suggest MongoDB products and deployment options to you.
+   
+   To enable free monitoring, run the following command: db.enableFreeMonitoring()
+   To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+------
+
+test> show dbs
+admin   40.00 KiB
+config  60.00 KiB
+local   40.00 KiB
+test> 
+```
+
+```
+admin： 从权限的角度来看，这是"root"数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器。
+local: 这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合
+config: 当Mongo用于分片设置时，config数据库在内部使用，用于保存分片的相关信息。
+```
+
+### 3.3、利用`mongosh` CRUD 操作`MongoDB`
+
+#### 3.3.1、创建（Create）名为`Jobs`的数据库
+
+```
+1、直接use数据库，优化create环节；
+test> use Jobs
+switched to db Jobs
+Jobs> 
+
+2、不往数据库里面写入数据，是无法show出来的
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+```
+
+```bash
+Jobs> db.Jobs.insertOne({"name":"4"})
+等价
+Jobs> db.Jobs.insertOne({name:'4'})
+
+Jobs> db.Jobs.insertOne({name:4})
+{
+  acknowledged: true,
+  insertedId: ObjectId("645a81dfeb39043b456a44c5")
+}
+
+Jobs> show dbs
+Jobs      8.00 KiB
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+```
+
+#### 3.3.2、查询（Read）名为`Jobs`的数据库
+
+*`pretty() `方法以格式化的方式来显示所有文档*
+
+```bash
+Jobs> db.Jobs.find().pretty()
+[
+  { _id: ObjectId("645aa87e198b4fc57b6424f0"), name: '4' },
+  { _id: ObjectId("645aa883198b4fc57b6424f1"), name: '4' },
+  { _id: ObjectId("645aa889198b4fc57b6424f2"), name: 4 }
+]
+```
+
+#### 3.3.3、删除（Delete）名为`Jobs`的数据库
+
+```bash
+Jobs> show dbs
+Jobs      8.00 KiB
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+Jobs>  db.dropDatabase()
+{ ok: 1, dropped: 'Jobs' }
+
+Jobs> show dbs
+admin    40.00 KiB
+config  108.00 KiB
+local    40.00 KiB
+Jobs> 
+```
+
+#### 3.3.4、更新（Update）名为`Jobs`的数据库
+
+*语法*
+
+```bash
+db.collection.update(
+   <query>,
+   <update>,
+   {
+     upsert: <boolean>,
+     multi: <boolean>,
+     writeConcern: <document>
+   }
+)
+
+参数说明：
+query : update的查询条件，类似sql update查询的where子句。
+update : update的对象和一些更新的操作符（如$,$inc...）等，也可以理解为 sql update查询的set子句
+upsert : 可选，这个参数的意思是，如果不存在update的记录，是否插入objNew,true为插入，默认是false，不插入。
+multi : 可选，mongodb 默认是false,只更新找到的第一条记录，如果这个参数为true,就把按条件查出来多条记录全部更新。
+writeConcern :可选，抛出异常的级别。
+```
+
+*举例*
+
+```bash
+Jobs>  db.Jobs.find().pretty()
+[ { _id: ObjectId("645a9f0cc23a619de7989dac"), name: 'W3Cschool教程' } ]
+Jobs> 
+
+Jobs> db.Jobs.update({'name':'W3Cschool教程'},{$set:{'name':'哈哈'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+Jobs> db.Jobs.find().pretty()
+[ { _id: ObjectId("645a9f0cc23a619de7989dac"), name: '哈哈' } ]
+Jobs> 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

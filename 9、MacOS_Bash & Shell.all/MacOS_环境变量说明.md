@@ -10,9 +10,9 @@
       - [1.1.2.3、`~/.profile`](#1123profile)
       - [1.1.2.4、`~/.bashrc `](#1124bashrc-)
   - [1.2、编辑系统变量](#12编辑系统变量)
-    - [1.2.1、编辑环境变量](#121编辑环境变量)
-    - [1.2.2、环境信息生效](#122环境信息生效)
-    - [1.2.3、相关语法](#123相关语法)
+    - [1.2.1、相关语法](#121相关语法)
+    - [1.2.2、利用第三方软件，编辑环境变量](#122利用第三方软件编辑环境变量)
+    - [1.2.3、环境信息生效](#123环境信息生效)
   - [1.3、关于打印输出](#13关于打印输出)
     - [1.3.1、竖排打印环境变量，并输出到本目录下面的 localGoEnvInfo.md文件（易读）](#131竖排打印环境变量并输出到本目录下面的-localgoenvinfomd文件易读)
     - [1.3.2、直接输出（不易读）](#132直接输出不易读)
@@ -67,7 +67,15 @@ https://www.jianshu.com/p/acb1f062a925
 
 `/etc/profile `
 
+```bash
+code /etc/profile
+```
+
 *✅全局建议修改这个文件：`/etc/paths`* 
+
+```bash
+code /etc/paths
+```
 
 ### 1.1.2、👤【当前用户】
 
@@ -75,52 +83,97 @@ https://www.jianshu.com/p/acb1f062a925
 
 #### 1.1.2.1、`~/.bash_profile`
 
-**🈲建议不修改这个文件，全局（公有）配置，不管是哪个用户，登录时都会读取该文件。该文件包含专用于你的bash shell的bash信息（每个用户都有一个.bashrc文件，在用户目录下） 🈲**
+*🈲建议不修改这个文件，全局（公有）配置，不管是哪个用户，登录时都会读取该文件。该文件包含专用于你的bash shell的bash信息（每个用户都有一个.bashrc文件，在用户目录下） 🈲*
 
 ```bash
-注：因为安装zsh，~/.bash_profile就不会被执行。解决办法有以下两种：
+code ~/.bash_profile
+```
+
+**注：因为安装zsh，~/.bash_profile就不会被执行。解决办法有以下两种：**
+
+```bash
 1、vim ~/.zshrc 将你要配置到环境变量配置到该文件中即可
 2、vim ~/.zshrc 将 source ~/.bash_profile 添加到末尾，这样~/.bash_profile配置的环境变量同样有效
-3、使得配置文件生效 source ~/.zshrc
+
+使得配置文件生效 source ~/.zshrc
 ```
 
 #### 1.1.2.2、`~/.bash_login`
+
+```bash
+code ~/.bash_login
+```
 
 **注：对于 MacOS，有可能不存在此文件目录**
 
 #### 1.1.2.3、`~/.profile`
 
+*✅该文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置*
+
 ```bash
- ✅该文件为系统的每个用户设置环境信息,当用户第一次登录时,该文件被执行.并从/etc/profile.d目录的配置文件中搜集shell的设置
-注：如果你有对/etc/profile有修改的话必须得重启你的修改才会生效，此修改对每个用户都生效【全局性】
-注：对于 MacOS,目录/etc/profile.d 有可能不存在
+code ~/.profile
 ```
+
+**注：如果你有对/etc/profile有修改的话必须得重启你的修改才会生效，此修改对每个用户都生效【全局性】**
+
+**注：对于 MacOS,目录/etc/profile.d 有可能不存在**
 
 #### 1.1.2.4、`~/.bashrc `
 
 ```
-没有上述规则，它是bash shell打开的时候载入的。不管是何种方式，都会读取此文件。✅一般在这个文件中添加系统级环境变量
-注：对所有的使用bash的用户修改某个配置并在以后打开的bash都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个bash即可生效
+没有上述规则，它是bash shell打开的时候载入的。
+不管是何种方式，都会读取此文件。
+✅一般在这个文件中添加系统级环境变量
 ```
+
+```bash
+code ~/.bashrc
+```
+
+**注：对所有的使用bash的用户修改某个配置并在以后打开的bash都生效的话可以修改这个文件，修改这个文件不用重启，重新打开一个bash即可生效**
 
 ## 1.2、编辑系统变量
 
-### 1.2.1、编辑环境变量
-
-*亦可以使用vi*
+### 1.2.1、相关语法
 
 ```bash
-vim /etc/profile
-vim /etc/paths
-vim ./.bash_profile
-vim ./.bash_login(对于 MacOS，有可能不存在此文件目录)
-vim ./.profile
-vim ./.bashrc
+PATH的语法：中间用冒号隔开
+export PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
 ```
 
-### 1.2.2、环境信息生效
+### 1.2.2、利用第三方软件，编辑环境变量
 
-*关键词：source*
+*推荐安装 Visual Studio Code；亦可使用`vi`和`vim`进行编辑*
+
+```
+code /etc/profile
+```
+
+```
+code /etc/paths
+```
+
+```
+code ./.bash_profile
+```
+
+```
+#(对于 MacOS，有可能不存在此文件目录)
+
+code ./.bash_login
+```
+
+```
+code ./.profile
+```
+
+```
+code ./.bashrc
+```
+
+### 1.2.3、环境信息生效
+
+*关键词：`source`*
 
 ```bash
 source /etc/profile
@@ -129,13 +182,6 @@ source ./.bash_profile
 source ./.bash_login
 source ./.profile
 source ./.bashrc
-```
-
-### 1.2.3、相关语法
-
-```bash
-PATH的语法：中间用冒号隔开
-export PATH=$PATH:<PATH 1>:<PATH 2>:<PATH 3>:------:<PATH N>
 ```
 
 ## 1.3、关于打印输出
@@ -223,6 +269,7 @@ sudo vi /etc/shells
 
 ```bash
 chsh -s /opt/homebrew/Cellar/zsh/5.9/bin/zsh
+
 更改以后重启 Terminal
 ```
 
@@ -230,6 +277,7 @@ chsh -s /opt/homebrew/Cellar/zsh/5.9/bin/zsh
 
 ```bash
 echo $SHELL
+
 它应该给出以下结果
 /usr/local/bin.zsh
 ```

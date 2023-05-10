@@ -17,7 +17,12 @@ type USER struct {
 }
 
 func main() {
-	initDB()
+
+	err := initDB()
+	if err != nil {
+		panic(err)
+	}
+
 	insert()
 	queryOneRow()
 }
@@ -31,7 +36,7 @@ func initDB() (err error) {
 	}
 	err = db.Ping()
 	if err != nil {
-		return err
+		panic(err)
 	}
 	return nil
 }
@@ -40,6 +45,7 @@ func initDB() (err error) {
 func insert() {
 	s := "insert into user_tbl (student_name,student_age,student_sex) values(?,?,?)"
 	r, err := db.Exec(s, "zhangsan", "123", "23")
+	defer db.Close()
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	} else {
@@ -64,8 +70,8 @@ func queryOneRow() {
 func queryOneSome() {
 	s := "select * from user_tbl"
 	r, err := db.Query(s)
+	defer db.Close()
 	var u USER
-	// defer r.Close()
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	} else {
@@ -80,6 +86,7 @@ func queryOneSome() {
 func queryUpdate() {
 	s := "update user_tbl set student_name=?,student_age=?,student_sex=? where student_id=?"
 	r, err := db.Exec(s, "new kate", "123123", "2")
+	defer db.Close()
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	} else {
@@ -92,11 +99,11 @@ func queryUpdate() {
 func queryDelete() {
 	s := "delete from user_tbl where student_id=?"
 	r, err := db.Exec(s, 3)
+	defer db.Close()
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	} else {
 		i, _ := r.RowsAffected()
 		fmt.Printf("i: %v\n", i)
 	}
-
 }
