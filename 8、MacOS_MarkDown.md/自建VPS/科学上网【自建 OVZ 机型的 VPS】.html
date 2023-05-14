@@ -1,0 +1,692 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.428571; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; font-size-adjust: inherit; font-kerning: inherit; font-variant-alternates: inherit; font-variant-ligatures: inherit; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-position: inherit; font-feature-settings: inherit; font-optical-sizing: inherit; font-variation-settings: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; border-right-style: none; border-right-color: currentcolor; background-color: inherit; }
+.CodeMirror-linenumber { -webkit-user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: medium; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: medium !important; border-style: none !important; border-color: currentcolor !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; border-bottom-style: none; border-bottom-color: currentcolor; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: medium; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.428571rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left-width: 28px; border-left-style: solid; border-left-color: transparent; border-right-width: 28px; border-right-style: solid; border-right-color: transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right-width: 8px; border-right-style: solid; border-right-color: transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: medium !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-width: medium; border-right-style: none; border-right-color: currentcolor; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-width: medium; border-right-style: none; border-right-color: currentcolor; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    pre {
+        page-break-inside: avoid;
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+ @media print { @page {margin: 0 0 0 0;} body.typora-export {padding-left: 0; padding-right: 0;} #write {padding:0;}}
+</style><title>科学上网【自建 OVZ 机型的 VPS】</title>
+</head>
+<body class='typora-export'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='科学上网自建-ovz-机型的-vps-'><span>科学上网【自建 OVZ 机型的 VPS 】</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#科学上网自建-ovz-机型的-vps-">科学上网【自建 OVZ 机型的 VPS 】</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n109"><a class="md-toc-inner" href="#1前言">1、前言</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n113"><a class="md-toc-inner" href="#2使用到的工具">2、使用到的工具</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n145"><a class="md-toc-inner" href="#3流程">3、流程</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n146"><a class="md-toc-inner" href="#31namesilo">3.1、Namesilo</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n147"><a class="md-toc-inner" href="#311身份认证">3.1.1、身份认证</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n151"><a class="md-toc-inner" href="#312-dns管理">3.1.2、 DNS管理</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n156"><a class="md-toc-inner" href="#32cloudflare">3.2、Cloudflare</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n159"><a class="md-toc-inner" href="#321注册">3.2.1、注册</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n161"><a class="md-toc-inner" href="#322添加站点">3.2.2、添加站点</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n163"><a class="md-toc-inner" href="#323选择free）计划">3.2.3、选择（Free）计划</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n165"><a class="md-toc-inner" href="#324查看记录">3.2.4、查看记录</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n168"><a class="md-toc-inner" href="#325更改您的名称服务器完毕以后需要刷新-cloudflare-检查是否生效）">3.2.5、更改您的名称服务器（完毕以后，需要刷新 Cloudflare ，检查是否生效）</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n172"><a class="md-toc-inner" href="#326成功生效">3.2.6、成功生效</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n175"><a class="md-toc-inner" href="#33hosteons">3.3、hosteons</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n177"><a class="md-toc-inner" href="#331注册">3.3.1、注册</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n179"><a class="md-toc-inner" href="#332服务器的购买和设置">3.3.2、服务器的购买和设置</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n184"><a class="md-toc-inner" href="#333hosteons--↔-cloudflare">3.3.3、hosteons  ↔ Cloudflare</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n185"><a class="md-toc-inner" href="#3331进入-hosteons-→-dns--→-添加记录">3.3.3.1、进入 hosteons → DNS  → 添加记录</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n189"><a class="md-toc-inner" href="#3332检测二级域名是否成功">3.3.3.2、检测二级域名是否成功</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n192"><a class="md-toc-inner" href="#34ssh工具连接-vps">3.4、SSH工具连接 VPS</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n198"><a class="md-toc-inner" href="#35部署x-ui">3.5、部署<code>X-UI</code></a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n203"><a class="md-toc-inner" href="#36访问x-ui面板">3.6、访问<code>X-UI</code>面板</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n209"><a class="md-toc-inner" href="#37申请ssl证书">3.7、申请SSL证书</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n211"><a class="md-toc-inner" href="#371在finalshell下输入x-ui调出x-ui的管理脚本输入16">3.7.1、在<code>FinalShell</code>下输入<code>x-ui</code>,调出<code>X-UI</code>的管理脚本，输入<code>16</code></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n213"><a class="md-toc-inner" href="#372完成一些设置">3.7.2、完成一些设置</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n214"><a class="md-toc-inner" href="#3721域名设置">3.7.2.1、域名设置</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n216"><a class="md-toc-inner" href="#3722密钥设置">3.7.2.2、密钥设置</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n223"><a class="md-toc-inner" href="#3723注册邮箱设置即输入cloudflare的用户名">3.7.2.3、注册邮箱设置，即输入<code>Cloudflare</code>的用户名</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n225"><a class="md-toc-inner" href="#3724相关日志打印">3.7.2.4、相关日志打印</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n227"><a class="md-toc-inner" href="#373rootcert-证书文件夹">3.7.3、<code>/root/cert</code> 证书文件夹</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n230"><a class="md-toc-inner" href="#374x-ui面板证书设置">3.7.4、<code>X-UI</code>面板证书设置</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n234"><a class="md-toc-inner" href="#38在x-ui面板里面部署入站节点">3.8、在<code>X-UI</code>面板里面部署入站节点</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n237"><a class="md-toc-inner" href="#39使用qv2ray">3.9、使用<code>Qv2ray</code></a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n238"><a class="md-toc-inner" href="#391安装">3.9.1、安装</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n240"><a class="md-toc-inner" href="#392数据导入">3.9.2、数据导入</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n243"><a class="md-toc-inner" href="#310ip优选套用cdn拯救线路">3.10、IP优选：套用CDN拯救线路</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n244"><a class="md-toc-inner" href="#3101准备工作">3.10.1、准备工作</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n245"><a class="md-toc-inner" href="#31011断开qv2ray链接并删除图略">3.10.1.1、断开Qv2ray链接并删除(图略)</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n246"><a class="md-toc-inner" href="#31012在x-ui面板-入站列表里面删除刚才配置的节点图略">3.10.1.2、在X-UI面板-入站列表里面，删除刚才配置的节点(图略)</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n247"><a class="md-toc-inner" href="#3102操作流程">3.10.2、操作流程</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n248"><a class="md-toc-inner" href="#31021打开dnscloudflare找到解析域名的地方开启代理">3.10.2.1、打开DNS：Cloudflare，找到解析域名的地方，开启代理</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n250"><a class="md-toc-inner" href="#31022cloudflare里面ssltls-加密模式设置为完全严格）">3.10.2.2、Cloudflare里面SSL/TLS 加密模式设置为完全（严格）</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n252"><a class="md-toc-inner" href="#31023在x-ui面板里面建立vlesswstls的代理节点">3.10.2.3、在<code>X-UI</code>面板里面建立<code>VLESS+WS+TLS</code>的代理节点</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n263"><a class="md-toc-inner" href="#31024cloudflare设置请求头">3.10.2.4、Cloudflare设置请求头</a></span><span role="listitem" class="md-toc-item md-toc-h5" data-ref="n266"><a class="md-toc-inner" href="#31025cloudflare设置服务器地址">3.10.2.5、Cloudflare设置服务器地址</a></span></p></div><ul><li><p><a href='#科学上网自建-ovz-机型的-vps--1'><span>科学上网【自建 OVZ 机型的 VPS 】</span></a></p><ul><li><p><a href='#1前言-1'><span>1、前言</span></a></p></li><li><p><a href='#2使用到的工具-1'><span>2、使用到的工具</span></a></p></li><li><p><a href='#3流程-1'><span>3、流程</span></a></p><ul><li><p><a href='#31namesilo-1'><span>3.1、Namesilo</span></a></p><ul><li><p><a href='#311身份认证-1'><span>3.1.1、身份认证</span></a></p></li><li><p><a href='#312-dns管理-1'><span>3.1.2、 DNS管理</span></a></p></li></ul></li><li><p><a href='#32cloudflare-1'><span>3.2、Cloudflare</span></a></p><ul><li><p><a href='#321注册-1'><span>3.2.1、注册</span></a></p></li><li><p><a href='#322添加站点-1'><span>3.2.2、添加站点</span></a></p></li><li><p><a href='#-1'><span>3.2.3、选择（Free）计划</span></a></p></li><li><p><a href='#324查看记录-1'><span>3.2.4、查看记录</span></a></p></li><li><p><a href='#-1'><span>3.2.5、更改您的名称服务器（完毕以后，需要刷新 Cloudflare ，检查是否生效）</span></a></p></li><li><p><a href='#326成功生效-1'><span>3.2.6、成功生效</span></a></p></li></ul></li><li><p><a href='#33hosteons-1'><span>3.3、hosteons</span></a></p><ul><li><p><a href='#331注册-1'><span>3.3.1、注册</span></a></p></li><li><p><a href='#332服务器的购买和设置-1'><span>3.3.2、服务器的购买和设置</span></a></p></li><li><p><a href='#-1'><span>3.3.3、hosteons  ↔ Cloudflare</span></a></p><ul><li><p><a href='#-1'><span>3.3.3.1、进入 hosteons → DNS  → 添加记录</span></a></p></li><li><p><a href='#3332检测二级域名是否成功-1'><span>3.3.3.2、检测二级域名是否成功</span></a></p></li></ul></li></ul></li><li><p><a href='#34ssh工具连接-vps-1'><span>3.4、SSH工具连接 VPS</span></a></p></li><li><p><a href='#35部署x-ui-1'><span>3.5、部署</span><code>X-UI</code></a></p></li><li><p><a href='#36访问x-ui面板-1'><span>3.6、访问</span><code>X-UI</code><span>面板</span></a></p></li><li><p><a href='#37申请ssl证书-1'><span>3.7、申请SSL证书</span></a></p><ul><li><p><a href='#371在finalshell下输入x-ui调出x-ui的管理脚本输入16-1'><span>3.7.1、在</span><code>FinalShell</code><span>下输入</span><code>x-ui</code><span>,调出</span><code>X-UI</code><span>的管理脚本，输入</span><code>16</code></a></p></li><li><p><a href='#372完成一些设置-1'><span>3.7.2、完成一些设置</span></a></p><ul><li><p><a href='#3721域名设置-1'><span>3.7.2.1、域名设置</span></a></p></li><li><p><a href='#3722密钥设置-1'><span>3.7.2.2、密钥设置</span></a></p></li><li><p><a href='#3723注册邮箱设置即输入cloudflare的用户名-1'><span>3.7.2.3、注册邮箱设置，即输入</span><code>Cloudflare</code><span>的用户名</span></a></p></li><li><p><a href='#3724相关日志打印-1'><span>3.7.2.4、相关日志打印</span></a></p></li></ul></li><li><p><a href='#373rootcert-证书文件夹-1'><span>3.7.3、</span><code>/root/cert</code><span> 证书文件夹</span></a></p></li><li><p><a href='#374x-ui面板证书设置-1'><span>3.7.4、</span><code>X-UI</code><span>面板证书设置</span></a></p></li></ul></li><li><p><a href='#38在x-ui面板里面部署入站节点-1'><span>3.8、在</span><code>X-UI</code><span>面板里面部署入站节点</span></a></p></li><li><p><a href='#39使用qv2ray-1'><span>3.9、使用</span><code>Qv2ray</code></a></p><ul><li><p><a href='#391安装-1'><span>3.9.1、安装</span></a></p></li><li><p><a href='#392数据导入-1'><span>3.9.2、数据导入</span></a></p></li></ul></li><li><p><a href='#310ip优选套用cdn拯救线路-1'><span>3.10、IP优选：套用CDN拯救线路</span></a></p><ul><li><p><a href='#3101准备工作-1'><span>3.10.1、准备工作</span></a></p><ul><li><p><a href='#31011断开qv2ray链接并删除图略-1'><span>3.10.1.1、断开Qv2ray链接并删除(图略)</span></a></p></li><li><p><a href='#31012在x-ui面板-入站列表里面删除刚才配置的节点图略-1'><span>3.10.1.2、在X-UI面板-入站列表里面，删除刚才配置的节点(图略)</span></a></p></li></ul></li><li><p><a href='#3102操作流程-1'><span>3.10.2、操作流程</span></a></p><ul><li><p><a href='#31021打开dnscloudflare找到解析域名的地方开启代理-1'><span>3.10.2.1、打开DNS：Cloudflare，找到解析域名的地方，开启代理</span></a></p></li><li><p><a href='#-1'><span>3.10.2.2、Cloudflare里面SSL/TLS 加密模式设置为完全（严格）</span></a></p></li><li><p><a href='#31023在x-ui面板里面建立vlesswstls的代理节点-1'><span>3.10.2.3、在</span><code>X-UI</code><span>面板里面建立</span><code>VLESS+WS+TLS</code><span>的代理节点</span></a></p></li><li><p><a href='#31024cloudflare设置请求头-1'><span>3.10.2.4、Cloudflare设置请求头</span></a></p></li><li><p><a href='#31025cloudflare设置服务器地址-1'><span>3.10.2.5、Cloudflare设置服务器地址</span></a></p></li></ul></li></ul></li></ul></li></ul></li></ul><h2 id='1前言'><span>1、前言</span></h2><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">资料来源：</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">https</span>:<span class="cm-comment">//www.youtube.com/watch?v=Stdj6U568S0</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">https</span>:<span class="cm-comment">//v2rayssr.com/teach-vless.html</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 95px;"></div><div class="CodeMirror-gutters" style="display: none; height: 95px;"></div></div></div></pre><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">VPS 是什么？</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">把一部服务器分割为多个服务器，每个服务器拥有自己独立的公网IP地址以及独立的操作系统</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">VPS 分国内的和国外的。国外的 VPS 就是我们科学上网所需要的 VPS</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">我们可以通过访问国外的 VPS 来访问 YouTube</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">通过这么一个中转站，我们可以访问被墙的资源</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 143px;"></div><div class="CodeMirror-gutters" style="display: none; height: 143px;"></div></div></div></pre><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">特点</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">1、无限流量</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">2、小白入门</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">3、价格便宜</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 119px;"></div><div class="CodeMirror-gutters" style="display: none; height: 119px;"></div></div></div></pre><h2 id='2使用到的工具'><span>2、使用到的工具</span></h2><figure><table><thead><tr><th><span>域名购买</span></th><th><span>Namesilo</span></th><th><a href='https://www.namesilo.com' target='_blank' class='url'>https://www.namesilo.com</a></th><th><span>可以使用支付宝</span></th></tr></thead><tbody><tr><td><span>CDN</span></td><td><span>Cloudflare</span></td><td><a href='https://www.cloudflare.com/zh-cn/' target='_blank' class='url'>https://www.cloudflare.com/zh-cn/</a></td><td><span>可以使用支付宝</span></td></tr><tr><td><span>服务器购买</span></td><td><span>hosteons</span></td><td><a href='https://hosteons.com/' target='_blank' class='url'>https://hosteons.com/</a></td><td><span>可以使用支付宝</span></td></tr><tr><td><span>SSH工具</span></td><td><span>FinalShell</span></td><td><a href='http://www.hostbuf.com/' target='_blank' class='url'>http://www.hostbuf.com/</a></td><td><span>免费</span></td></tr><tr><td><span>服务器监控工具</span></td><td><span>X-UI</span></td><td><span>apt update -y</span><br/><span>apt install -y curl socat</span><br/><span>bash &lt;(curl -Ls </span><a href='https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh' target='_blank' class='url'>https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh</a><span>)</span></td><td><span>免费</span></td></tr><tr><td><span>SSL证书申请</span></td><td><span>x-ui 和Cloudflare</span></td><td><span>16</span></td><td><span>免费</span></td></tr></tbody></table></figure><h2 id='3流程'><span>3、流程</span></h2><h3 id='31namesilo'><span>3.1、Namesilo</span></h3><h4 id='311身份认证'><span>3.1.1、身份认证</span></h4><p><strong><a href='https://www.namesilo.com/account_profile.php' target='_blank' class='url'>https://www.namesilo.com/account_profile.php</a></strong></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">未完成身份认证的时候，购买域名完成以后，需要有身份认证</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">如果身份认证已通过，则https</span>:<span class="cm-comment">//www.namesilo.com/account_profile.php重定向为https://www.namesilo.com/account_home.php</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">注：身份认证不核验电话号码，但是必须全英文，不接受中文，地址随机英文字也可</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 143px;"></div><div class="CodeMirror-gutters" style="display: none; height: 143px;"></div></div></div></pre><p><img src="/Users/jobs/Desktop/自建VPS/namesilo的DNS设置.jpg" referrerpolicy="no-referrer" alt="namesilo的DNS设置"></p><h4 id='312-dns管理'><span>3.1.2、 DNS管理</span></h4><p><strong><a href='https://www.namesilo.com/account_domain_manage_dns.php' target='_blank' class='url'>https://www.namesilo.com/account_domain_manage_dns.php</a></strong></p><p><em><span>删除默认配置</span></em></p><p><img src="/Users/jobs/Desktop/自建VPS/删除默认的DNS配置.jpg" referrerpolicy="no-referrer" alt="删除默认的DNS配置"></p><p><strong><span>自此，域名</span><code>jobs295060456.top</code><span>购买成功</span></strong></p><h3 id='32cloudflare'><span>3.2、Cloudflare</span></h3><p><strong><a href='https://www.cloudflare.com/zh-cn/' target='_blank' class='url'>https://www.cloudflare.com/zh-cn/</a></strong></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5625px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> Cloudflare 是一个内容分发网络，即CDN。对于我们搭建节点来说，就是一个转发的服务器。常规站就是我们本地数据和远程服务器数据进行交换即可，如果是套用 Cloudflare，我们的数据就可以通过Cloudflare进行转发。转发的网络速度受制于我们本地计算机👉🏻Cloudflare 的速度。本质来讲，一个优秀的VPS线路，通常来说是不需要数据的转发，但是对于低配 VPS 来说，使用 Cloudflare 以后，就会有意想不到的一些结果。</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">我们需要注册一个 Cloudflare，并把我们的域名托管到 Cloudflare 。也就是 Cloudflare 来接管我们的域名管理业务</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">就算我们不使用 Cloudflare 的 CDN 业务，域名托管到 Cloudflare 以后，也会加速 DNS 解析生效</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 166px;"></div><div class="CodeMirror-gutters" style="display: none; height: 166px;"></div></div></div></pre><h4 id='321注册'><span>3.2.1、注册</span></h4><p><span>略</span></p><h4 id='322添加站点'><span>3.2.2、添加站点</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare添加站点.jpg" referrerpolicy="no-referrer" alt="Cloudflare添加站点"></p><h4 id='323选择free）计划'><span>3.2.3、选择（Free）计划</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare添加站点选择计划.jpg" referrerpolicy="no-referrer" alt="Cloudflare添加站点选择计划"></p><h4 id='324查看记录'><span>3.2.4、查看记录</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare查看记录.jpg" referrerpolicy="no-referrer" alt="Cloudflare查看记录"></p><p><strong><span>点击</span><code>继续</code></strong></p><h4 id='325更改您的名称服务器完毕以后需要刷新-cloudflare-检查是否生效）'><span>3.2.5、更改您的名称服务器（完毕以后，需要刷新 Cloudflare ，检查是否生效）</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/namesilo的DNS 记录.jpg" referrerpolicy="no-referrer" alt="namesilo的DNS 记录"></p><p><img src="/Users/jobs/Desktop/自建VPS/Namesilo删除并填入Cloudflare名称服务器.jpg" referrerpolicy="no-referrer" alt="Namesilo删除并填入Cloudflare名称服务器"></p><p><strong><span>自此，namesilo 完毕  ！！！相关功能被Cloudflare进行托管  ... 等待域名生效</span></strong></p><h4 id='326成功生效'><span>3.2.6、成功生效</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/Namesilo-&gt;Cloudflare生效.jpg" referrerpolicy="no-referrer" alt="Namesilo->Cloudflare生效"></p><p><strong><span>同时，Cloudflare 的注册邮箱会受到一封生效的邮件</span></strong></p><h3 id='33hosteons'><span>3.3、hosteons</span></h3><p><strong><a href='https://hosteons.com/' target='_blank' class='url'>https://hosteons.com/</a></strong></p><h4 id='331注册'><span>3.3.1、注册</span></h4><p><span>略</span></p><h4 id='332服务器的购买和设置'><span>3.3.2、服务器的购买和设置</span></h4><p><em><span>自行选择一款配置，支持支付宝购买</span></em></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">root密码即为以后用SSH工具链接时用的密码</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">机房按需选择，这里选择LA（美国.加尼福尼亚.洛杉矶）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">系统按需选择，这里选用debian 10</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 71px;"></div><div class="CodeMirror-gutters" style="display: none; height: 71px;"></div></div></div></pre><p><img src="/Users/jobs/Desktop/自建VPS/hosteons成功购买服务器.jpg" referrerpolicy="no-referrer" alt="hosteons成功购买服务器"></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Primary IP</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">213.59.119.127</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 48px;"></div><div class="CodeMirror-gutters" style="display: none; height: 48px;"></div></div></div></pre><h4 id='333hosteons--↔-cloudflare'><span>3.3.3、hosteons  ↔ Cloudflare</span></h4><h5 id='3331进入-hosteons-→-dns--→-添加记录'><span>3.3.3.1、进入 hosteons → DNS  → 添加记录</span></h5><p><strong><span>搭建 VPS 推荐使用二级域名</span></strong></p><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare添加DNS公网IP.jpg" referrerpolicy="no-referrer" alt="Cloudflare添加DNS公网IP"></p><p><strong><span>暂时关闭是为了演示一个不良效果</span></strong></p><h5 id='3332检测二级域名是否成功'><span>3.3.3.2、检测二级域名是否成功</span></h5><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">➜  ~ <span class="cm-builtin">ping</span> hello.jobs295060456.top &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">PING hello.jobs295060456.top (213.59.119.127): <span class="cm-number">56</span> data bytes</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">0</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">219</span>.361 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">1</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">211</span>.785 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">2</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">215</span>.781 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">3</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">293</span>.858 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">4</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">311</span>.871 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">5</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">220</span>.170 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">6</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">250</span>.909 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">64</span> bytes from <span class="cm-number">213</span>.59.119.127: <span class="cm-def">icmp_seq</span><span class="cm-operator">=</span><span class="cm-number">7</span> <span class="cm-def">ttl</span><span class="cm-operator">=</span><span class="cm-number">44</span> <span class="cm-def">time</span><span class="cm-operator">=</span><span class="cm-number">269</span>.210 ms</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">^Z</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[1] &nbsp;<span class="cm-operator">+</span> <span class="cm-number">21627</span> suspended &nbsp;<span class="cm-builtin">ping</span> hello.jobs295060456.top</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 285px;"></div><div class="CodeMirror-gutters" style="display: none; height: 285px;"></div></div></div></pre><p><strong><span>🎉🍺 成功 🎉🍺</span></strong></p><h3 id='34ssh工具连接-vps'><span>3.4、SSH工具连接 VPS</span></h3><p><em><span>FinalShell</span></em></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">http</span>:<span class="cm-comment">//www.hostbuf.com/</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">http</span>:<span class="cm-comment">//www.hostbuf.com/t/988.html</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 48px;"></div><div class="CodeMirror-gutters" style="display: none; height: 48px;"></div></div></div></pre><p><img src="/Users/jobs/Desktop/自建VPS/FinalShell01.jpg" referrerpolicy="no-referrer" alt="FinalShell"></p><p><img src="/Users/jobs/Desktop/自建VPS/FinalShell02.jpg" referrerpolicy="no-referrer" alt="FinalShell02"></p><p><img src="/Users/jobs/Desktop/自建VPS/FinalShell03.jpg" referrerpolicy="no-referrer" alt="FinalShell03"></p><h3 id='35部署x-ui'><span>3.5、部署</span><code>X-UI</code></h3><p><em><code>X-UI</code><span>可视化节点部署的一个脚本</span></em></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">资料来源：</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">https</span>:<span class="cm-comment">//coderfan.net/how-to-use-x-ui-pannel-to-set-up-proxies-for-bypassing-gfw.html</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 71px;"></div><div class="CodeMirror-gutters" style="display: none; height: 71px;"></div></div></div></pre><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">apt update <span class="cm-attribute">-y</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">apt install <span class="cm-attribute">-y</span> <span class="cm-builtin">curl</span> socat</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">bash</span> &lt;(curl <span class="cm-attribute">-Ls</span> https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 71px;"></div><div class="CodeMirror-gutters" style="display: none; height: 71px;"></div></div></div></pre><p><img src="/Users/jobs/Desktop/自建VPS/X-UI 安装.jpg" referrerpolicy="no-referrer" alt="X-UI 安装"></p><h3 id='36访问x-ui面板'><span>3.6、访问</span><code>X-UI</code><span>面板</span></h3><p><em><span>因为没有配置https证书，所以网页报红</span></em></p><p><strong><span>VPS 公网IP + 刚设置的端口号54321，账密都是admin</span></strong></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">open</span> <span class="cm-variable">http</span>:<span class="cm-comment">//213.59.119.127:54321</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 24px;"></div><div class="CodeMirror-gutters" style="display: none; height: 24px;"></div></div></div></pre><p><img src="/Users/jobs/Desktop/自建VPS/X-UI 访问.jpg" referrerpolicy="no-referrer" alt="X-UI 访问"></p><p><img src="/Users/jobs/Desktop/自建VPS/X-UI 面板.jpg" referrerpolicy="no-referrer" alt="X-UI 面板"></p><h3 id='37申请ssl证书'><span>3.7、申请SSL证书</span></h3><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">一个域名对应一个SSL证书</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">泛域名配置证书，也就是一个证书涵盖所有的泛域名</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 48px;"></div><div class="CodeMirror-gutters" style="display: none; height: 48px;"></div></div></div></pre><h4 id='371在finalshell下输入x-ui调出x-ui的管理脚本输入16'><span>3.7.1、在</span><code>FinalShell</code><span>下输入</span><code>x-ui</code><span>,调出</span><code>X-UI</code><span>的管理脚本，输入</span><code>16</code></h4><p><img src="/Users/jobs/Desktop/自建VPS/利用X-UI对SSL证书进行申请.jpg" referrerpolicy="no-referrer" alt="利用X-UI对SSL证书进行申请"></p><h4 id='372完成一些设置'><span>3.7.2、完成一些设置</span></h4><h5 id='3721域名设置'><span>3.7.2.1、域名设置</span></h5><p><code>jobs295060456.top</code></p><h5 id='3722密钥设置'><span>3.7.2.2、密钥设置</span></h5><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">密钥位置: Cloudflare 👉🏻概述 👉🏻获取您的API令牌</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 24px;"></div><div class="CodeMirror-gutters" style="display: none; height: 24px;"></div></div></div></pre><p><img src="/Users/jobs/Desktop/自建VPS/申请SSL使用到的API密钥为止.jpg" referrerpolicy="no-referrer" alt="申请SSL使用到的API密钥为止"></p><p><img src="/Users/jobs/Desktop/自建VPS/SSL的Api令牌.jpg" referrerpolicy="no-referrer" alt="SSL的Api令牌"></p><p><span>Api密钥：</span><code>4890192c37124e425dac15c55768117c954ad</code></p><p><strong><span>注：查看Api密钥需要输入Cloudflare的登录密码，如果报错，请尝试重置登录密码</span></strong></p><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare的Api密钥🔑.jpg" referrerpolicy="no-referrer" alt="Cloudflare的Api密钥🔑"></p><h5 id='3723注册邮箱设置即输入cloudflare的用户名'><span>3.7.2.3、注册邮箱设置，即输入</span><code>Cloudflare</code><span>的用户名</span></h5><p><code>lg295060456@gmail.com</code></p><h5 id='3724相关日志打印'><span>3.7.2.4、相关日志打印</span></h5><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">root@vps73846798:~<span class="cm-comment"># x-ui</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  x-ui 面板管理脚本</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">0</span>. 退出脚本</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">————————————————</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">1</span>. 安装 x-ui</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">2</span>. 更新 x-ui</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">3</span>. 卸载 x-ui</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">————————————————</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">4</span>. 重置用户名密码</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">5</span>. 重置面板设置</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">6</span>. 设置面板端口</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">7</span>. 查看当前面板设置</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">————————————————</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">8</span>. 启动 x-ui</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">9</span>. 停止 x-ui</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">10</span>. 重启 x-ui</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">11</span>. 查看 x-ui 状态</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">12</span>. 查看 x-ui 日志</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">————————————————</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">13</span>. 设置 x-ui 开机自启</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">14</span>. 取消 x-ui 开机自启</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">————————————————</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">15</span>. 一键安装 bbr (最新内核)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-number">16</span>. 一键申请SSL证书(acme申请)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">面板状态: 已运行</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">是否开机自启: 是</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">xray 状态: 运行</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">请输入选择 [0-16]: <span class="cm-number">16</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[DEG] ******使用说明****** </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] 该脚本将使用Acme脚本申请证书,使用时需保证: </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] <span class="cm-number">1</span>.知晓Cloudflare 注册邮箱 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] <span class="cm-number">2</span>.知晓Cloudflare Global API Key </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] <span class="cm-number">3</span>.域名已通过Cloudflare进行解析到当前服务器 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] <span class="cm-number">4</span>.该脚本申请证书默认安装路径为/root/cert目录 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">我已确认以上内容[y/n] [默认y]: y</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] 安装Acme脚本 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  % Total &nbsp;  % Received % Xferd  Average Speed &nbsp; Time &nbsp;  Time &nbsp; &nbsp; Time  Current</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Dload  Upload &nbsp; Total &nbsp; Spent &nbsp;  Left  Speed</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">100</span> &nbsp;<span class="cm-number">1032</span> &nbsp; &nbsp;<span class="cm-number">0</span> &nbsp;<span class="cm-number">1032</span> &nbsp; &nbsp;<span class="cm-number">0</span> &nbsp; &nbsp; <span class="cm-number">0</span> &nbsp;<span class="cm-number">33290</span> &nbsp; &nbsp; &nbsp;<span class="cm-number">0</span> <span class="cm-attribute">--</span>:--:-- <span class="cm-attribute">--</span>:--:-- <span class="cm-attribute">--</span>:--:-- <span class="cm-number">33290</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  % Total &nbsp;  % Received % Xferd  Average Speed &nbsp; Time &nbsp;  Time &nbsp; &nbsp; Time  Current</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Dload  Upload &nbsp; Total &nbsp; Spent &nbsp;  Left  Speed</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">100</span>  216k &nbsp;<span class="cm-number">100</span>  216k &nbsp; &nbsp;<span class="cm-number">0</span> &nbsp; &nbsp; <span class="cm-number">0</span> &nbsp;<span class="cm-number">11</span>.7M &nbsp; &nbsp; &nbsp;<span class="cm-number">0</span> <span class="cm-attribute">--</span>:--:-- <span class="cm-attribute">--</span>:--:-- <span class="cm-attribute">--</span>:--:-- <span class="cm-number">11</span>.7M</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Installing from online archive.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Downloading https://github.com/acmesh-official/acme.sh/archive/master.tar.gz</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Extracting master.tar.gz</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Installing to /root/.acme.sh</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Installed to /root/.acme.sh/acme.sh</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Installing alias to <span class="cm-string">'/root/.bashrc'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] OK, Close and reopen your terminal to <span class="cm-builtin">start</span> using acme.sh</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Installing cron job</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-number">6</span> <span class="cm-number">0</span> * * * <span class="cm-string">"/root/.acme.sh"</span>/acme.sh <span class="cm-attribute">--cron</span> <span class="cm-attribute">--home</span> <span class="cm-string">"/root/.acme.sh"</span> &gt; /dev/null</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:30 AM EDT] Good, <span class="cm-builtin">bash</span> is found, so change the shebang to use <span class="cm-builtin">bash</span> as preferred.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:31 AM EDT] OK</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:28:31 AM EDT] Install success!</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[DEG] 请设置域名: </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Input your domain here:jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[DEG] 你的域名设置为:jobs295060456.top </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[DEG] 请设置API密钥: </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Input your key here:4890192c37124e425dac15c55768117c954ad</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[DEG] 你的API密钥为:4890192c37124e425dac15c55768117c954ad </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[DEG] 请设置注册邮箱: </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Input your email here:lg295060456@gmail.com</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[DEG] 你的注册邮箱为:lg295060456@gmail.com </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:52 AM EDT] Changed default CA to: https://acme-v02.api.letsencrypt.org/directory</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:53 AM EDT] Using CA: https://acme-v02.api.letsencrypt.org/directory</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:53 AM EDT] Create account key ok.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:53 AM EDT] Registering account: https://acme-v02.api.letsencrypt.org/directory</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] Registered</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] <span class="cm-def">ACCOUNT_THUMBPRINT</span><span class="cm-operator">=</span><span class="cm-string">'gpIfCKnb0NOoau8u24tSbdTBfRkyYB8KCTiMyUnR44I'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] Creating domain key</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] The domain key is here: /root/.acme.sh/jobs295060456.top_ecc/jobs295060456.top.key</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] Multi <span class="cm-def">domain</span><span class="cm-operator">=</span><span class="cm-string">'DNS:jobs295060456.top,DNS:*.jobs295060456.top'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] Getting domain auth token <span class="cm-keyword">for</span> each domain</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] Getting webroot <span class="cm-keyword">for</span> <span class="cm-def">domain</span><span class="cm-operator">=</span><span class="cm-string">'jobs295060456.top'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] Getting webroot <span class="cm-keyword">for</span> <span class="cm-def">domain</span><span class="cm-operator">=</span><span class="cm-string">'*.jobs295060456.top'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:54 AM EDT] Adding txt value: 0MdK3Ei8URRUkjoMSu65jtUlDfOQbOxTJVDHb7f2TYQ <span class="cm-keyword">for</span> domain:  _acme-challenge.jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:55 AM EDT] Adding record</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:55 AM EDT] Added, OK</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:55 AM EDT] The txt record is added: Success.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:55 AM EDT] Adding txt value: 17wqB9BfXBUlVVVK5RQBS8OByjKhkYhyzU3WSGDgsO8 <span class="cm-keyword">for</span> domain:  _acme-challenge.jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:56 AM EDT] Adding record</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:56 AM EDT] Added, OK</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:56 AM EDT] The txt record is added: Success.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:30:56 AM EDT] Let<span class="cm-string">'s check each DNS record now. Sleep 20 seconds first.</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:17 AM EDT] You can use <span class="cm-string">'--dnssleep'</span> to disable public dns checks.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:17 AM EDT] See: https://github.com/acmesh-official/acme.sh/wiki/dnscheck</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:17 AM EDT] Checking jobs295060456.top <span class="cm-keyword">for</span> _acme-challenge.jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:18 AM EDT] Domain jobs295060456.top <span class="cm-string">'_acme-challenge.jobs295060456.top'</span> success.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:18 AM EDT] Checking jobs295060456.top <span class="cm-keyword">for</span> _acme-challenge.jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:18 AM EDT] Domain jobs295060456.top <span class="cm-string">'_acme-challenge.jobs295060456.top'</span> success.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:18 AM EDT] All success, let<span class="cm-string">'s return</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:18 AM EDT] Verifying: jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:18 AM EDT] Pending, The CA is processing your order, please just wait. (1/30)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:21 AM EDT] Success</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:21 AM EDT] Verifying: *.jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:22 AM EDT] Pending, The CA is processing your order, please just wait. (1/30)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:25 AM EDT] Success</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:25 AM EDT] Removing DNS records.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:25 AM EDT] Removing txt: 0MdK3Ei8URRUkjoMSu65jtUlDfOQbOxTJVDHb7f2TYQ <span class="cm-keyword">for</span> domain: _acme-challenge.jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:26 AM EDT] Removed: Success</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:26 AM EDT] Removing txt: 17wqB9BfXBUlVVVK5RQBS8OByjKhkYhyzU3WSGDgsO8 <span class="cm-keyword">for</span> domain: _acme-challenge.jobs295060456.top</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:26 AM EDT] Removed: Success</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:26 AM EDT] Verify finished, <span class="cm-builtin">start</span> to sign.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:26 AM EDT] Lets finalize the order.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:26 AM EDT] <span class="cm-def">Le_OrderFinalize</span><span class="cm-operator">=</span><span class="cm-string">'https://acme-v02.api.letsencrypt.org/acme/finalize/1108981607/182098482777'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Downloading cert.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] <span class="cm-def">Le_LinkCert</span><span class="cm-operator">=</span><span class="cm-string">'https://acme-v02.api.letsencrypt.org/acme/cert/030b2b7829299a0208497386a22311e3eac7'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Cert success.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-attribute">-----BEGIN</span> CERTIFICATE-----</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">MIIEcTCCA1mgAwIBAgISAwsreCkpmgIISXOGoiMR4<span class="cm-operator">+</span>rHMA0GCSqGSIb3DQEBCwUA</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">EwJSMzAeFw0yMzA1MTQwODMxMjdaFw0yMzA4MTIwODMxMjZaMBwxGjAYBgNVBAMT</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">EWpvYnMyOTUwNjA0NTYudG9wMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEXB8D</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">ul2RS/l/Y<span class="cm-operator">+</span>UQkAc7WETEkPH3DDckaXDs3J6nDV3U7FK71BMIjkYHDNEvvGykNvKr</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">pdI3r/6z/HtH7KXdTqOCAmAwggJcMA4GA1UdDwEB/wQEAwIHgDAdBgNVHSUEFjAU</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">BggrBgEFBQcDAQYIKwYBBQUHAwIwDAYDVR0TAQH/BAIwADAdBgNVHQ4EFgQUdalS</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">MnwUCSBsNK5QNni2TtqzNFUwHwYDVR0jBBgwFoAUFC6zF7dYVsuuUAlA5h<span class="cm-operator">+</span>vnYsU</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">wsYwVQYIKwYBBQUHAQEESTBHMCEGCCsGAQUFBzABhhVodHRwOi8vcjMuby5sZW5j</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">ci5vcmcwIgYIKwYBBQUHMAKGFmh0dHA6Ly9yMy5pLmxlbmNyLm9yZy8wMQYDVR0R</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">BCowKIITKi5qb2JzMjk1MDYwNDU2LnRvcIIRam9iczI5NTA2MDQ1Ni50b3AwTAYD</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">VR0gBEUwQzAIBgZngQwBAgEwNwYLKwYBBAGC3xMBAQEwKDAmBggrBgEFBQcCARYa</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">aHR0cDovL2Nwcy5sZXRzZW5jcnlwdC5vcmcwggEDBgorBgEEAdZ5AgQCBIH0BIHx</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">AO8AdQB6MoxU2LcttiDqOOBSHumEFnAyE4VNO9IrwTpXo1LrUgAAAYgZmcJhAAAE</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">AwBGMEQCIAPPz2DbEsG1ztKI1KKV9AXMxwHuykqNN76ZNFaTUXHBAiBqxkp3DKPq</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">eE9qLOkw3<span class="cm-operator">+</span>UcM0lQEBiIwUxlV7f9/EZSewB2AK33vvp8/xDIi509nB4<span class="cm-operator">+</span>GGq0Zyld</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">z7EMJMqFhjTr3IKKAAABiBmZwn4AAAQDAEcwRQIhAMQX3bZ4nAAR6voyPl9ADHkj</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">wJ0CK/9hqn/gRbssDMk/AiAagV5uXUCw<span class="cm-operator">+</span>fbAuDwe/XOrz4xeIuRQ2G8<span class="cm-operator">+</span>xqBTYMs4</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">CTANBgkqhkiG9w0BAQsFAAOCAQEAd0Q/j4YBodhPZlU<span class="cm-operator">+</span>GZYAR0haW3EIQzsJUtbE</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">1QvW4k8IXusSCiFToEIK8vEB5NnqVij5rPPh7vJHbx<span class="cm-operator">+</span>igAZ57dmbO19yiVOQYHVi</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">4hiEqAbdRFOjpOoridFizrs2Ij0AOqSSOjaXxPsi8N2V/VOI9x1gCz90UAhfkugw</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">0M5Rrusq0nI/x8cxqFMTRIKt7GsPOrjHCc/9lbgafwFyLe0my34DOnyvfCf9evql</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">qWJVveOpABVrX/palNKPHWb75W6JU4/tq8Bf4JPGoSe3HNEfFX1o9gV36wKLtY80</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">JcgfjttEEUgGPxcDQT9aVyrLeSm3KRK6L<span class="cm-def">/W9GMSxtOWy9UQ3tw</span><span class="cm-operator">==</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-attribute">-----END</span> CERTIFICATE-----</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Your cert is <span class="cm-keyword">in</span>: /root/.acme.sh/jobs295060456.top_ecc/jobs295060456.top.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Your cert key is <span class="cm-keyword">in</span>: /root/.acme.sh/jobs295060456.top_ecc/jobs295060456.top.key</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] The intermediate CA cert is <span class="cm-keyword">in</span>: /root/.acme.sh/jobs295060456.top_ecc/ca.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] And the full chain certs is there: /root/.acme.sh/jobs295060456.top_ecc/fullchain.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] 证书签发成功,安装中... </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] The domain <span class="cm-string">'jobs295060456.top'</span> seems to have a ECC cert already, lets use ecc cert.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Installing cert to: /root/cert/jobs295060456.top.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Installing CA to: /root/cert/ca.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Installing key to: /root/cert/jobs295060456.top.key</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:27 AM EDT] Installing full chain to: /root/cert/fullchain.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] 证书安装成功,开启自动更新... </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:28 AM EDT] Already uptodate!</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[Sun <span class="cm-number">14</span> May <span class="cm-number">2023</span> <span class="cm-number">05</span>:31:28 AM EDT] Upgrade success!</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[INF] 证书已安装且已开启自动更新,具体信息如下 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">total 28K</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">drwxr-xr-x <span class="cm-number">2</span> root root <span class="cm-number">4</span>.0K May <span class="cm-number">14</span> <span class="cm-number">05</span>:31 .</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">drwx------ <span class="cm-number">6</span> root root <span class="cm-number">4</span>.0K May <span class="cm-number">14</span> <span class="cm-number">05</span>:28 ..</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-attribute">-rw-r--r--</span> <span class="cm-number">1</span> root root <span class="cm-number">3</span>.7K May <span class="cm-number">14</span> <span class="cm-number">05</span>:31 ca.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-attribute">-rw-r--r--</span> <span class="cm-number">1</span> root root <span class="cm-number">5</span>.3K May <span class="cm-number">14</span> <span class="cm-number">05</span>:31 fullchain.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-attribute">-rw-r--r--</span> <span class="cm-number">1</span> root root <span class="cm-number">1</span>.6K May <span class="cm-number">14</span> <span class="cm-number">05</span>:31 jobs295060456.top.cer</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-attribute">-rw-------</span> <span class="cm-number">1</span> root root &nbsp;<span class="cm-number">227</span> May <span class="cm-number">14</span> <span class="cm-number">05</span>:31 jobs295060456.top.key</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">root@vps73846798:~<span class="cm-comment"># </span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 4132px;"></div><div class="CodeMirror-gutters" style="display: none; height: 4132px;"></div></div></div></pre><h4 id='373rootcert-证书文件夹'><span>3.7.3、</span><code>/root/cert</code><span> 证书文件夹</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/刷新→云服务器上的root:cert文件夹.jpg" referrerpolicy="no-referrer" alt="刷新→云服务器上的root:cert文件夹"></p><p><img src="/Users/jobs/Desktop/自建VPS/cert文件夹.jpg" referrerpolicy="no-referrer" alt="cert文件夹"></p><h4 id='374x-ui面板证书设置'><span>3.7.4、</span><code>X-UI</code><span>面板证书设置</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/X-UI面板证书设置.jpg" referrerpolicy="no-referrer" alt="X-UI面板证书设置"></p><p><em><span>保存并重启</span><code>X-UI</code><span> 面板后以</span><code>https</code><span>的形式进入</span><code>X-UI</code><span>面板</span></em></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">open</span> <span class="cm-variable">https</span>:<span class="cm-comment">//hello.jobs295060456.top:54321/</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 24px;"></div><div class="CodeMirror-gutters" style="display: none; height: 24px;"></div></div></div></pre><h3 id='38在x-ui面板里面部署入站节点'><span>3.8、在</span><code>X-UI</code><span>面板里面部署入站节点</span></h3><p><img src="/Users/jobs/Desktop/自建VPS/在X-UI面板里面部署入站节点.jpg" referrerpolicy="no-referrer" alt="在X-UI面板里面部署入站节点"></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">点击操作👉🏻二维码👉🏻复制:</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">vless://d8cabfc6-146f-41dd-8d48-59000cf10df8@hello.jobs295060456.top:443?type=tcp&amp;security=xtls&amp;flow=xtls-rprx-direct#%E5%93%88%E5%93%88%E5%93%88</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 95px;"></div><div class="CodeMirror-gutters" style="display: none; height: 95px;"></div></div></div></pre><h3 id='39使用qv2ray'><span>3.9、使用</span><code>Qv2ray</code></h3><h4 id='391安装'><span>3.9.1、安装</span></h4><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="bash"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">open https://formulae.brew.sh/cask/qv2ray</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">brew install <span class="cm-attribute">--cask</span> qv2ray</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 48px;"></div><div class="CodeMirror-gutters" style="display: none; height: 48px;"></div></div></div></pre><h4 id='392数据导入'><span>3.9.2、数据导入</span></h4><p><img src="/Users/jobs/Desktop/自建VPS/导入二维码字符串资料到qv2ray.jpg" referrerpolicy="no-referrer" alt="导入二维码字符串资料到qv2ray"></p><p><img src="/Users/jobs/Desktop/自建VPS/qv2ray.jpg" referrerpolicy="no-referrer" alt="qv2ray"></p><h3 id='310ip优选套用cdn拯救线路'><span>3.10、IP优选：套用CDN拯救线路</span></h3><h4 id='3101准备工作'><span>3.10.1、准备工作</span></h4><h5 id='31011断开qv2ray链接并删除图略'><span>3.10.1.1、断开Qv2ray链接并删除(图略)</span></h5><h5 id='31012在x-ui面板-入站列表里面删除刚才配置的节点图略'><span>3.10.1.2、在X-UI面板-入站列表里面，删除刚才配置的节点(图略)</span></h5><h4 id='3102操作流程'><span>3.10.2、操作流程</span></h4><h5 id='31021打开dnscloudflare找到解析域名的地方开启代理'><span>3.10.2.1、打开DNS：Cloudflare，找到解析域名的地方，开启代理</span></h5><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare开启代理.jpg" referrerpolicy="no-referrer" alt="Cloudflare开启代理"></p><h5 id='31022cloudflare里面ssltls-加密模式设置为完全严格）'><span>3.10.2.2、Cloudflare里面SSL/TLS 加密模式设置为完全（严格）</span></h5><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare里面SSL:TLS 加密模式设置为完全（严格）.jpg" referrerpolicy="no-referrer" alt="Cloudflare里面SSL:TLS 加密模式设置为完全（严格）"></p><h5 id='31023在x-ui面板里面建立vlesswstls的代理节点'><span>3.10.2.3、在</span><code>X-UI</code><span>面板里面建立</span><code>VLESS+WS+TLS</code><span>的代理节点</span></h5><p><em><span>检验</span><code>Cloudflare</code><span>域名是否代理成功生效</span></em></p><p><img src="/Users/jobs/Desktop/自建VPS/检验Cloudflare域名是否代理成功.jpg" referrerpolicy="no-referrer" alt="检验Cloudflare域名是否代理成功"></p><p><em><span>因为代理成功生效，此时访问以下👇🏻域名是不成功的</span></em></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">open</span> <span class="cm-variable">https</span>:<span class="cm-comment">//hello.jobs295060456.top:54321/</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 24px;"></div><div class="CodeMirror-gutters" style="display: none; height: 24px;"></div></div></div></pre><p><span>此时只能通过以下👇🏻形式访问</span><code>X-UI</code><span>面板</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="javascript"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="javascript"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.875px; left: 7.734375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: currentcolor;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: currentcolor;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">open</span> <span class="cm-variable">http</span>:<span class="cm-comment">//213.59.119.127:54321/xui/</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 24px;"></div><div class="CodeMirror-gutters" style="display: none; height: 24px;"></div></div></div></pre><p><em><span>X-UI面板设置WS协议</span></em></p><p><img src="/Users/jobs/Desktop/自建VPS/X-UI面板设置WS协议.jpg" referrerpolicy="no-referrer" alt="X-UI面板设置WS协议"></p><p><em><span>和之前的操作一样，复制二维码分享链接，利用</span><code>Qv2ray</code><span>进行导入</span></em></p><p><strong><span>注：但是要对节点进行修改以后才可使用</span></strong></p><h5 id='31024cloudflare设置请求头'><span>3.10.2.4、Cloudflare设置请求头</span></h5><p><em><span>设置请求头为：host|hello.jobs295060456.top</span></em></p><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare设置请求头.jpg" referrerpolicy="no-referrer" alt="Cloudflare设置请求头"></p><h5 id='31025cloudflare设置服务器地址'><span>3.10.2.5、Cloudflare设置服务器地址</span></h5><p><em><span>服务器地址为:hello.jobs295060456.top</span></em></p><p><img src="/Users/jobs/Desktop/自建VPS/Cloudflare设置服务器地址.jpg" referrerpolicy="no-referrer" alt="Cloudflare设置服务器地址"></p><p><strong><span>双击节点并进行使用</span></strong></p></div></div>
+</body>
+</html>
