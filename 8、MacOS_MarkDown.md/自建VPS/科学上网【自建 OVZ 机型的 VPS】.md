@@ -49,28 +49,26 @@
         - [3.10.2.4、Cloudflare设置请求头](#31024cloudflare设置请求头)
         - [3.10.2.5、Cloudflare设置服务器地址](#31025cloudflare设置服务器地址)
 
-
 ## 1、前言
 
-```javascript
-资料来源：
+*资料来源*
 
-https://www.youtube.com/watch?v=Stdj6U568S0
-https://v2rayssr.com/teach-vless.html
+[youtube/自建VPS科学上网节点！一个视频就够了！6.88RMB/月无限流量看8K！域名注册、解析、托管Cloudflare、证书申请、套用CDN！保姆级VPN搭建教程！（关联翻墙/VPS推荐/节点搭建）](https://www.youtube.com/watch?v=Stdj6U568S0)
+
+[v2rayssr综合网/保姆级节点搭建！VPS、域名、CF、VLESS小白教程！1刀/月的VPS居然可以看8K？新手这一个教程就够了](https://v2rayssr.com/teach-vless.html)
+
+*VPS 是什么？*
+
 ```
-
-```
-VPS 是什么？
-
 把一部服务器分割为多个服务器，每个服务器拥有自己独立的公网IP地址以及独立的操作系统
 VPS 分国内的和国外的。国外的 VPS 就是我们科学上网所需要的 VPS
 我们可以通过访问国外的 VPS 来访问 YouTube
 通过这么一个中转站，我们可以访问被墙的资源
 ```
 
-```
-特点
+*特点*
 
+```
 1、无限流量
 2、小白入门
 3、价格便宜
@@ -102,7 +100,7 @@ VPS 分国内的和国外的。国外的 VPS 就是我们科学上网所需要�
 注：身份认证不核验电话号码，但是必须全英文，不接受中文，地址随机英文字也可
 ```
 
-![namesilo的DNS设置](/Users/jobs/Desktop/自建VPS/namesilo的DNS设置.jpg)
+![namesilo的DNS设置](./assets/namesilo的DNS设置.jpg)
 
 #### 3.1.2、 DNS管理
 
@@ -110,7 +108,7 @@ VPS 分国内的和国外的。国外的 VPS 就是我们科学上网所需要�
 
 *删除默认配置*
 
-![删除默认的DNS配置](/Users/jobs/Desktop/自建VPS/删除默认的DNS配置.jpg)
+![删除默认的DNS配置](./assets/删除默认的DNS配置.jpg)
 
 **自此，域名`jobs295060456.top`购买成功**
 
@@ -131,29 +129,29 @@ VPS 分国内的和国外的。国外的 VPS 就是我们科学上网所需要�
 
 #### 3.2.2、添加站点
 
-![Cloudflare添加站点](/Users/jobs/Desktop/自建VPS/Cloudflare添加站点.jpg)
+![Cloudflare添加站点](./assets/Cloudflare添加站点.jpg)
 
 #### 3.2.3、选择（Free）计划
 
-![Cloudflare添加站点选择计划](/Users/jobs/Desktop/自建VPS/Cloudflare添加站点选择计划.jpg)
+![Cloudflare添加站点选择计划](./assets/Cloudflare添加站点选择计划.jpg)
 
 #### 3.2.4、查看记录
 
-![Cloudflare查看记录](/Users/jobs/Desktop/自建VPS/Cloudflare查看记录.jpg)
+![Cloudflare查看记录](./assets/Cloudflare查看记录.jpg)
 
 **点击`继续`**
 
 #### 3.2.5、更改您的名称服务器（完毕以后，需要刷新 Cloudflare ，检查是否生效）
 
-![namesilo的DNS 记录](/Users/jobs/Desktop/自建VPS/namesilo的DNS 记录.jpg)
+![namesilo的DNS 记录](./assets/namesilo的DNS 记录.jpg)
 
-![Namesilo删除并填入Cloudflare名称服务器](/Users/jobs/Desktop/自建VPS/Namesilo删除并填入Cloudflare名称服务器.jpg)
+![Namesilo删除并填入Cloudflare名称服务器](./assets/Namesilo删除并填入Cloudflare名称服务器.jpg)
 
 **自此，namesilo 完毕  ！！！相关功能被Cloudflare进行托管  ... 等待域名生效**
 
 #### 3.2.6、成功生效
 
-![Namesilo->Cloudflare生效](/Users/jobs/Desktop/自建VPS/Namesilo->Cloudflare生效.jpg)
+![Namesilo->Cloudflare生效](./assets/Namesilo->Cloudflare生效.jpg)
 
 **同时，Cloudflare 的注册邮箱会受到一封生效的邮件**
 
@@ -175,7 +173,7 @@ root密码即为以后用SSH工具链接时用的密码
 系统按需选择，这里选用debian 10
 ```
 
-![hosteons成功购买服务器](/Users/jobs/Desktop/自建VPS/hosteons成功购买服务器.jpg)
+![hosteons成功购买服务器](./assets/hosteons成功购买服务器.jpg)
 
 ```
 Primary IP
@@ -188,7 +186,7 @@ Primary IP
 
 **搭建 VPS 推荐使用二级域名**
 
-![Cloudflare添加DNS公网IP](/Users/jobs/Desktop/自建VPS/Cloudflare添加DNS公网IP.jpg)
+![Cloudflare添加DNS公网IP](./assets/Cloudflare添加DNS公网IP.jpg)
 
 **暂时关闭是为了演示一个不良效果**
 
@@ -220,21 +218,19 @@ http://www.hostbuf.com/
 http://www.hostbuf.com/t/988.html
 ```
 
-![FinalShell](/Users/jobs/Desktop/自建VPS/FinalShell01.jpg)
+![FinalShell](./assets/FinalShell01.jpg)
 
-![FinalShell02](/Users/jobs/Desktop/自建VPS/FinalShell02.jpg)
+![FinalShell02](./assets/FinalShell02.jpg)
 
-![FinalShell03](/Users/jobs/Desktop/自建VPS/FinalShell03.jpg)
+![FinalShell03](./assets/FinalShell03.jpg)
 
 ### 3.5、部署`X-UI`
 
 *`X-UI`可视化节点部署的一个脚本*
 
-```javascript
-资料来源：
+*资料来源*
 
-https://coderfan.net/how-to-use-x-ui-pannel-to-set-up-proxies-for-bypassing-gfw.html
-```
+[科学上网：使用X-UI面板快速搭建多协议、多用户代理服务，支持CDN](https://coderfan.net/how-to-use-x-ui-pannel-to-set-up-proxies-for-bypassing-gfw.html)
 
 ```bash
 apt update -y
@@ -242,7 +238,7 @@ apt install -y curl socat
 bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 ```
 
-![X-UI 安装](/Users/jobs/Desktop/自建VPS/X-UI 安装.jpg)
+![X-UI 安装](./assets/X-UI 安装.jpg)
 
 ### 3.6、访问`X-UI`面板
 
@@ -254,9 +250,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 open http://213.59.119.127:54321
 ```
 
-![X-UI 访问](/Users/jobs/Desktop/自建VPS/X-UI 访问.jpg)
+![X-UI 访问](./assets/X-UI 访问.jpg)
 
-![X-UI 面板](/Users/jobs/Desktop/自建VPS/X-UI 面板.jpg)
+![X-UI 面板](./assets/X-UI 面板.jpg)
 
 ### 3.7、申请SSL证书
 
@@ -267,7 +263,7 @@ open http://213.59.119.127:54321
 
 #### 3.7.1、在`FinalShell`下输入`x-ui`,调出`X-UI`的管理脚本，输入`16`
 
-![利用X-UI对SSL证书进行申请](/Users/jobs/Desktop/自建VPS/利用X-UI对SSL证书进行申请.jpg)
+![利用X-UI对SSL证书进行申请](./assets/利用X-UI对SSL证书进行申请.jpg)
 
 #### 3.7.2、完成一些设置
 
@@ -281,15 +277,15 @@ open http://213.59.119.127:54321
 密钥位置: Cloudflare 👉🏻概述 👉🏻获取您的API令牌
 ```
 
-![申请SSL使用到的API密钥为止](/Users/jobs/Desktop/自建VPS/申请SSL使用到的API密钥为止.jpg)
+![申请SSL使用到的API密钥为止](./assets/申请SSL使用到的API密钥为止.jpg)
 
-![SSL的Api令牌](/Users/jobs/Desktop/自建VPS/SSL的Api令牌.jpg)
+![SSL的Api令牌](./assets/SSL的Api令牌.jpg)
 
 Api密钥：`4890192c37124e425dac15c55768117c954ad`
 
 **注：查看Api密钥需要输入Cloudflare的登录密码，如果报错，请尝试重置登录密码**
 
-![Cloudflare的Api密钥🔑](/Users/jobs/Desktop/自建VPS/Cloudflare的Api密钥🔑.jpg)
+![Cloudflare的Api密钥🔑](./assets/Cloudflare的Api密钥🔑.jpg)
 
 ##### 3.7.2.3、注册邮箱设置，即输入`Cloudflare`的用户名
 
@@ -463,13 +459,13 @@ root@vps73846798:~#
 
 #### 3.7.3、`/root/cert` 证书文件夹
 
-![刷新→云服务器上的root:cert文件夹](/Users/jobs/Desktop/自建VPS/刷新→云服务器上的root:cert文件夹.jpg)
+![刷新→云服务器上的root:cert文件夹](./assets/刷新→云服务器上的root:cert文件夹.jpg)
 
-![cert文件夹](/Users/jobs/Desktop/自建VPS/cert文件夹.jpg)
+![cert文件夹](./assets/cert文件夹.jpg)
 
 #### 3.7.4、`X-UI`面板证书设置
 
-![X-UI面板证书设置](/Users/jobs/Desktop/自建VPS/X-UI面板证书设置.jpg)
+![X-UI面板证书设置](./assets/X-UI面板证书设置.jpg)
 
 *保存并重启`X-UI` 面板后以`https`的形式进入`X-UI`面板*
 
@@ -479,7 +475,7 @@ open https://hello.jobs295060456.top:54321/
 
 ### 3.8、在`X-UI`面板里面部署入站节点
 
-![在X-UI面板里面部署入站节点](/Users/jobs/Desktop/自建VPS/在X-UI面板里面部署入站节点.jpg)
+![在X-UI面板里面部署入站节点](./assets/在X-UI面板里面部署入站节点.jpg)
 
 ```
 点击操作👉🏻二维码👉🏻复制:
@@ -498,9 +494,9 @@ brew install --cask qv2ray
 
 #### 3.9.2、数据导入
 
-![导入二维码字符串资料到qv2ray](/Users/jobs/Desktop/自建VPS/导入二维码字符串资料到qv2ray.jpg)
+![导入二维码字符串资料到qv2ray](./assets/导入二维码字符串资料到qv2ray.jpg)
 
-![qv2ray](/Users/jobs/Desktop/自建VPS/qv2ray.jpg)
+![qv2ray](./assets/qv2ray.jpg)
 
 ### 3.10、IP优选：套用CDN拯救线路
 
@@ -514,17 +510,17 @@ brew install --cask qv2ray
 
 ##### 3.10.2.1、打开DNS：Cloudflare，找到解析域名的地方，开启代理
 
-![Cloudflare开启代理](/Users/jobs/Desktop/自建VPS/Cloudflare开启代理.jpg)
+![Cloudflare开启代理](./assets/Cloudflare开启代理.jpg)
 
 ##### 3.10.2.2、Cloudflare里面SSL/TLS 加密模式设置为完全（严格）
 
-![Cloudflare里面SSL:TLS 加密模式设置为完全（严格）](/Users/jobs/Desktop/自建VPS/Cloudflare里面SSL:TLS 加密模式设置为完全（严格）.jpg)
+![Cloudflare里面SSL:TLS 加密模式设置为完全（严格）](./assets/Cloudflare里面SSL:TLS 加密模式设置为完全（严格）.jpg)
 
 ##### 3.10.2.3、在`X-UI`面板里面建立`VLESS+WS+TLS`的代理节点
 
 *检验`Cloudflare`域名是否代理成功生效*
 
-![检验Cloudflare域名是否代理成功](/Users/jobs/Desktop/自建VPS/检验Cloudflare域名是否代理成功.jpg)
+![检验Cloudflare域名是否代理成功](./assets/检验Cloudflare域名是否代理成功.jpg)
 
 *因为代理成功生效，此时访问以下👇🏻域名是不成功的*
 
@@ -540,7 +536,7 @@ open http://213.59.119.127:54321/xui/
 
 *X-UI面板设置WS协议*
 
-![X-UI面板设置WS协议](/Users/jobs/Desktop/自建VPS/X-UI面板设置WS协议.jpg)
+![X-UI面板设置WS协议](./assets/X-UI面板设置WS协议.jpg)
 
 *和之前的操作一样，复制二维码分享链接，利用`Qv2ray`进行导入*
 
@@ -550,12 +546,12 @@ open http://213.59.119.127:54321/xui/
 
 *设置请求头为：host|hello.jobs295060456.top*
 
-![Cloudflare设置请求头](/Users/jobs/Desktop/自建VPS/Cloudflare设置请求头.jpg)
+![Cloudflare设置请求头](./assets/Cloudflare设置请求头.jpg)
 
 ##### 3.10.2.5、Cloudflare设置服务器地址
 
 *服务器地址为:hello.jobs295060456.top*
 
-![Cloudflare设置服务器地址](/Users/jobs/Desktop/自建VPS/Cloudflare设置服务器地址.jpg)
+![Cloudflare设置服务器地址](./assets/Cloudflare设置服务器地址.jpg)
 
 **双击节点并进行使用**

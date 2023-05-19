@@ -1,7 +1,12 @@
 #  MacOS_brew
 
 [toc]
-
+- [MacOS\_brew](#macos_brew)
+  - [1、brew 本地文件的下载地址](#1brew-本地文件的下载地址)
+  - [2、brew 服务列表](#2brew-服务列表)
+  - [3、其他的一些 brew 命令](#3其他的一些-brew-命令)
+  - [4、Homebrew Cask](#4homebrew-cask)
+    - [4.1、Homebrew Cask 的安装位置](#41homebrew-cask-的安装位置)
 ## 1、brew 本地文件的下载地址
 
 ```shell

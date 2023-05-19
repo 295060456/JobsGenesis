@@ -59,23 +59,29 @@ code .
 
 ## 2、加权限(当前用户的执行权限)
 
-```javascript
-资料来源
+*资料来源*
 
-https://www.jianshu.com/p/d11f2c49921b
-```
+[mac查看、修改文件权限的命令](https://www.jianshu.com/p/d11f2c49921b)
+
+*用户组*
 
 ```
 u 代表用户;
 g 代表用户组;
 o 代表其他;
 a 代表所有;
+```
 
+*权限*
+
+```
 -: 代表无权限;
 r: 代表可读权限;
 w: 代表可写权限;
 x: 代表可执行权限;
 ```
+
+*示例*
 
 ```shell
 # 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
@@ -93,11 +99,9 @@ chmod u+x $fileFullName
 
 ## 3、关于路径
 
-```javascript
-资料来源
+*资料来源*
 
-https://blog.csdn.net/LGD_2008/article/details/45913957
-```
+[CSDN/shell 中获取文件真实路径（绝对路径）](https://blog.csdn.net/LGD_2008/article/details/45913957)
 
 *获取 MacOS 系统桌面路径*
 
@@ -160,6 +164,8 @@ else
 fi
 ```
 
+*参数说明*
+
 ```shell
 <<'COMMENT'
 大于 -gt (greater than)
@@ -188,11 +194,9 @@ fi
 
 ### 6.2、字符串截取
 
-```javascript
-资料来源：
+*资料来源*
 
-https://blog.csdn.net/you_123/article/details/125409826
-```
+[CSDN/shell脚本截取两个关键字之间的字符](https://blog.csdn.net/you_123/article/details/125409826)
 
 #### 6.2.1、shell脚本截取两个关键字之间的字符❤️
 
@@ -411,11 +415,9 @@ echo $PRGDIR
 
 #### 13.2.6、参数的获取
 
-```
-资料来源
+*资料来源*
 
-https://segmentfault.com/a/1190000021435389
-```
+[[segmentfault/Bash技巧:介绍 $0、$1、$2、$#、$@、$*、$? 的含义](https://segmentfault.com/a/1190000021435389)]
 
 ##### 13.2.6.1、获取参数的值
 
@@ -521,11 +523,9 @@ $ ./testparams.sh This is a test
 
 ## 14、获取文件的路径、文件名、后缀、父级文件夹名等
 
-```javascript
-资料来源
+*资料来源*
 
-https://blog.csdn.net/u010670689/article/details/53425111
-```
+[CSDN/shell截取文件名和文件目录](https://blog.csdn.net/u010670689/article/details/53425111)
 
 *以 `/dir1/dir2/file.txt `为例*
 

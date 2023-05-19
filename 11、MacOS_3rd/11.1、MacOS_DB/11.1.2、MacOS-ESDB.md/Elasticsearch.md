@@ -1,14 +1,12 @@
-# MacOS elasticsearch 
+# MacOS elasticsearch
 
-## 1、安装
+[TOC]
 
-*使用 brew 安装 elasticsearch*
+## 1、使用`brew` 安装 `elasticsearch`
 
-```javascript
-相关资料
+*相关资料*
 
-https://blog.csdn.net/lilyssh/article/details/119646563
-```
+[CSDN/Mac安装ES：elasticsearch has been deprecated，incompatible license，no bottle available!](https://blog.csdn.net/lilyssh/article/details/119646563)
 
 **注意：brew install elasticsearch 已被弃用**
 
@@ -16,7 +14,7 @@ https://blog.csdn.net/lilyssh/article/details/119646563
 brew install elastic/tap/elasticsearch-full
 ```
 
-```
+```bash
 ➜  ~ brew list elastic/tap/elasticsearch-full      
 Warning: Calling plist_options is deprecated! Use service.require_root instead.
 Please report this issue to the elastic/tap tap (not Homebrew/brew or Homebrew/homebrew-core), or even better, submit a PR to fix it:

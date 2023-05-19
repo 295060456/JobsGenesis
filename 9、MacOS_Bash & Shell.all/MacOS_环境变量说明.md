@@ -54,12 +54,9 @@
       - [2.3.2.2、通过 brew 安装 Oh My Posh](#2322通过-brew-安装-oh-my-posh)
     - [2.3.3、【卸载】Oh My Posh](#233卸载oh-my-posh)
 
+*资料来源*
 
-```javascript
-资料来源
-
-https://www.jianshu.com/p/acb1f062a925
-```
+[简书/MAC 设置环境变量PATH 和 查看PATH](https://www.jianshu.com/p/acb1f062a925)
 
 ## 1.1、系统变量的加载顺序
 
@@ -219,11 +216,9 @@ For more details, please visit https://support.apple.com/kb/HT208050.
 
 # 2、第三方的 Bash
 
-```javascript
-资料来源
+*资料来源*
 
-https://rutger-t.medium.com/installing-zsh-and-oh-my-zsh-on-mac-using-homebrew-af80d266515d
-```
+[Installing Zsh and Oh My Zsh on Mac using Homebrew](https://rutger-t.medium.com/installing-zsh-and-oh-my-zsh-on-mac-using-homebrew-af80d266515d)
 
 ## 2.1、Zsh
 
@@ -252,7 +247,7 @@ brew list zsh
 路径为：/opt/homebrew/Cellar/zsh/5.9/bin/zsh
 ```
 
-#### 2.1.1.3、写入环境变量
+#### 2.1.1.3、写入环境变量 TODO
 
 ```bash
 sudo vi /etc/shells
@@ -261,8 +256,12 @@ sudo vi /etc/shells
 ```bash
 因为是 MacOS 系统受保护区，所以需要复制到新建一个文件，修改并进行整体替换
 在 /etc/shells 文末加入：/opt/homebrew/Cellar/zsh/5.9/bin/zsh
+```
 
-// ToDu 期望用shell脚本：echo '/opt/homebrew/Cellar/zsh/5.9/bin/zsh' >> /etc/shells
+*shell脚本：echo '/opt/homebrew/Cellar/zsh/5.9/bin/zsh' >> /etc/shells*
+
+```
+// TODO
 ```
 
 #### 2.1.1.4、更改默认终端

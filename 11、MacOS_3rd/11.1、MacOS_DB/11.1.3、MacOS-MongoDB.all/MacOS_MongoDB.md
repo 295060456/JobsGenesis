@@ -1,14 +1,33 @@
 # MacOS 平台上 关于芒果🥭数据库
 
 [toc]
+- [MacOS 平台上 关于芒果🥭数据库](#macos-平台上-关于芒果数据库)
+  - [1、MacOS\_MongoDB](#1macos_mongodb)
+    - [1.1、简介](#11简介)
+    - [1.2、安装 `MongoDB`](#12安装-mongodb)
+      - [2.1、使用`Homebrew`安装 `mongodb`（废弃）](#21使用homebrew安装-mongodb废弃)
+      - [2.1、使用 `Homebrew Cask` 安装 `gcollazo-mongodb`](#21使用-homebrew-cask-安装-gcollazo-mongodb)
+      - [2.2、使用 `Homebrew Cask` 安装 `MongoDB 6.0 Community Edition`](#22使用-homebrew-cask-安装-mongodb-60-community-edition)
+    - [1.3、端口](#13端口)
+  - [2、`MongoDB Compass`](#2mongodb-compass)
+    - [2.1、安装 `MongoDB Compass`](#21安装-mongodb-compass)
+    - [2.2、相关说明](#22相关说明)
+  - [3、`Mongosh`](#3mongosh)
+    - [3.1、安装 `mongosh`](#31安装-mongosh)
+    - [3.2、利用`mongosh`访问`MongoDB`](#32利用mongosh访问mongodb)
+    - [3.3、利用`mongosh` CRUD 操作`MongoDB`](#33利用mongosh-crud-操作mongodb)
+      - [3.3.1、创建（Create）名为`Jobs`的数据库](#331创建create名为jobs的数据库)
+      - [3.3.2、查询（Read）名为`Jobs`的数据库](#332查询read名为jobs的数据库)
+      - [3.3.3、删除（Delete）名为`Jobs`的数据库](#333删除delete名为jobs的数据库)
+      - [3.3.4、更新（Update）名为`Jobs`的数据库](#334更新update名为jobs的数据库)
 
-```javascript
-资料来源
+*资料来源*
 
-https://www.toutiao.com/article/7199175994111033871/?tt_from=copy_link&utm_campaign=client_share&app=news_article&utm_source=copy_link&iid=424846500052268&utm_medium=toutiao_ios&use_new_style=1&share_token=68F663DD-D220-4190-9013-E541DEEABF55
-https://www.runoob.com/mongodb/mongodb-tutorial.html
-https://www.w3cschool.cn/mongodb/mongodb-query.html
-```
+[今日头条/一文详解Mongodb数据库，适合大数据存储](https://www.toutiao.com/article/7199175994111033871/?tt_from=copy_link&utm_campaign=client_share&app=news_article&utm_source=copy_link&iid=424846500052268&utm_medium=toutiao_ios&use_new_style=1&share_token=68F663DD-D220-4190-9013-E541DEEABF55)
+
+[runoob/MongoDB 教程](https://www.runoob.com/mongodb/mongodb-tutorial.html)
+
+[w3cschool/MongoDB 查询文档](https://www.w3cschool.cn/mongodb/mongodb-query.html)
 
 ## 1、MacOS_MongoDB
 
@@ -31,14 +50,15 @@ MongoDB 文档类似于 JSON 对象
 
 ### 1.2、安装 `MongoDB`
 
-```javascript
-资料来源
+*资料来源*
 
-https://www.runoob.com/mongodb/mongodb-osx-install.html
-https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
-https://github.com/gcollazo/mongodbapp
-https://juejin.cn/post/7069566026655989767
-```
+[runoob/Mac OSX 平台安装 MongoDB](https://www.runoob.com/mongodb/mongodb-osx-install.html)
+
+[Mongodb官网/Install MongoDB Community Edition on macOS](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
+
+[Github/The easiest way to get started with mongoDB on the Mac](https://github.com/gcollazo/mongodbapp)
+
+[稀土掘金/使用 brew 安装使用 mongodb](https://juejin.cn/post/7069566026655989767)
 
 #### 2.1、使用`Homebrew`安装 `mongodb`（废弃）
 
@@ -213,12 +233,11 @@ Or, if you don't want/need a background service you can just run:
 
 ### 2.1、安装 `MongoDB Compass`
 
-```javascript
-相关资料
+*相关资料*
 
-https://formulae.brew.sh/cask/mongodb-compass
-https://www.tizi365.com/topic/59.html
-```
+[[Homebrew Formulae/mongodb-compass]](https://formulae.brew.sh/cask/mongodb-compass)
+
+[MongoDB Compass教程](https://www.tizi365.com/topic/59.html)
 
 ```bash
 brew install --cask mongodb-compass

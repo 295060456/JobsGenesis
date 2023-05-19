@@ -53,20 +53,15 @@
     - [11.6、查看数据表`user`的表结构](#116查看数据表user的表结构)
   - [12、一些插件](#12一些插件)
 
-```javascript
-资料来源
+*资料来源*
 
-http://c.biancheng.net/view/7498.html
-```
+[C语言中文网/MySQL查看用户权限](http://c.biancheng.net/view/7498.html)
 
 ## 1、卸载 和 删除 MySql
 
-```javascript
-资料来源
+*资料来源*
 
-【如何清理 brew 安装的 mysql ？mysql 的数据文件在哪里？】
-https://newsn.net/say/brew-uninstall-mysql.html
-```
+[如何清理 brew 安装的 mysql ？mysql 的数据文件在哪里？](https://newsn.net/say/brew-uninstall-mysql.html)
 
 ### 1.1、清除程序体
 
@@ -147,9 +142,9 @@ brew services start mysql // 启动MySQL
 运行(sudo) mysql.server start 前台启动mysql
 ```
 
-![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E9%80%9A%E8%BF%87brew%E5%AE%89%E8%A3%85%E7%9A%84MySql%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg?raw=true)
+![通过brew安装的MySql目录结构](./assets/通过brew安装的MySql目录结构.jpg)
 
-### 2.2、从官网下载 MySql 直接安装在本机（未验证）
+### 2.2、从官网下载 MySql 直接安装在本机（未验证)
 
 ```javascript
 open https://juejin.cn/post/6844903956305412104
@@ -333,12 +328,11 @@ brew_mysql 的配置文件 需要映射到 系统的 mysql 配置文件 方可�
 
 ### 3.1、配置文件的加载顺序
 
-```javascript
-资料来源
+*资料来源*
 
-【MySQL修改启动端口无效】https://blog.csdn.net/luxiaoruo/article/details/113730007
-【MySQL服务读取参数文件my.cnf的规律研究探索】https://www.cnblogs.com/kerrycode/p/8582249.html
-```
+[MySQL修改启动端口无效](https://blog.csdn.net/luxiaoruo/article/details/113730007)
+
+[MySQL服务读取参数文件my.cnf的规律研究探索](https://www.cnblogs.com/kerrycode/p/8582249.html)
 
 **如果在启动 Mysql的时候未指定 `my.cnf ` 那么他将从左至右依次去找寻` /etc/my.cnf` `/etc/mysql/my.cnf` `/opt/homebrew/etc/my.cnf ` `~/.my.cnf `**
 
@@ -500,12 +494,11 @@ mysql> show global variables like "%datadir%" ;
 
 ## 5、 MySql 用户
 
-```javascript
-资料来源
+*资料来源*
 
-【 MySql 列出所有用户】https://www.yiibai.com/mysql/show-users.html
-【 MySql 创建用户与授权】https://www.jianshu.com/p/d7b9c468f20d
-```
+[易百教程/MySql 列出所有用户](https://www.yiibai.com/mysql/show-users.html)
+
+[简书/MySql 创建用户与授权](https://www.jianshu.com/p/d7b9c468f20d)
 
 ```mysql
 // 举例：新建用户（账:Jobs;密:Jobs295060456） + 授权（库 + 表）+ 刷新 + 查询 + 建库（Test_db）用库
@@ -535,7 +528,7 @@ source /Users/jobs/Desktop/Test_db.sql
 
 ### 5.1、显示全部用户
 
-USE mysql;select user,host from user;
+*USE mysql;select user,host from user;*
 
 ```mysql
 mysql> USE mysql;
@@ -601,11 +594,9 @@ use mysql;select user,host from user;
 
 *相关报错解决*
 
-```javascript
-参考资料
+*参考资料*
 
-https://juejin.cn/s/mysql%20%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7%E6%97%A0%E6%B3%95%E7%99%BB%E9%99%86
-```
+[稀土掘金/mysql 新建用户无法登陆](https://juejin.cn/s/mysql%20%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7%E6%97%A0%E6%B3%95%E7%99%BB%E9%99%86)
 
 ```mysql
 新建用户，却无法正常登录使用的问题排查方案：
@@ -625,17 +616,14 @@ GRANT permission ON database.table TO 'username'@'hostname';
 
 ### 5.4、授权
 
-```javascript
-资料来源
-
-【Mysql 查看用户授予的权限】https://www.cnblogs.com/kerrycode/p/7423850.html
-```
+[Mysql 查看用户授予的权限](https://www.cnblogs.com/kerrycode/p/7423850.html)
 
 #### 5.4.1、用户授权
 
 ```mysql
 命令格式：
 GRANT privileges ON databasename.tablename TO 'username'@'host'
+
 说明：
 host：指定该用户在哪个主机上可以登陆，如果是本地用户可用localhost，如果想让该用户可以从任意远程主机登陆，可以使用通配符%
 privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所有的权限则使用ALL
@@ -678,11 +666,9 @@ mysql> drop user 'Jobs'@'localhost';
 
 ### 5.6、误删 root 用户的解决办法❤️
 
-```javascript
-资料来源
+*资料来源*
 
-https://blog.csdn.net/weixin_42521856/article/details/113152530
-```
+[CSDN/mysql 删除root用户_mysql误删root用户解决办法](https://blog.csdn.net/weixin_42521856/article/details/113152530)
 
 #### 5.6.1、运行脚本
 
@@ -748,14 +734,11 @@ mysql> exit
 
 ## 6、MySql 密码修改
 
-```javascript
-资料来源
+*资料来源*
 
-【MySql修改密码的3种方式】 http://c.biancheng.net/view/7152.html
-【MySql修改root密码的4种方法】 https://blog.csdn.net/qq_33285112/article/details/78982766
-【MySql root密码忘记，原来还有更优雅的解法！】https://www.cnblogs.com/ivictor/p/9243259.html
-【mysql修改用户密码的方法及命令】https://cloud.tencent.com/developer/article/2097188
-```
+[MySql修改密码的3种方式](http://c.biancheng.net/view/7152.html)[MySql修改root密码的4种方法](https://blog.csdn.net/qq_33285112/article/details/78982766)
+[MySql root密码忘记，原来还有更优雅的解法！](https://www.cnblogs.com/ivictor/p/9243259.html)
+[mysql修改用户密码的方法及命令](https://cloud.tencent.com/developer/article/2097188)
 
 **温馨提示：无密码状态，不能用任何客户端链接成功**
 
@@ -794,7 +777,7 @@ brew list mysql
 
 **6.2.2、按照`.brew/mysql.rb`的配置逻辑，修改my.cnf，并使其生效**
 
-![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E5%85%B3%E4%BA%8E.brew:mysql.rb.jpg?raw=true)
+![关于.brew:mysql.rb](./assets/关于.brew:mysql.rb.jpg)
 
 *`.bottle`是隐藏文件夹，其名下的`/etc/my.cnf`为 mysql 配置文件*
 
@@ -806,7 +789,7 @@ brew list mysql
 cp /opt/homebrew/Cellar/mysql/8.0.32/.bottle/etc/my.cnf /etc  
 ```
 
-![](https://github.com/295060456/JobsGenesis/blob/main/8%E3%80%81MacOS-MySql/MacOS-MySql.pic/%E4%BD%BF%E5%BE%97my.cnf%E7%94%9F%E6%95%88.jpg?raw=true)
+![使得my.cnf生效](./assets/使得my.cnf生效.jpg)
 
 **6.2.5、重启 `mysql`**
 
@@ -982,11 +965,9 @@ Query OK, 0 rows affected (0.01 sec)
 
 ## 9、MySql 日志
 
-```javascript
-资料来源
+*资料来源*
 
-https://blog.csdn.net/Kirito_j/article/details/82714515
-```
+[CSDN/mysql 查看日志和启动日志](https://blog.csdn.net/Kirito_j/article/details/82714515)
 
 ### 9.1、Mysql 有以下几种日志👇🏻
 
@@ -1031,12 +1012,11 @@ mysql> show master logs;
 
 ## 10、MySql 和 Shell 命令的互相调用
 
-```javascript
-资料来源
+*资料来源*
 
-https://blog.csdn.net/chengyuqiang/article/details/121340775
-https://blog.csdn.net/wocjj/article/details/7459033
-```
+[CSDN/MySQL和Shell命令交互执行](https://blog.csdn.net/chengyuqiang/article/details/121340775)
+
+[CSDN/在mysql中执行shell命令](https://blog.csdn.net/wocjj/article/details/7459033)
 
 ### 10.1、在 Shell 中执行 MySql 相关查询
 
@@ -1094,7 +1074,7 @@ mysql> show databases;
 
 ### 11.2、删除名为`test`的数据库
 
-  **关键词`drop`**
+**关键词`drop`**
 
 ```mysql
 mysql> drop test database;

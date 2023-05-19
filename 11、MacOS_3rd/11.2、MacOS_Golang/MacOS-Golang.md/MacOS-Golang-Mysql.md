@@ -13,11 +13,9 @@
     - [4.2、**实现对数据的删（delete）操作**](#42实现对数据的删delete操作)
     - [4.3、**实现对数据库的改（update）操作**](#43实现对数据库的改update操作)
 
-```javascript
-资料来源
+*资料来源*
 
-https://studygolang.com/articles/14642
-```
+[go语言中文网/在golang中操作mysql数据库实现增删改操作](https://studygolang.com/articles/14642)
 
 ## 1、本地查看 Mysql 数据库
 
