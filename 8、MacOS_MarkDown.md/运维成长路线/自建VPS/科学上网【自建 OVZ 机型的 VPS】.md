@@ -238,7 +238,7 @@ apt install -y curl socat
 bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 ```
 
-![X-UI 安装](./assets/X-UI 安装.jpg)
+![X-UI安装](./assets/X-UI安装.jpg)
 
 ### 3.6、访问`X-UI`面板
 
@@ -250,9 +250,9 @@ bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 open http://213.59.119.127:54321
 ```
 
-![X-UI 访问](./assets/X-UI 访问.jpg)
+![X-UI访问](./assets/X-UI访问.jpg)
 
-![X-UI 面板](./assets/X-UI 面板.jpg)
+![X-UI面板](./assets/X-UI面板.jpg)
 
 ### 3.7、申请SSL证书
 
@@ -514,7 +514,7 @@ brew install --cask qv2ray
 
 ##### 3.10.2.2、Cloudflare里面SSL/TLS 加密模式设置为完全（严格）
 
-![Cloudflare里面SSL:TLS 加密模式设置为完全（严格）](./assets/Cloudflare里面SSL:TLS 加密模式设置为完全（严格）.jpg)
+![Cloudflare里面SSL:TLS加密模式设置为完全（严格）](./assets/Cloudflare里面SSL:TLS加密模式设置为完全（严格）.jpg)
 
 ##### 3.10.2.3、在`X-UI`面板里面建立`VLESS+WS+TLS`的代理节点
 
