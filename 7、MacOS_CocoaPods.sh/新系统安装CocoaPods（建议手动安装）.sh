@@ -1,21 +1,23 @@
 #! /bin/sh
-
 # 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
 
-# Mac安装Ruby版本管理器（RVM）
-# 资料来源
-## https://www.jianshu.com/p/e36c0a1c6b49
-## https://www.jianshu.com/p/00ef52c4cd3f
-## https://blog.csdn.net/u014163312/article/details/124784377
-## https://juejin.cn/post/6950518188798902286
-## https://www.jianshu.com/p/c459ecfaf9db
-## https://www.jianshu.com/p/f3e4ae8e14a6
-## https://mac.install.guide/ruby/index.html
-## https://mac.install.guide/faq/do-not-use-mac-system-ruby/index.html
-## https://www.jianshu.com/p/6ddeade2c565
-## https://www.shuzhiduo.com/A/qVdeEK1gdP/
-## https://blog.csdn.net/shentian885/article/details/113548167
+<<'COMMENT'
+资料来源
 
+https://www.jianshu.com/p/e36c0a1c6b49
+https://www.jianshu.com/p/00ef52c4cd3f
+https://blog.csdn.net/u014163312/article/details/124784377
+https://juejin.cn/post/6950518188798902286
+https://www.jianshu.com/p/c459ecfaf9db
+https://www.jianshu.com/p/f3e4ae8e14a6
+https://mac.install.guide/ruby/index.html
+https://mac.install.guide/faq/do-not-use-mac-system-ruby/index.html
+https://www.jianshu.com/p/6ddeade2c565
+https://www.shuzhiduo.com/A/qVdeEK1gdP/
+https://blog.csdn.net/shentian885/article/details/113548167
+COMMENT
+
+# Mac安装Ruby版本管理器（RVM）
 echo "安装流程： Command Line Tools->Brew->Ruby->Gem->CocoaPods \n"
 
 echo "============================= 一些准备工作 =============================\n"
@@ -38,29 +40,22 @@ echo "亦可前往👉🏻苹果官网手动下载：https://developer.apple.com
 echo "查看当前 Command Line Tools 的版本"
 llvm-gcc --version
 echo "============================正在安装Homebrew...============================\n"
-#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#echo "环境变量设置..."
-#echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
-#open /Users/$(whoami)/.zprofile
-#eval "$(/opt/homebrew/bin/brew shellenv)"
-#echo "升级brew"
-#brew update
-#brew upgrade
-
-if brew -v;then
-    echo "The package is installed"
-    ### brew 升级
-    brew update
-    brew doctor
-    brew -v
-else
-    echo "The package is not installed"
+# 检测是否已经安装了brew
+if ! command -v brew &> /dev/null
+then
+    echo "brew 未安装，开始安装..."
     open https://brew.sh/
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    ### brew环境变量设置
+    ## brew环境变量设置
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
     open /Users/$(whoami)/.zprofile
     eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    echo "brew 已经安装，跳过安装步骤。"
+    ## brew 升级
+    brew update
+    brew doctor
+    brew -v
 fi
 
 echo "安装一些由brew管理的包"
@@ -220,7 +215,7 @@ sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 echo "============================ 安装CocoaPods本地库 =============================\n"
 git clone https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/trunk
 # 如果在国内那么就选用清华大学的镜像地址
-#git clone https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git  ~/.cocoapods/repos/trunk
+## git clone https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git  ~/.cocoapods/repos/trunk
 echo "☕️检查一下安装的成果☕️"
 pod search Masonry
 

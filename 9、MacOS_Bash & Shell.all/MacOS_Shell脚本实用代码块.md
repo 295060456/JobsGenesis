@@ -413,6 +413,29 @@ PRGDIR=$(cd $(dirname $PRG); pwd)
 echo $PRGDIR
 ```
 
+#### 13.2.5、获取当前执行脚本的时间，并将其存储到变量中
+
+```
+cur_time=$(date +"%Y-%m-%d %H:%M:%S")
+echo "当前执行的脚本时间是：${cur_time}"
+```
+
+其中，**$(date +"%Y-%m-%d %H:%M:%S")**用于获取当前时间，并将其格式化为年-月-日 时:分:秒的形式。
+该时间将存储在**cur_time**变量中，并使用echo命令将其输出到屏幕上。
+
+如果想要在脚本执行期间不断更新当前时间，可以将上述命令放在一个无限循环中，并添加一些睡眠时间，如下所示:
+
+```
+while true
+do
+    cur_time=$(date +"%Y-%m-%d %H:%M:%S")
+    echo "当前执行的脚本时间是：${cur_time}"
+    sleep 1
+done
+```
+
+这将每秒钟更新一次当前时间，并将其输出到屏幕上。
+
 #### 13.2.6、参数的获取
 
 *资料来源*
@@ -650,7 +673,101 @@ version=$(mysql --version | awk -F 'Ver ' '{ print $2 }' | awk -F ' for' '{ prin
 echo $version
 ```
 
-## 18、其他
+## 18、检测本机MacOS 是否安装了brew
+
+*如果没有安装则下载安装，已经安装则进行跳过处理*
+
+```shell
+#!/bin/bash
+
+# 检测是否已经安装了brew
+if ! command -v brew &> /dev/null
+then
+    echo "brew 未安装，开始安装..."
+    open https://brew.sh/
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ## brew环境变量设置
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+    open /Users/$(whoami)/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    echo "brew 已经安装，跳过安装步骤。"
+    ## brew 升级
+    brew update
+    brew doctor
+    brew -v
+fi
+```
+
+*卸载 brew* 
+
+```shell
+echo "======== 不管系统有没有安装brew 首先全部归零 ========"
+echo "执行brew垃圾清除..."
+brew cleanup
+echo "准备卸载Homebrew..."
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"  
+echo "准备手动清除Homebrew安装残留（可能需要输入管理员密码）"
+sudo rm -rf /usr/local/Caskroom/
+sudo rm -rf /usr/local/Frameworks/
+sudo rm -rf /usr/local/Homebrew/
+sudo rm -rf /usr/local/bin/
+sudo rm -rf /usr/local/etc/
+sudo rm -rf /usr/local/include/
+sudo rm -rf /usr/local/lib/
+sudo rm -rf /usr/local/opt/
+sudo rm -rf /usr/local/sbin/
+sudo rm -rf /usr/local/share/
+sudo rm -rf /usr/local/var/
+# 解决 Running `brew update --preinstall`... fatal: Could not resolve HEAD to a revision
+sudo rm -rf $(brew --repo homebrew/core)
+echo "======== 执行完毕brew归零操作 ========"
+```
+
+## 19、检测本机MacOS 上的 brew，是否已经安装某个由 brew 管理的软件
+
+### 19.1、单一软件的判定
+
+*如果没有安装则下载安装，已经安装则进行跳过处理*
+
+例：`pandoc`
+
+```shell
+#!/bin/bash
+
+# 检测是否已经安装了pandoc
+if ! command -v pandoc &> /dev/null
+then
+    echo "pandoc 未安装，开始安装..."
+    brew install pandoc
+else
+    echo "pandoc 已经安装，跳过安装步骤。"
+fi
+```
+
+*或者*
+
+```shell
+if [[ $(command -v pandoc) ]]; then
+  echo "pandoc is already installed."
+else
+  echo "pandoc is not installed. Installing..."
+  brew install pandoc
+fi
+```
+
+### 19.2、多软件的判定，例：`curl` + `wget`
+
+```shell
+if [[ -z “$(command -v curl)” || -z “$(command -v wget)” ]]; then
+echo “未检测到curl或wget命令，现在开始安装curl命令…”
+echo “”
+brew install curl
+echo “”
+fi
+```
+
+## 20、其他
 
 ```shell
 <<'COMMENT'

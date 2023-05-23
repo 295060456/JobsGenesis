@@ -1,7 +1,24 @@
 #!/bin/bash
 
-# 🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛
+# 检测是否已经安装了brew
+if ! command -v brew &> /dev/null
+then
+    echo "brew 未安装，开始安装..."
+    open https://brew.sh/
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ## brew环境变量设置
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+    open /Users/$(whoami)/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    echo "brew 已经安装，跳过安装步骤。"
+    ## brew 升级
+    brew update
+    brew doctor
+    brew -v
+fi
 
+# 🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛🌛
 ## 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
 ## 加执行权限
 function addExe(){

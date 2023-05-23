@@ -25,9 +25,9 @@ fi
 
 exit 0
 
-#注:如果出现root用户没有/user/bin权限,那是由于系统启用了SIP（System Integerity Protection）导致root用户也没有修改权限，所以我们需要屏蔽掉这个功能
-#1.重启电脑
-#2.command + R 进入recover模式
-#3.点击最上方菜单使用工具，选择终端
-#4.运行命令csrutil disable
-#5.重新启动电脑
+# 注:如果出现root用户没有/user/bin权限,那是由于系统启用了SIP（System Integerity Protection）导致root用户也没有修改权限，所以我们需要屏蔽掉这个功能
+# 1.重启电脑
+# 2.command + R 进入recover模式
+# 3.点击最上方菜单使用工具，选择终端
+# 4.运行命令csrutil disable
+# 5.重新启动电脑

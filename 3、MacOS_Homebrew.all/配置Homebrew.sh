@@ -2,31 +2,23 @@
 
 # 如果没有执行权限，在这个sh文件的目录下，执行chmod u+x *.sh
 
-echo "======== 不管系统有没有安装brew 首先全部归零 ========"
-echo "执行brew垃圾清除..."
-brew cleanup
-echo "准备卸载Homebrew..."
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"  
-echo "准备手动清除Homebrew安装残留（可能需要输入管理员密码）"
-sudo rm -rf /usr/local/Caskroom/
-sudo rm -rf /usr/local/Frameworks/
-sudo rm -rf /usr/local/Homebrew/
-sudo rm -rf /usr/local/bin/
-sudo rm -rf /usr/local/etc/
-sudo rm -rf /usr/local/include/
-sudo rm -rf /usr/local/lib/
-sudo rm -rf /usr/local/opt/
-sudo rm -rf /usr/local/sbin/
-sudo rm -rf /usr/local/share/
-sudo rm -rf /usr/local/var/
-# 解决 Running `brew update --preinstall`... fatal: Could not resolve HEAD to a revision
-sudo rm -rf $(brew --repo homebrew/core)
-echo "======== 执行完毕brew归零操作 ========"
-
-echo "正在安装Homebrew..."
-#Error: Can't create update lock in /usr/local/var/homebrew/locks! Fix permissions by running:
-sudo chown -R $(whoami) /usr/local/var/homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# 检测是否已经安装了brew
+if ! command -v brew &> /dev/null
+then
+    echo "brew 未安装，开始安装..."
+    open https://brew.sh/
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ## brew环境变量设置
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+    open /Users/$(whoami)/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+else
+    echo "brew 已经安装，跳过安装步骤。"
+    ## brew 升级
+    brew update
+    brew doctor
+    brew -v
+fi
 
 echo "环境变量设置..."
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
@@ -76,6 +68,29 @@ brew install cask
 # brew upgrade
 # brew reinstall
 
+<<'COMMENT'
+卸载 brew
 
+echo "======== 不管系统有没有安装brew 首先全部归零 ========"
+echo "执行brew垃圾清除..."
+brew cleanup
+echo "准备卸载Homebrew..."
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"  
+echo "准备手动清除Homebrew安装残留（可能需要输入管理员密码）"
+sudo rm -rf /usr/local/Caskroom/
+sudo rm -rf /usr/local/Frameworks/
+sudo rm -rf /usr/local/Homebrew/
+sudo rm -rf /usr/local/bin/
+sudo rm -rf /usr/local/etc/
+sudo rm -rf /usr/local/include/
+sudo rm -rf /usr/local/lib/
+sudo rm -rf /usr/local/opt/
+sudo rm -rf /usr/local/sbin/
+sudo rm -rf /usr/local/share/
+sudo rm -rf /usr/local/var/
+# 解决 Running `brew update --preinstall`... fatal: Could not resolve HEAD to a revision
+sudo rm -rf $(brew --repo homebrew/core)
+echo "======== 执行完毕brew归零操作 ========"
+COMMENT
 
 
