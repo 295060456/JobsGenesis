@@ -121,7 +121,7 @@ echo "$(dirname $0)/$(basename $0)"
 filepath=$(cd "$(dirname "$0")"; pwd)
 ```
 
-## 4、键盘监听
+## 4、键盘监听❤️
 
 ```shell
 read -p "请输入项目文件夹名字,以回车结束:" folder_name
