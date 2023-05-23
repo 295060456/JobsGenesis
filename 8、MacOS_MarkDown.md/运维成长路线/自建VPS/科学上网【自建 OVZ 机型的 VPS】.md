@@ -100,7 +100,7 @@ VPS 分国内的和国外的。国外的 VPS 就是我们科学上网所需要�
 注：身份认证不核验电话号码，但是必须全英文，不接受中文，地址随机英文字也可
 ```
 
-![namesilo的DNS设置](./assets/namesilo的DNS设置.jpg)
+![Namesilo的DNS设置](./assets/Namesilo的DNS设置.jpg)
 
 #### 3.1.2、 DNS管理
 
@@ -143,7 +143,7 @@ VPS 分国内的和国外的。国外的 VPS 就是我们科学上网所需要�
 
 #### 3.2.5、更改您的名称服务器（完毕以后，需要刷新 Cloudflare ，检查是否生效）
 
-![namesilo的DNS 记录](./assets/namesilo的DNS 记录.jpg)
+![Namesilo的DNS 记录](./assets/Namesilo的DNS 记录.jpg)
 
 ![Namesilo删除并填入Cloudflare名称服务器](./assets/Namesilo删除并填入Cloudflare名称服务器.jpg)
 
@@ -173,7 +173,7 @@ root密码即为以后用SSH工具链接时用的密码
 系统按需选择，这里选用debian 10
 ```
 
-![hosteons成功购买服务器](./assets/hosteons成功购买服务器.jpg)
+![Hosteons成功购买服务器](./assets/Hosteons成功购买服务器.jpg)
 
 ```
 Primary IP
