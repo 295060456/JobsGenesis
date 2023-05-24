@@ -121,7 +121,11 @@ echo "$(dirname $0)/$(basename $0)"
 filepath=$(cd "$(dirname "$0")"; pwd)
 ```
 
-## 4、键盘监听❤️
+## 4、键盘监听(read)❤️
+
+### 4.1、键盘输入 => 变量
+
+*键盘输入值到变量`defaultInput`*
 
 ```shell
 read -p "请输入项目文件夹名字,以回车结束:" folder_name
@@ -129,9 +133,32 @@ defaultInput $folder_name
 # echo "The value of var is ${defaultInput}"
 ```
 
+*把键盘输入放入变量`sure`*
+
 ```shell
-# 把键盘输入放入变量sure
 read sure
+```
+
+### 4.2、高级用法示例
+
+```shell
+#!/bin/bash
+
+while true;do
+    # 提示用户输入路径
+    read -p "请输入文件路径: " path
+    # 检查路径是否存在
+    if [ -e "$path" ]
+    then
+        echo "路径存在"
+        # 提取不带后缀的文件名
+        filename=$(basename "$path" .$(echo "$path" | awk -F . '{print $NF}'))
+        echo "文件名为: $filename"
+        break
+    else
+        echo "路径不存在，请重新输入"
+    fi
+done
 ```
 
 ## 5、if/else举例
@@ -139,7 +166,9 @@ read sure
 *读取判定键盘输入的字符是否为回车*
 
 ```shell
-if [[ $sure = "" ]];then
+read -p "请输入项目文件夹名字,以回车结束:" folder_name
+defaultInput $folder_name
+if [[ $folder_name = "" ]];then
 
 else
   
@@ -299,12 +328,13 @@ EOF
 
 ### 11.2、向文件写一行内容
 
-```
-全局搜索文件（ ~/.bash_profile），
-进行文件内查找字符串（GOPATH），
-并对其进行写入（export PATH="$GOPATH/bin:$PATH"），并刷新配置
+*配置 **GOPATH** 的环境变量*
 
-【唯一性】
+```
+1、全局搜索文件（ ~/.bash_profile）;
+2、进行文件内查找字符串（GOPATH）;
+3、并对其进行写入（export PATH="$GOPATH/bin:$PATH"），并刷新配置;
+4、唯一性：目标文件里只允许写入一次
 ```
 
 ```shell
@@ -315,11 +345,30 @@ if [ $? -ne 0 ] ;then
 fi
 ```
 
+*配置 **Homebrew** 的环境变量*
+
+```
+1、将 Homebrew 添加到终端会话的环境变量中，以便确保所有 Homebrew 安装的软件包都可以在终端中使用。
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+2、将 Homebrew 加载到当前 Shell 会话中，以便立即生效。这意味着您现在可以使用 Homebrew 来安装、更新和删除软件包。
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
 ## 12、在列表里面（gem list --local）搜寻（grep）文本（cocoapods）
 
 ```shell
 echo "查看本地安装过的cocopods相关东西"
 gem list --local | grep cocoapods
+```
+
+### 12.1、grep 返回的退出状态
+
+```
+<<'COMMENT'
+grep 返回的退出状态为0，表示成功;
+退出状态为1，表示没有找到;
+如果找不到指定的文件，退出状态为2;
+COMMENT
 ```
 
 ## 13、获取当前用户信息
@@ -765,14 +814,4 @@ echo “”
 brew install curl
 echo “”
 fi
-```
-
-## 20、其他
-
-```shell
-<<'COMMENT'
-grep返回的退出状态为0，表示成功。 
-退出状态为1，表示没有找到。 
-如果找不到指定的文件，退出状态为2
-COMMENT
 ```
