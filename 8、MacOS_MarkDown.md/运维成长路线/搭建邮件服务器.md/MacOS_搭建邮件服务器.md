@@ -21,7 +21,7 @@
 				- [2.5.2.3、Http 的方式验证申请](#2523http-的方式验证申请)
 				- [2.5.2.4、DNS 验证的方式申请证书](#2524dns-验证的方式申请证书)
 			- [2.5.3、安装证书到指定文件夹](#253安装证书到指定文件夹)
-*资料来源*
+			*资料来源*
 
 [百度百科/邮件服务器](https://baike.baidu.com/item/%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/985736)
 
@@ -109,16 +109,26 @@ PTR 反向解析（逆向解析）。即，PTR记录: IP 地址 ===映射===> �
 因此，RFC1035 定义了 PTR（Pointer Record）记录。PTR 记录将 IP 地址指向域名。
 ```
 
-### 1.4、 电子邮件系统中的邮件交换记录(PTR Record)
+### 1.4、电子邮件系统中的邮件交换记录
+
+***PTR**记录 = **P**oin**t**er **R**ecord = 指针记录 = 电子邮件系统中的邮件交换记录的一种数据类型;*
 
 ```
-1、PTR记录 = Pointer Record = 指针记录 = 电子邮件系统中的邮件交换记录的一种数据类型;
-2、另一种邮件交换记录是A记录（在IPv4协议中）或AAAA记录（在IPv6协议中）;
-3、PTR记录常被用于反向地址解析;
-4、被互联网标准文件RFC1035所定义:与其相对应的是A记录、地址记录。二者组成邮件交换记录;
-5、当正向域名解析完成后，还应当向您的线路接入商（ISP）申请做反向地址解析，以减少被国外机构退信的可能性;
-6、邮件服务器收到邮件的时候，会查询邮件是从那个IP发出的，根据这个地址做反向解析。
-	6.1、如果反向解析得到的域名 ≠ 发送邮件的域名 ===> 邮件不是从真正的服务器发出的 ===> 导致邮件被拒收，造成退信
+1、另一种邮件交换记录是A记录（在IPv4协议中）或AAAA记录（在IPv6协议中）;
+2、PTR记录常被用于反向地址解析;
+3、被互联网标准文件RFC1035所定义:与其相对应的是A记录、地址记录。二者组成邮件交换记录;
+4、当正向域名解析完成后，还应当向您的线路接入商（ISP）申请做反向地址解析，以减少被国外机构退信的可能性;
+5、邮件服务器收到邮件的时候，会查询邮件是从那个IP发出的，根据这个地址做反向解析。
+	5.1、如果反向解析得到的域名 ≠ 发送邮件的域名 ===> 邮件不是从真正的服务器发出的 ===> 导致邮件被拒收，造成退信
+```
+
+### 1.5、名称服务器
+
+*名称服务器（Name Server）是一种用于域名解析的服务器，也称为域名服务器。*
+
+```
+它的主要作用是将用户输入的域名，转换为对应的IP地址，从而实现用户通过域名访问网站的功能。
+当用户在浏览器中输入域名时，该请求首先会发送给本地的名称服务器，如果该名称服务器无法解析域名，则会向根名称服务器发送请求，根名称服务器会将请求转发给对应的顶级域名服务器，直至找到对应的IP地址并返回给用户。
 ```
 
 ## 2、搭建流程
@@ -131,10 +141,14 @@ PTR 反向解析（逆向解析）。即，PTR记录: IP 地址 ===映射===> �
 
 [segmentfault/从0到1搭建域名邮件服务器](https://segmentfault.com/a/1190000040727863)
 
+[大公司都在抢着用的iRedMail搭建教程，无限制发信就是这么牛！](https://www.youtube.com/watch?v=G23DgqU9DuI)
+
+[iRedMail搭建企业邮件服务器，实现邮件自由](https://iweec.com/221.html)
+
 *搭建的意义*
 
 ```
-1、ZOH O免费邮箱，可以建立属于自己的域名邮箱。类似于:admin@jobs.me;
+1、ZOHO 免费邮箱，可以建立属于自己的域名邮箱。类似于:admin@jobs.me;
 2、ZOHO 广告多，Yandex 或者 ZOHO，都存在不同程度的局限性;
 3、由宝塔邮局等一些邮件系统，发送的邮件，大概率会进入对方的垃圾箱，且有丢失邮件的情况;
 特别是有自己网站和公司的，需要有自己的邮件系统
@@ -143,9 +157,7 @@ PTR 反向解析（逆向解析）。即，PTR记录: IP 地址 ===映射===> �
 免费、开源的 iRedMail 就很不错
 ```
 
-*服务器配置*
-
-**https://hosteons.com/**
+*服务器配置推荐*
 
 ```
 1、内存 > 1GB
@@ -154,11 +166,79 @@ PTR 反向解析（逆向解析）。即，PTR记录: IP 地址 ===映射===> �
 4、VPS 最好要能够支持 PTR 反向解析
 ```
 
-### 2.1、连接`VPS`
+### 2.1、相关准备工作
 
-#### 2.1.1、相关准备工作
+#### 2.1.1、购买并解析绑定域名`jobs996.top`
 
-![image-20230526045748930](./assets/image-20230526045748930.png)
+[域名购买/namesilo](https://www.namesilo.com/)
+
+*双向绑定*
+
+```
+1、购买域名
+2、在DNS处进行解析绑定
+3、回到购买域名处，填入DNS名称服务器
+```
+
+![image-20230531025036558](./assets/image-20230531025036558.png)
+
+*等待域名生效*
+
+```
+名称服务器更新的速度通常取决于多个因素，包括但不限于：
+
+1、进行更新的域名服务器本身的特征，例如其网络速度，负载，缓存情况等；
+2、DNS记录的TTL（生存时间），即记录在缓存中的时间；
+3、不同DNS服务器之间的同步延迟；
+4、在更新后重新传播记录的时间，以及可能包含更新的任何中间DNS服务器传播的时间。
+
+一般来说，名称服务器更新通常需要几个小时至一天的时间才能生效。但是，这是一个估计值，具体时间可能会有所不同。
+```
+
+![image-20230531033237874](./assets/image-20230531033237874.png)
+
+*开启代理时候的状态*
+
+```shell
+➜  ~  ping mail.jobs996.top
+PING mail.jobs996.top (104.21.86.229): 56 data bytes
+64 bytes from 104.21.86.229: icmp_seq=0 ttl=55 time=47.439 ms
+64 bytes from 104.21.86.229: icmp_seq=1 ttl=55 time=42.886 ms
+64 bytes from 104.21.86.229: icmp_seq=2 ttl=55 time=51.909 ms
+64 bytes from 104.21.86.229: icmp_seq=3 ttl=55 time=42.903 ms
+64 bytes from 104.21.86.229: icmp_seq=4 ttl=55 time=43.498 ms
+^Z
+[1]  + 94539 suspended  ping mail.jobs996.top
+```
+
+**❤️当开启代理状态，立马进行关闭的时候，需要等一段时间。ping出的IP地址即为正确的地址❤️**
+
+*关闭代理时候的状态*
+
+```shell
+➜  ~ ping mail.jobs996.top 
+PING mail.jobs996.top (45.86.65.212): 56 data bytes
+64 bytes from 45.86.65.212: icmp_seq=0 ttl=50 time=203.588 ms
+64 bytes from 45.86.65.212: icmp_seq=1 ttl=50 time=203.275 ms
+64 bytes from 45.86.65.212: icmp_seq=2 ttl=50 time=202.290 ms
+64 bytes from 45.86.65.212: icmp_seq=3 ttl=50 time=212.433 ms
+^Z
+[1]  + 97586 suspended  ping mail.jobs996.top
+```
+
+*如果域名尚未成功解析，这个时候去申请SSL证书，可以成功吗？*
+
+```
+不可以。
+SSL证书需要在域名解析成功后才能申请，因为SSL证书需要验证域名的所有权。
+如果域名没有成功解析，证书颁发机构无法验证域名所有权，因此无法颁发SSL证书。
+```
+
+#### 2.1.2、购买`VPS`
+
+[云服务器购买/hosteons](https://hosteons.com/)
+
+![image-20230531032444267](./assets/image-20230531032444267.png)
 
 *打开 FinalShell*
 
@@ -168,7 +248,7 @@ IP:45.86.65.212
 密码:Jobs_29506045^
 ```
 
-```
+```shell
 连接主机...
 连接主机成功
 Welcome to Ubuntu 18.04 LTS (GNU/Linux 4.15.0-22-generic x86_64)
@@ -184,7 +264,9 @@ Last login: Thu May 25 14:45:58 2023 from 36.37.187.89
 root@CentOS-7:~# 
 ```
 
-#### 2.1.2、运行下列代码
+### 2.2、在`VPS`上进行各项配置
+
+#### 2.2.1、运行下列代码
 
 *更新系统、安装组件*
 
@@ -217,14 +299,15 @@ sudo apt-get remove vim #Debian/Ubuntu 命令
 sudo apt-get purge vim #Debian/Ubuntu 命令
 ```
 
-### 2.2、更改主机名为`mail`，更改当前计算机的完整域名为`mail.Jobs.me`
+#### 2.2.2、更改主机名为`mail`，更改当前计算机的完整域名为`mail.jobs996.top`
 
 *编辑`/etc/hosts`文件*
 
-```
+```shell
 127.0.0.1	localhost
 127.0.0.1 Ubuntu
-127.0.0.1 mail.jobs.me mail
+127.0.0.1 mail.jobs996.top mail
+
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
@@ -255,13 +338,13 @@ reboot
 [root@mail ~]# hostname
 mail
 [root@mail ~]# hostname -f
-mail.Jobs.me
+mail.jobs996.top
 [root@mail ~]# 
 ```
 
 **更改主机名成功**🍺
 
-### 2.4、下载安装`iRedMail`
+#### 2.2.3、下载安装`iRedMail`
 
 [iredmail 官网下载地址](https://www.iredmail.org/download.html)
 
@@ -276,42 +359,87 @@ bash iRedMail.sh
 
 [安装过程图](https://v2rayssr.com/iredmail.html)
 
-**数据库密码：Jobs295060456**
+![image-20230529053619185](./assets/image-20230529053619185.png)
+
+![image-20230529053635465](./assets/image-20230529053635465.png)
+
+![image-20230529053647440](./assets/image-20230529053647440.png)
+
+![image-20230529053659850](./assets/image-20230529053659850.png)
+
+![image-20230529053734026](./assets/image-20230529053734026.png)
+
+![image-20230529053802110](./assets/image-20230529053802110.png)
+
+![image-20230529053832095](./assets/image-20230529053832095.png)
+
+![image-20230529053851246](./assets/image-20230529053851246.png)
+
+```javascript
+数据库密码:Jobs295060456
+邮箱域名管理员账号:postmaster@jobs996.top
+邮箱域名管理员密码:295060456
+
+可以通过访问
+https://jobs996.top/mail        邮件登录地址
+https://jobs996.top/netdata     服务器状态监控
+https://jobs996.top/iredadmin   邮件服务器后台管理
+```
 
 **重启服务器，让邮件服务器生效！**
 
 *至此，邮件服务器搭建完毕，以下开始设置邮件服务器。*
 
-### 2.5、配置 `iRedMail` 邮件服务器
+#### 2.2.4、卸载`iRedMail`
 
-#### 2.5.1、解析域名 `mail.jobs.me`
-
-*添加站点：Jobs.me*
-
-![image-20230526073034558](./assets/image-20230526073034558.png)
-
-*等待域名生效*
-
-```
-名称服务器更新的速度通常取决于多个因素，包括但不限于：
-
-1、进行更新的域名服务器本身的特征，例如其网络速度，负载，缓存情况等；
-2、DNS记录的TTL（生存时间），即记录在缓存中的时间；
-3、不同DNS服务器之间的同步延迟；
-4、在更新后重新传播记录的时间，以及可能包含更新的任何中间DNS服务器传播的时间。
-
-一般来说，名称服务器更新通常需要几个小时至一天的时间才能生效。但是，这是一个估计值，具体时间可能会有所不同。
+```shell
+# 卸载 iRedMail 软件包
+sudo apt-get remove --purge iredmail
+# 删除 iRedMail 目录
+sudo rm -rf /var/www/iredadmin /var/vmail /opt/iredapd /opt/iredmail
+# 删除 iRedMail 用户和组
+sudo deluser --remove-home iredapd
+sudo deluser --remove-home vmail
+sudo delgroup iredapd
+sudo delgroup vmail
+# 清理组件/依赖关系
+sudo apt-get autoremove 
+# 重新启动系统
+sudo reboot
 ```
 
-*如果域名尚未成功解析，这个时候去申请SSL证书，可以成功吗？*
+#### 2.2.5、配置 `iRedMail` 邮件服务器
 
-```
-不可以。
-SSL证书需要在域名解析成功后才能申请，因为SSL证书需要验证域名的所有权。
-如果域名没有成功解析，证书颁发机构无法验证域名所有权，因此无法颁发SSL证书。
+*/root/iRedMail-1.6.3/config*
+
+```shell
+export STORAGE_BASE_DIR='/var/vmail'
+export WEB_SERVER='NGINX'
+export BACKEND_ORIG='MARIADB'
+export BACKEND='MYSQL'
+export VMAIL_DB_BIND_PASSWD='wCgjLh0fEcXZu4ojUR39fO0uxytdJfka'
+export VMAIL_DB_ADMIN_PASSWD='GUZ5ETkna7SxtVddC3XQN2rDzWf1UVaw'
+export MLMMJADMIN_API_AUTH_TOKEN='NzPdcsNckVs4zJlLjPa8f8eA1Y2avJ6U'
+export NETDATA_DB_PASSWD='hvfym3wP7L9kyyradDDXOlnAmPwhfify'
+export MYSQL_ROOT_PASSWD='Jobs295060456'
+export FIRST_DOMAIN='jobs996.top'
+export DOMAIN_ADMIN_PASSWD_PLAIN='295060456'
+export USE_IREDADMIN='YES'
+export USE_ROUNDCUBE='YES'
+export USE_SOGO='YES'
+export USE_NETDATA='YES'
+export USE_FAIL2BAN='YES'
+export AMAVISD_DB_PASSWD='UAwUqyihGIM0R3VB0D8ynbK2vkqj0jMm'
+export IREDADMIN_DB_PASSWD='lIupiJLWvstgoRR7hrQLUXXbWofRfdkW'
+export RCM_DB_PASSWD='KMwqFUq7jDMbqhElep7ng6SczuT4pVwF'
+export SOGO_DB_PASSWD='BFKpCq6JOe76goRHQBWPklZy0VGxh9Q2'
+export SOGO_SIEVE_MASTER_PASSWD='8MIWAxJMpt8NkF6L7pxWFFstN2BxYmaY'
+export IREDAPD_DB_PASSWD='j1CROTSrpKAvGiRs5O2zpx3NQQ1taBGp'
+export FAIL2BAN_DB_PASSWD='OdGNXtD4D7Hinp7bonfAllm4p9ZHeAWJ'
+#EOF
 ```
 
-#### 2.5.2、申请`SSL`证书
+#### 2.2.6、申请`SSL`证书
 
 *利用 Acme 脚本申请证书，是我们用到的最常见的一种证书的申请方式*
 
@@ -335,27 +463,79 @@ apt install -y socat    #Debian/Ubuntu 命令
 yum update -y          #CentOS 命令
 yum install -y curl    #CentOS 命令
 yum install -y socat    #CentOS 命令
-
-~/.acme.sh/acme.sh  --issue  -d mail.jobs.me  --webroot  /var/www/html
 ```
 
-##### 2.5.2.1、80 端口空闲的验证申请
+**申请证书的时候，大约10秒钟的倒计时**
+
+##### 2.2.6.1、80 端口空闲的验证申请
 
 *如果你还没有运行任何 web 服务, 80 端口是空闲的, 那么 Acme.sh 还能假装自己是一个 WebServer, 临时监听在 80 端口, 完成验证*
 
+**语法**
+
 ```shell
-~/.acme.sh/acme.sh  --issue -d mail.jobs.me   --standalone
+~/.acme.sh/acme.sh --issue -d mail.jobs996.top --standalone
 ```
 
-##### 2.5.2.2、Nginx 的方式验证申请
+```shell
+root@mail:~# ~/.acme.sh/acme.sh --issue -d mail.jobs996.top --webroot /var/www/html
+[Tue 30 May 2023 10:53:16 PM CEST] Using CA: https://acme.zerossl.com/v2/DV90
+[Tue 30 May 2023 10:53:16 PM CEST] Creating domain key
+[Tue 30 May 2023 10:53:16 PM CEST] The domain key is here: /root/.acme.sh/mail.jobs996.top_ecc/mail.jobs996.top.key
+[Tue 30 May 2023 10:53:16 PM CEST] Single domain='mail.jobs996.top'
+[Tue 30 May 2023 10:53:16 PM CEST] Getting domain auth token for each domain
+[Tue 30 May 2023 10:53:19 PM CEST] Getting webroot for domain='mail.jobs996.top'
+[Tue 30 May 2023 10:53:19 PM CEST] Verifying: mail.jobs996.top
+[Tue 30 May 2023 10:53:20 PM CEST] Processing, The CA is processing your order, please just wait. (1/30)
+[Tue 30 May 2023 10:53:24 PM CEST] Success
+[Tue 30 May 2023 10:53:24 PM CEST] Verify finished, start to sign.
+[Tue 30 May 2023 10:53:24 PM CEST] Lets finalize the order.
+[Tue 30 May 2023 10:53:24 PM CEST] Le_OrderFinalize='https://acme.zerossl.com/v2/DV90/order/nytOu1oPb8nYIC88FoJvvA/finalize'
+[Tue 30 May 2023 10:53:24 PM CEST] Order status is processing, lets sleep and retry.
+[Tue 30 May 2023 10:53:24 PM CEST] Retry after: 15
+[Tue 30 May 2023 10:53:40 PM CEST] Polling order status: https://acme.zerossl.com/v2/DV90/order/nytOu1oPb8nYIC88FoJvvA
+[Tue 30 May 2023 10:53:41 PM CEST] Downloading cert.
+[Tue 30 May 2023 10:53:41 PM CEST] Le_LinkCert='https://acme.zerossl.com/v2/DV90/cert/XckwEDyoqXq5C3mphVJHrA'
+[Tue 30 May 2023 10:53:42 PM CEST] Cert success.
+-----BEGIN CERTIFICATE-----
+MIIEBDCCA4mgAwIBAgIRAI+21E/H34uTgHdDDMS6YskwCgYIKoZIzj0EAwMwSzEL
+MAkGA1UEBhMCQVQxEDAOBgNVBAoTB1plcm9TU0wxKjAoBgNVBAMTIVplcm9TU0wg
+RUNDIERvbWFpbiBTZWN1cmUgU2l0ZSBDQTAeFw0yMzA1MzAwMDAwMDBaFw0yMzA4
+MjgyMzU5NTlaMBsxGTAXBgNVBAMTEG1haWwuam9iczk5Ni50b3AwWTATBgcqhkjO
+PQIBBggqhkjOPQMBBwNCAASEgEV0REFje7Dp6utfhK6CHXK0wsBvwas6C1rbI3dM
+bf8R4N8FIH3bPwyjoxkZ1C6GrwgXkalYKTPBm3ATM5/Do4ICfDCCAngwHwYDVR0j
+BBgwFoAUD2vmS845R672fpAeefAwkZLIX6MwHQYDVR0OBBYEFGqXxX21b7BwmFir
+ViYKsVcn9VRiMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQW
+MBQGCCsGAQUFBwMBBggrBgEFBQcDAjBJBgNVHSAEQjBAMDQGCysGAQQBsjEBAgJO
+MCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMAgGBmeBDAEC
+ATCBiAYIKwYBBQUHAQEEfDB6MEsGCCsGAQUFBzAChj9odHRwOi8vemVyb3NzbC5j
+cnQuc2VjdGlnby5jb20vWmVyb1NTTEVDQ0RvbWFpblNlY3VyZVNpdGVDQS5jcnQw
+KwYIKwYBBQUHMAGGH2h0dHA6Ly96ZXJvc3NsLm9jc3Auc2VjdGlnby5jb20wggEE
+BgorBgEEAdZ5AgQCBIH1BIHyAPAAdgCt9776fP8QyIudPZwePhhqtGcpXc+xDCTK
+hYY069yCigAAAYhub+LxAAAEAwBHMEUCIF41y/fhGXPRQuT8nspmZ0OOticLOK0C
+k6aI2utUVaJNAiEAueVZGcOrkxuElHm1Z4iYwVxJNDrjQNqBvTXH/Y2KsocAdgB6
+MoxU2LcttiDqOOBSHumEFnAyE4VNO9IrwTpXo1LrUgAAAYhub+NaAAAEAwBHMEUC
+IG+icBV2kPlIdu7WyXJqiSGft79QFhKAbN0VHvKAeKyMAiEApj7a0mz1Fbfg3dmq
+pgzSroGY5Gy3eSv36a/tjhlM+JwwGwYDVR0RBBQwEoIQbWFpbC5qb2JzOTk2LnRv
+cDAKBggqhkjOPQQDAwNpADBmAjEAuGJhG5jjdCVOcMl7Y/baAWVYtaqjX6Tli4Dy
+yODAmO+0+RQB5xozrI+n3ap9bsAsAjEAt1brFiFTk/wyHXncWkeLVmMMJXuoqcuM
+ja9q3SYlyfhgA95npv2edmR6Ejx42HI4
+-----END CERTIFICATE-----
+[Tue 30 May 2023 10:53:42 PM CEST] Your cert is in: /root/.acme.sh/mail.jobs996.top_ecc/mail.jobs996.top.cer
+[Tue 30 May 2023 10:53:42 PM CEST] Your cert key is in: /root/.acme.sh/mail.jobs996.top_ecc/mail.jobs996.top.key
+[Tue 30 May 2023 10:53:42 PM CEST] The intermediate CA cert is in: /root/.acme.sh/mail.jobs996.top_ecc/ca.cer
+[Tue 30 May 2023 10:53:42 PM CEST] And the full chain certs is there: /root/.acme.sh/mail.jobs996.top_ecc/fullchain.cer
+```
+
+##### 2.2.6.2、Nginx 的方式验证申请
 
 *这种方式需要你的服务器上面已经部署了 Nginx 环境，并且保证你申请的域名已经在 Nginx 进行了 conf 部署。（被申请的域名可以正常被打开）*
 
 ```shell
-~/.acme.sh/acme.sh --issue  -d mail.jobs.me  --nginx
+~/.acme.sh/acme.sh --issue  -d mail.jobs996.top  --nginx
 ```
 
-##### 2.5.2.3、Http 的方式验证申请
+##### 2.2.6.3、Http 的方式验证申请
 
 这种方式需要你的服务器上面已经部署了网站环境。（被申请的域名可以正常被打开）
 
@@ -364,10 +544,10 @@ yum install -y socat    #CentOS 命令
 实例代码：（后面的路径请更改为你的 `网站根目录` `绝对路径` ）
 
 ```shell
-~/.acme.sh/acme.sh  --issue  -d mail.jobs.me -d www.mail.jobs.me  --webroot  /home/wwwroot/mydomain.com/
+~/.acme.sh/acme.sh  --issue  -d mail.jobs.me -d www.mail.jobs996.top --webroot /home/wwwroot/mydomain.com/
 ```
 
-##### 2.5.2.4、DNS 验证的方式申请证书
+##### 2.2.6.4、DNS 验证的方式申请证书
 
 ```
 这种方式的好处是:你不需要任何服务器，不需要任何公网 ip，只需要 dns 的解析记录即可完成验证。
@@ -377,16 +557,20 @@ Acme.sh 目前支持 cloudflare, dnspod, cloudxns, godaddy 以及 ovh 等数十�
 该方式可以申请多域名、泛域名证书，达到很多域名可以共用一张证书的目的。
 ```
 
-#### 2.5.3、安装证书到指定文件夹
+#### 2.2.7、安装证书到指定文件夹
 
 **注意:默认生成的证书都放在安装目录下: `~/.acme.sh/ `请不要直接使用此目录下的证书文件。**
 
-![image-20230526080407354](./assets/image-20230526080407354.png)
+**没找到文件夹，就需要做刷新处理**
+
+![image-20230531040234539](./assets/image-20230531040234539.png)
 
 *SSL证书的正确使用方式*
 
 ```shell
-~/.acme.sh/acme.sh --installcert -d mail.jobs.me --key-file /etc/pki/tls/private/iRedMail.key --fullchain-file /etc/pki/tls/certs/iRedMail.crt
+~/.acme.sh/acme.sh --installcert -d mail.jobs996.top
+--key-file /etc/pki/tls/private/iRedMail.key 
+--fullchain-file /etc/pki/tls/certs/iRedMail.crt
 ```
 
 
