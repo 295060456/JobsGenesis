@@ -47,9 +47,9 @@ then
     open https://brew.sh/
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     ## brew环境变量设置
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
-    open /Users/$(whoami)/.zprofile
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/$(whoami)/.zprofile
+    # open /Users/$(whoami)/.zprofile
+    # eval "$(/opt/homebrew/bin/brew shellenv)"
 else
     echo "brew 已经安装，跳过安装步骤。"
     ## brew 升级
@@ -205,9 +205,10 @@ gem -v
 echo "更新所有程序包"??
 gem update
 echo "清理gem"
-gem clean
+sudo gem clean
 echo "============================ 使用Gem安装CocoaPods ============================\n"
 sudo gem install cocoapods
+sudo gem install cocoapods -n /usr/local/bin
 #sudo gem install -n /usr/local/bin cocoapods
 #sudo gem install cocoapods --pre # 如果你要选择预览版CocoaPods，请使用这一句
 echo "如果安装了多个Xcode使用下面的命令选择（一般需要选择最近的Xcode版本）"
@@ -218,5 +219,3 @@ git clone https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/trunk
 ## git clone https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git  ~/.cocoapods/repos/trunk
 echo "☕️检查一下安装的成果☕️"
 pod search Masonry
-
-
