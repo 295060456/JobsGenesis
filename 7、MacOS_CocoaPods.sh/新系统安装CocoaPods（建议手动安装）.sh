@@ -207,9 +207,7 @@ gem update
 echo "清理gem"
 sudo gem clean
 echo "============================ 使用Gem安装CocoaPods ============================\n"
-sudo gem install cocoapods
 sudo gem install cocoapods -n /usr/local/bin
-#sudo gem install -n /usr/local/bin cocoapods
 #sudo gem install cocoapods --pre # 如果你要选择预览版CocoaPods，请使用这一句
 echo "如果安装了多个Xcode使用下面的命令选择（一般需要选择最近的Xcode版本）"
 sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
