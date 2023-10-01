@@ -192,8 +192,8 @@ echo "Mac OS 自带Gem"
 echo "列出安装源"
 gem sources -l
 # 如果人在国内那么就需要更换Gem源
-gem sources --remove https://rubygems.org/
-gem sources --add https://gems.ruby-china.com/
+# gem sources --remove https://rubygems.org/
+# gem sources --add https://gems.ruby-china.com/
 echo "更新安装源缓存"
 gem sources -u
 echo "更新Gem本身"
@@ -217,5 +217,9 @@ echo "============================ 安装CocoaPods本地库 ====================
 git clone https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/trunk
 # 如果在国内那么就选用清华大学的镜像地址
 ## git clone https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git  ~/.cocoapods/repos/trunk
+pod repo update
 echo "☕️检查一下安装的成果☕️"
 pod search Masonry
+# 手动安装
+# cocoapod文件：https://github.com/CocoaPods/Specs 把下载的文件文件夹名改为trunk，并放在路径~/.cocoapods/repos下
+# git隐藏文件夹：https://github.com/ShaeZhuJiu/CocoaPadHiddenFileGit.git 把.git.zip解压缩然后将.git隐藏文件放在~/.cocoapods/repos/trunk路径下
