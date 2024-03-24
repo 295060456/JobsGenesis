@@ -4,6 +4,7 @@
 ## 相关资料
 [***Flutter 面试知识点集锦· GitBook***](https://guoshuyu.cn/home/wx/Flutter-msjj.html)
 [***Dart/Flutter社区生态：Pub.dev***](https://pub.dev/)
+
 ## **`var`**、**`dynamic`**、**`object`**
 * `var`定义的类型是不可变的；pub.dev
 * `dynamic`和`object`类型是可以变的，而`dynamic` 与`object`的区别是在静态类型检查上；
@@ -265,7 +266,7 @@ print(obj.x) // 输出: 10
     *虽然重新构建 Widget 树看起来像是创建一个全新的树，但实际上 Flutter 会**尽可能地重用已有的节点**，并仅在必要时更新变化的部分，以提高性能和效率*
 ## ***Dart.Flutter.依赖注入***
 * ***Dart.Flutter 框架本身没有内置的依赖注入机制***，但由于依赖注入在 Dart.Flutter 开发中非常常见，因此有许多第三方库提供了依赖注入的功能：
-  * [*GetX*](# Flutter.GetX)：[*GetX*](# Flutter.GetX)的依赖注入功能通常与 `GetxController`、`GetxService` 和 `Get.put()` 方法一起使用：
+  * [***GetX***](# Flutter.GetX)：[***GetX***](# Flutter.GetX)的依赖注入功能通常与 `GetxController`、`GetxService` 和 `Get.put()` 方法一起使用：
     
     * 需要在 *pubspec.yaml* 文件中添加 [***GitHub.GetX***](https://github.com/jonataslaw/getx)  包的依赖：
     ```yaml
@@ -324,7 +325,7 @@ print(obj.x) // 输出: 10
       }
     }
     ```
-  * [*get_it*](https://github.com/fluttercommunity/get_it)：是其中一个流行的依赖注入库，它提供了一种简单的、易于使用的方式来管理依赖关系。虽然它不是官方的 Dart.Flutter 库，但由于其简洁和灵活的设计，以及在社区中的广泛应用；
+  * [***get_it***](https://github.com/fluttercommunity/get_it)：是其中一个流行的依赖注入库，它提供了一种简单的、易于使用的方式来管理依赖关系。虽然它不是官方的 Dart.Flutter 库，但由于其简洁和灵活的设计，以及在社区中的广泛应用；
     
     * 在 *pubspec.yaml* 文件中添加 `get_it` 依赖：
     ```yaml
@@ -429,7 +430,7 @@ print(obj.x) // 输出: 10
 * 它们的 *复杂度* 和 *上手难度* 是逐步递增的，但同时 **可拓展性** 、**解耦度** 和 **复用能力** 也逐步提升。
 ### scoped_model
 * 是 Dart.Flutter 最为简单的状态管理框架，它充分利用了 Dart.Flutter 中的一些特性，只有一个 dart 文件的它，极简的实现了一般场景下的状态管理；
-* 内部实现借助***AnimatedBuildler***利用了[*InheritedWidget*](# Dart.Flutter.InheritedWidget)：
+* 内部实现借助***AnimatedBuildler***利用了[***InheritedWidget***](# Dart.Flutter.InheritedWidget)：
   * 在 `scoped_model` 中，可以通过 `ScopedModel.of<CountModel>(context)` 获取我们的 Model 。其中最主要是因为其内部的 build 的时候，包裹了一个 `_InheritedModel` 控件，而它继承了 `InheritedWidget` 
   * 业务处理流程总结：
     * `AnimatedBuildler` 继承了 `AnimatedWidget` ，在 `AnimatedWidget` 的生命周期中会对 `Listenable` 接口添加监听，而 `Model` 恰好就实现了 `Listenable` 接口；
@@ -866,7 +867,7 @@ class MyWidget extends StatelessWidget {
   }
 }
 ```
-* **全局状态管理：** 使用一些全局状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、***[GetX](# Dart.Flutter.GetX)***、***Riverpod*** 等，来管理数据的全局状态，以便在应用程序的不同部分共享数据。
+* **全局状态管理：** 使用一些全局状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、[***GetX***](# Dart.Flutter.GetX)、***Riverpod*** 等，来管理数据的全局状态，以便在应用程序的不同部分共享数据。
 * <span style="color:red; font-weight:bold;">**传递回调函数**</span>：在创建子组件时，通过传递回调函数来实现父组件向子组件传递数据。子组件可以调用回调函数来更新父组件的状态。
 ```dart
 class ParentWidget extends StatefulWidget {
@@ -911,7 +912,7 @@ class ChildWidget extends StatelessWidget {
 
 * key是**`Widgets`**，**`Elements`**和**`SemanticsNodes`**的标识符；
 * key有**`LocalKey`** 和 **`GlobalKey`**两种；
-  * **`LocalKey`**  是一个*抽象类*，用于标识和区分*[Widget 树](# Widget 树)*中的不同节点。它是***所有用于本地（局部）标识的关键类的基类***。常见的用法是在需要在同一父级下修改控件顺序或数量时使用 `LocalKey`
+  * **`LocalKey`**  是一个*抽象类*，用于标识和区分[***Widget树***](# Widget 树)中的不同节点。它是***所有用于本地（局部）标识的关键类的基类***。常见的用法是在需要在同一父级下修改控件顺序或数量时使用 `LocalKey`
     *演示了如何使用 `LocalKey` 来标识 `Container` 和 `Text` Widget，并在它们之间交换位置👇🏻*
   ```dart
   import 'package:flutter/material.dart';
@@ -1731,7 +1732,7 @@ class MyHomePage extends StatelessWidget {
 ## ***Dart.Flutter.GetX***
 
 ### 资料来源
-***[Flutter状态管理GetX使用详解](https://juejin.cn/post/7020598013986865182)***
+[***Flutter状态管理GetX使用详解***](https://juejin.cn/post/7020598013986865182)
 
 ### 安装
 
@@ -1932,7 +1933,7 @@ class MyApp extends StatelessWidget {
 }
 ```
 * [***Dio***](https://github.com/cfug/dio)
-  * [***Dio***](https://github.com/cfug/dio)是一个强大、高效的 Dart.Flutter 网络请求框架，支持 *[RESTful API](# RESTful API)*、文件上传下载、拦截器、取消请求等功能；
+  * [***Dio***](https://github.com/cfug/dio)是一个强大、高效的 Dart.Flutter 网络请求框架，支持 [***RESTful API***](# RESTful API)、文件上传下载、拦截器、取消请求等功能；
   * 它基于 Dart 的 *Http Client* 实现（***对原生的封装***），并提供了丰富的 API 和配置选项，使得在 Dart.Flutter 应用程序中进行网络请求变得更加方便和灵活；
 ```dart
 import 'package:flutter/material.dart';
@@ -2663,7 +2664,7 @@ flutter: complete
 
 #### 相关细节
 
-* 在使用***[GetX](#`GetX`)***框架时，通常可以避免使用显式的***Stream***；
+* 在使用[***GetX***](#`GetX`)框架时，通常可以避免使用显式的***Stream***；
 * 在 Dart.Flutter 中有两种处理异步操作的方式 ***Future*** 和 ***Stream***； 
   * ***Future*** 用于处理单个异步操作（***以后给我们一个值***）， ***Stream***用来处理连续的异步操作（***给我们一连串的值***）。
 
@@ -3074,26 +3075,26 @@ class DetailsScreen extends StatelessWidget {
 }
 ```
 ## ***Dart.Flutter.音视频***
-*  ***[flutter_ffmpeg](https://github.com/tanersener/flutter-ffmpeg):***
+*  [***flutter_ffmpeg***](https://github.com/tanersener/flutter-ffmpeg)：
   * ***开源项目*** <span style="color:red; font-weight:bold;">**（停止维护）**</span>；
   * 这是一个基于 *FFmpeg* 的 Dart.Flutter 插件，它提供了一种在 Dart.Flutter 应用程序中执行音视频处理和转码的方式。
-  * 使用 *[flutter_ffmpeg](https://github.com/tanersener/flutter-ffmpeg)*，您可以执行各种音视频处理任务，如裁剪、合并、转码等  * 它是一个功能强大的音视频处理解决方案，但***需要对 FFmpeg 的使用和命令行参数有一定的了解***。
-* ***[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK):***
-  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)* <span style="color:red; font-weight:bold;">*****是不开源的*****</span>。*[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*是由 *Agora* 公司开发和维护的，用于***实时音视频通信的 SDK***；
-  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*是一个专门用于实时音视频通信的 SDK，它提供了丰富的功能和强大的性能，包括音视频通话、直播、互动白板等功能；
-  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*提供了 Dart.Flutter 插件，可以方便地在 Dart.Flutter 应用程序中集成实时音视频通信功能；
-* ***[Flutter_webrtc](https://github.com/flutter-webrtc/flutter-webrtc):***
+  * 使用 [***flutter_ffmpeg***](https://github.com/tanersener/flutter-ffmpeg)，您可以执行各种音视频处理任务，如裁剪、合并、转码等  * 它是一个功能强大的音视频处理解决方案，但***需要对 FFmpeg 的使用和命令行参数有一定的了解***。
+* [***Agora SDK***](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)：
+  * [***Agora SDK***](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK) <span style="color:red; font-weight:bold;">***是不开源的***</span>。[***Agora SDK***](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)是由 *Agora* 公司开发和维护的，用于***实时音视频通信的 SDK***；
+  * [***Agora SDK***](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)是一个专门用于实时音视频通信的 SDK，它提供了丰富的功能和强大的性能，包括音视频通话、直播、互动白板等功能；
+  * [***Agora SDK***](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)提供了 Dart.Flutter 插件，可以方便地在 Dart.Flutter 应用程序中集成实时音视频通信功能；
+* [***Flutter_webrtc***](https://github.com/flutter-webrtc/flutter-webrtc)：
   * ***开源项目***；
   * 这是一个 *WebRTC* 的 Dart.Flutter 插件，用于实现***实时音视频通信功能***；
   * 提供了一种在 Web 浏览器和移动应用程序中实现实时通信的标准化解决方案；
   * *Flutter_webrtc* 插件使得在 Dart.Flutter 应用程序中集成 *WebRTC* 功能变得易；
-* ***[flutter_vlc_player](https://github.com/solid-software/flutter_vlc_player):***
+* [***flutter_vlc_player***](https://github.com/solid-software/flutter_vlc_player)：
   * ***开源项目***<span style="color:red; font-weight:bold;">**（停止维护）**</span>；
-  * 这是一个基于 *[libVLC](https://github.com/videolan/libvlcpp)* 的 Flutter 插件，用于在 Dart.Flutter 应用程序中播放本地或网络上的视频文件；
+  * 这是一个基于[***libVLC***](https://github.com/videolan/libvlcpp) 的 Flutter 插件，用于在 Dart.Flutter 应用程序中播放本地或网络上的视频文件；
   * 它提供了一种简单的方式来集成 VLC 播放器功能，并支持各种视频格式和网络流媒体协议；
-* ***[flutter_exoplayer](https://github.com/danielR2001/flutter_exoplayer)：***
+* [***flutter_exoplayer***](https://github.com/danielR2001/flutter_exoplayer)：
   * ***开源项目***；
-  * 这是一个基于 *[ExoPlayer](https://github.com/google/ExoPlayer)* 的 Dart.Flutter 插件，用于在 Dart.Flutter 应用程序中播放音频和视频文件；
+  * 这是一个基于 [***ExoPlayer***](https://github.com/google/ExoPlayer) 的 Dart.Flutter 插件，用于在 Dart.Flutter 应用程序中播放音频和视频文件；
   * *ExoPlayer* 是一个功能强大的跨平台媒体播放器，***支持 Android、iOS 和 Web 平台***；
   * 使用 *flutter_exoplayer*，您可以方便地在 Dart.Flutter 应用程序中实现高性能的音视频播放功能；
 ## ***Dart.Flutter.原生Api调用交互***（未完）
@@ -3195,9 +3196,9 @@ class _LoginPageState extends State<LoginPage> {
 
 ### ***新建Dart.Flutter工程*** <span style="color:red; font-weight:bold;">（在Mac平台，使用 ***VSCode*** 编译器）</span>
 
-* 下载并正确配置***[VSCode](https://code.visualstudio.com/)：*** 配置好了这个以后，在终端就可以用 *code .* 的形式唤起 ***[VSCode](https://code.visualstudio.com/)***
+* 下载并正确配置[***VSCode***](https://code.visualstudio.com/)： 配置好了这个以后，在终端就可以用 *code .* 的形式唤起 ***[VSCode](https://code.visualstudio.com/)***
   * 打开VSCode –> `command+shift+p` –> 输入`shell command` –> 点击提示`Shell Command: Install ‘code’ command in PATH`运行
-* 将***Dart.Flutter.SDK*** 与 ***[VSCode](https://code.visualstudio.com/)*** 和 ***MacOS*** 进行关联
+* 将***Dart.Flutter.SDK*** 与[***VSCode***](https://code.visualstudio.com/)和 ***MacOS*** 进行关联
   * 终端执行 *open ~/.bash_profile*，对其进行编辑；
   * #### 在*.bash_profile*文件里面，添加如下的环境变量；
   
@@ -3240,23 +3241,23 @@ class _LoginPageState extends State<LoginPage> {
   • No issues found!
   ```
 * 安装 ***Dart.Flutter.SDK***
-  * 可以直接去***[Flutter官网](https://flutter.dev/)***或者***[Flutter.GitHub](https://github.com/flutter/flutter)***地址下载以后，和编译器进行关联；
+  * 可以直接去[***Flutter官网***](https://flutter.dev/)或者[***Flutter.GitHub***](https://github.com/flutter/flutter)地址下载以后，和编译器进行关联；
   * 也可以编译器智能监测下载***Dart.Flutter.SDK***进行自动关联；
-  * 如果***Dart.Flutter.SDK***的位置发生了更改，那么需要在***[VSCode](https://code.visualstudio.com/)***编译器里面进行相应的映射：
+  * 如果***Dart.Flutter.SDK***的位置发生了更改，那么需要在[***VSCode***](https://code.visualstudio.com/)编译器里面进行相应的映射：
     * 方式1：手动关联SDK，如下图所示👇🏻：<span style="color:red; font-weight:bold;">编译过后，用 *Command + s* 进行保存</span>
   
     ![image-20240321153420881](./assets/image-20240321153420881.png)
   
     ![image-20240321153739756](./assets/image-20240321153739756.png)
   
-    * 方式2：自动侦测SDK：在***[VSCode](https://code.visualstudio.com/)***里面，使用快捷键：*Shift + command + p* 唤起命令输入弹出框；输入：*Flutter:Change SDK*
+    * 方式2：自动侦测SDK：在[***VSCode***](https://code.visualstudio.com/)里面，使用快捷键：*Shift + command + p* 唤起命令输入弹出框；输入：*Flutter:Change SDK*
   
-* 终端执行命令 *code .*打开***[VSCode](https://code.visualstudio.com/)***
-  * 在***[VSCode](https://code.visualstudio.com/)***里面，使用快捷键：*Shift + command + p* 唤起命令输入弹出框；
+* 终端执行命令 *code .*打开[***VSCode***](https://code.visualstudio.com/)
+  * 在[***VSCode***](https://code.visualstudio.com/)里面，使用快捷键：*Shift + command + p* 唤起命令输入弹出框；
   * 在命令输入弹出框输入命令***Flutter: New Project*** 新建Dart.Flutter工程（自定义工程文件路径）。此时如果没有下载或者成功关联***Dart.Flutter.SDK***将会出现提示；
   * ***Dart.Flutter.SDK***  <span style="color:red; font-weight:bold;">自带Dart语言环境</span>；
 * 关联运行设备：
-  * iOS模拟器：***[Xcode下载模拟器报错](https://blog.csdn.net/saw471/article/details/136560974)***
+  * iOS模拟器：[***Xcode下载模拟器报错***](https://blog.csdn.net/saw471/article/details/136560974)
     * 运行环境是**XCode**。<span style="color:red; font-weight:bold;">需要注意的是：XCode14以后最小化安装包，从而将模拟器不集中在安装包中，需要单独***[下载](https://developer.apple.com/download/all/)***和安装</span>。
       *打开终端，输入如下命令。将 `*.dmg`文件拖动到终端获取该文件的磁盘绝对地址*
     ```shell
@@ -3278,7 +3279,7 @@ class _LoginPageState extends State<LoginPage> {
     ```shell
     open -a Simulator
     ```
-    * 如果是通过***[VSCode](https://code.visualstudio.com/)*** ，那么只需要进行设备关联即可以唤起模拟器设备；
+    * 如果是通过[***VSCode***](https://code.visualstudio.com/) ，那么只需要进行设备关联即可以唤起模拟器设备；
 
       ![image-20240321041753483](./assets/image-20240321041753483.png)
     
@@ -3327,7 +3328,7 @@ class _LoginPageState extends State<LoginPage> {
   
 * <span style="color:red; font-weight:bold;">***运行Dart.Flutter工程（有3种方式运行）***</span> 第一次运行会有编译器的自动配置；
   
-  * 仅仅在***[VSCode](https://code.visualstudio.com/)***控制台上运行Flutter代码（等于调用系统终端运行）；
+  * 仅仅在[***VSCode***](https://code.visualstudio.com/)控制台上运行Flutter代码（等于调用系统终端运行）；
   * *终端运行Dart.Flutter代码，没有检测到属于移动设备的SDK，而只检测到了MacOS和浏览器的SDK。所以👇🏻*（并且选择关联设备，以哪种平台方式运行代码）；  
   ```shell
   ➜  flutter_application_1 flutter run
@@ -3460,7 +3461,7 @@ class _LoginPageState extends State<LoginPage> {
 Dart.Flutter提供了一些调试工具来帮助开发者调试应用程序的代码和性能，其中包括以下工具：
 * **Flutter DevTools**: 是一个功能强大的调试工具，可以***在浏览器中***查看Dart.Flutter应用程序的各种信息，包括*Widget*树、布局、性能、日志等。它提供了诸如内存、CPU使用情况等信息，可以帮助开发者定位和解决性能问题；
   * **Flutter Inspector**: 是Flutter DevTools的一部分，它允许开发者在应用程序运行时查看*Widget*树、检查布局、查看UI层级结构等。通过Flutter Inspector，开发者可以在运行时查看应用程序的UI状态，并且可以在代码中设置断点来调试应用程序的逻辑；
-* **Flutter Debugger Extension**: 是***Visual Studio Code（VS Code）的一个扩展***，提供了在***[VSCode](https://code.visualstudio.com/)*** 中调试Dart.Flutter应用程序的功能。开发者可以在***[VSCode](https://code.visualstudio.com/)***中设置断点、单步执行代码、查看变量值等，以实现对Dart.Flutter应用程序的调试；
+* **Flutter Debugger Extension**: 是***Visual Studio Code（VS Code）的一个扩展***，提供了在[***VSCode***](https://code.visualstudio.com/) 中调试Dart.Flutter应用程序的功能。开发者可以在[***VSCode***](https://code.visualstudio.com/) 中设置断点、单步执行代码、查看变量值等，以实现对Dart.Flutter应用程序的调试；
 
 ### ***RESTful API***
 
@@ -3473,6 +3474,6 @@ Dart.Flutter提供了一些调试工具来帮助开发者调试应用程序的�
   * **无状态性**：每个请求都包含足够的信息，服务器不需要保留客户端的状态。这意味着每个请求都是独立的，服务器不需要保存客户端的会话状态；
   * **表示层的状态转移**：客户端通过资源的表现形式来与服务器进行交互，例如使用 *JSON* 或 *XML* 格式的数据表示资源的状态；
 ### ***Retrofit***
-* *Retrofit* 是一个针对 *Android* 平台的 *[RESTful API](# RESTful API)*客户端库，由 Square 公司开发和维护；
+* *Retrofit* 是一个针对 *Android* 平台的 [***RESTful API***](# RESTful API)客户端库，由 Square 公司开发和维护；
 * 它提供了一种简单、强大的方式来执行网络请求和处理 API 响应；
 * *Retrofit* 基于 *OkHttp* 库构建，可以与其无缝集成，提供了许多便捷的功能和特性；
