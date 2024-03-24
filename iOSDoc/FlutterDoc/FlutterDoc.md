@@ -260,13 +260,14 @@ print(obj.x) // 输出: 10
 * Dart.Flutter 使用 *Widget* 树来构建应用程序的用户界面，并在需要时重新构建部分或全部界面；
 * 当 *Widget* 树中的任何一个节点发生变化时（比如属性变化、状态变化等），Dart.Flutter 会根据变化情况重新构建 *Widget* 树，并更新应用程序的用户界面。**重新构建不是在原有的基础上直接修改，而是重新创建整个 *Widget* 树**。这种重新构建的方式有以下几个特点：
   * **不可变性**：***Widget* 树中的节点是不可变的，一旦创建就不能被修改**。因此，当节点的属性变化时，Dart.Flutter 不会直接修改原有的节点，而是**创建一个新的节点来替换旧的节点**；
-  * [***Diff 算法***](# Diff 算法)：Dart.Flutter 使用一种称为 `Diff` 算法的技术来**比较新旧 Widget 树的差异**，并仅在**必要时更新** UI。`Diff` 算法会逐级比较新旧 *Widget* 树的节点，找出需要更新的部分，并仅重新构建和更新这部分节点，而不是重新构建整个 *Widget* 树；
+  * [***Diff 算法***](# Diff 算法)：Dart.Flutter 使用一种称为 `Diff` 算法的技术来**比较新旧 *Widget* 树的差异**，并仅在**必要时更新** UI。`Diff` 算法会逐级比较新旧 *Widget* 树的节点，找出需要更新的部分，并仅重新构建和更新这部分节点，而不是重新构建整个 *Widget* 树；
   * **重建顶级节点**：虽然 *Widget* 树中的大部分节点可能保持不变，但在某些情况下，比如状态变化或路由导航等，顶级节点可能会发生变化。在这种情况下，Dart.Flutter 会重新构建整个 *Widget* 树，从根节点开始，而不是从变化的节点开始；
   * **重用已构建的部分**：为了提高性能，Dart.Flutter 会尽可能地重用已构建的部分 *Widget* 树。如果某些节点在新旧 *Widget* 树中是相同的（例如，它们具有相同的类型和属性），Dart.Flutter 将重用已构建的节点，而不是重新创建它们；
     *虽然重新构建 Widget 树看起来像是创建一个全新的树，但实际上 Flutter 会**尽可能地重用已有的节点**，并仅在必要时更新变化的部分，以提高性能和效率*
 ## ***Dart.Flutter.依赖注入***
+
 * ***Dart.Flutter 框架本身没有内置的依赖注入机制***，但由于依赖注入在 Dart.Flutter 开发中非常常见，因此有许多第三方库提供了依赖注入的功能：
-  * [***GetX***](# Flutter.GetX)：[***GetX***](# Flutter.GetX)的依赖注入功能通常与 `GetxController`、`GetxService` 和 `Get.put()` 方法一起使用：
+  * [***GetX***](# Dart.Flutter.GetX)：[***GetX***](# Dart.Flutter.GetX)的依赖注入功能通常与 `GetxController`、`GetxService` 和 `Get.put()` 方法一起使用：
     
     * 需要在 *pubspec.yaml* 文件中添加 [***GitHub.GetX***](https://github.com/jonataslaw/getx)  包的依赖：
     ```yaml
@@ -386,7 +387,10 @@ print(obj.x) // 输出: 10
     ```
 ## ***Dart.Flutter.State***
 
-* 用于管理部件状态的类（实例对象）；
+* ***Widget***=> ***Element***（*BuildContext*）=>***RenderObject*** =>***Layer***=>***Layer Tree***
+* ***Layer***的组成由*RenderObject*中的 `isRepaintBoundary` 标志位决定；
+* 相关的*RenderObject*在一起组成了***Layer***，而由***Layer***构成的***Layer Tree***最后会被提交到 Flutter Engine 绘制出画面；
+* 用于管理*Widget*状态的类（实例对象）；
 * 每个*Widget*状态都代表了一帧。在每次*Widget*重绘的时候，通过*State*重新赋予*Widget*需要的绘制信息；
 * **BuildContext**：有关当前*Widget*及其祖先*Widget*的一些元数据（比如位置信息）；
   * **Element**：是构建*Widget*树的基本单位（具体部件实例）。它负责管理该部件及其子部件的生命周期、布局、绘制等操作；
@@ -426,10 +430,11 @@ print(obj.x) // 输出: 10
 * [***InheritedWidget***](# Dart.Flutter.InheritedWidget)
 
 ## ***Dart.Flutter.状态管理***
-* 在所有 **响应式编程** 中，状态管理一直老生常谈的话题，而在 Flutter 中，目前主流的有 `scope_model` 、`BloC 设计模式` 、`flutter_redux` 、`fish_redux` 等四种设计；
+* 在所有 **响应式编程** 中，状态管理一直老生常谈的话题，而在 Flutter 中，目前主流的有[***scope_mode***](# scoped_model) 、[***BloC 设计模式***](# BloC：<span style="color:red; font-weight:bold;">*B*</span>usiness <span style="color:red; font-weight:bold;">*Lo*</span>gic <span style="color:red; font-weight:bold;">*C*</span>omponent) 、[***flutter_redux***](# flutter_redux) 、[***fish_redux***](# fish_redux) 等四种设计；
 * 它们的 *复杂度* 和 *上手难度* 是逐步递增的，但同时 **可拓展性** 、**解耦度** 和 **复用能力** 也逐步提升。
 ### scoped_model
-* 是 Dart.Flutter 最为简单的状态管理框架，它充分利用了 Dart.Flutter 中的一些特性，只有一个 dart 文件的它，极简的实现了一般场景下的状态管理；
+
+* 是 Dart.Flutter 最为简单的状态管理框架，它充分利用了 Dart.Flutter 中的一些特性，只有一个 `.dart` 文件的它，极简的实现了一般场景下的状态管理；
 * 内部实现借助***AnimatedBuildler***利用了[***InheritedWidget***](# Dart.Flutter.InheritedWidget)：
   * 在 `scoped_model` 中，可以通过 `ScopedModel.of<CountModel>(context)` 获取我们的 Model 。其中最主要是因为其内部的 build 的时候，包裹了一个 `_InheritedModel` 控件，而它继承了 `InheritedWidget` 
   * 业务处理流程总结：
@@ -443,12 +448,11 @@ print(obj.x) // 输出: 10
 
 * 利用 `scoped_model` 实现状态管理只需要三步:
   * 定义 `Model` 的实现，如 `CountModel` ，并且在状态改变时执行 `notifyListeners()` 方法；
-  * 使用 `ScopedModel` Widget 加载 `Model` ；
+  * 使用 `ScopedModel` *Widget* 加载 `Model` ；
   * 使用 `ScopedModelDescendant` 或者 `ScopedModel.of<CountModel>(context)` 加载 `Model` 内状态数据；
 ```dart
 class ScopedPage extends StatelessWidget {
   final CountModel _model = new CountModel();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -489,11 +493,8 @@ class CountWidget extends StatelessWidget {
 class CountModel extends Model {
   static CountModel of(BuildContext context) =>
       ScopedModel.of<CountModel>(context);
-
   int _count = 0;
-
   int get count => _count;
-
   void add() {
     _count++;
     notifyListeners();
@@ -501,6 +502,7 @@ class CountModel extends Model {
 }
 ```
 ### BloC：<span style="color:red; font-weight:bold;">*B*</span>usiness <span style="color:red; font-weight:bold;">*Lo*</span>gic <span style="color:red; font-weight:bold;">*C*</span>omponent
+
 * 它属于一种设计模式，在 Dart.Flutter 中它主要是通过 `Stream` 与 `SteamBuilder` 来实现设计的，所以 ***BloC*** 实现起来也相对简单；
 * 当然，如果和 `rxdart` 结合可以简化 `StreamController` 的一些操作，同时如果你需要利用 `BloC` 模式实现状态共享，那么自己也可以封装多一层 `InheritedWidgets` 的嵌套；
 * 业务处理流程总结：
@@ -565,8 +567,10 @@ class PageBloc {
 ```
 
 ### flutter_redux
+
 *redux：【adj.】被带回的；复活的*
 *reducer：【n.】[助剂] 还原剂；减径管*
+
 *  可以看做是利用了 ***Stream*** 特性的 ***scope_model*** 升级版，通过 ***redux*** 设计模式来完成解耦和拓展；
 * 在 *Redux* 架构中，***Store***、***Action*** 、***Reducer***以及 ***Middleware***。它们分别承担着不同的角色，协同工作**以实现状态管理和数据流控制**；
   * **Store**：
@@ -715,6 +719,7 @@ class MyHomePage extends StatelessWidget {
 }
 ```
 ### fish_redux
+
 * 基于*Redux*架构，旨在简化复杂应用程序的状态管理和 UI 构建过程；
 * 支持插件化架构：持久化插件、路由插件、国际化插件等；
 * 提供异步支持：Effect 的机制。可以在 ***Action***的生命周期中执行异步操作，并将结果发送回***Reducer***进行状态更新
@@ -1135,6 +1140,9 @@ class _MyWidgetState extends State<MyWidget> {
   * **更新差异部分**：根据比较的结果，确定哪些部分需要更新，并执行相应的更新操作；
   通过这种方式，`Diff` 算法可以高效地找出新旧 *Widget* 树之间的差异，并尽可能地减少更新的成本。这种优化可以帮助 Flutter 在处理复杂 UI 结构时保持良好的性能。
 ### 系统.其他
+
+* 键盘的弹出和收起都会触发页面 `build`
+
 * 获取手机可视化区域
 ```dart
 // 获取屏幕宽高
@@ -2664,7 +2672,7 @@ flutter: complete
 
 #### 相关细节
 
-* 在使用[***GetX***](#`GetX`)框架时，通常可以避免使用显式的***Stream***；
+* 在使用[***GetX***](# Dart.Flutter.GetX)框架时，通常可以避免使用显式的***Stream***；
 * 在 Dart.Flutter 中有两种处理异步操作的方式 ***Future*** 和 ***Stream***； 
   * ***Future*** 用于处理单个异步操作（***以后给我们一个值***）， ***Stream***用来处理连续的异步操作（***给我们一连串的值***）。
 
@@ -2840,11 +2848,11 @@ final controller = StreamController.broadcast();
 * 是 Dart.Flutter 中的概念<span style="color:red; font-weight:bold;">*（Dart.Flutter 的特性控件）*</span>，而不是Dart语言本身的特性；
 * 是 Dart.Flutter 中用于在 *Widget* 树中共享数据的一种机制，它允许数据在 *Widget* 树中向下传递，而不需要显式地在每个 *Widget* 中进行传递；
 * 当 *InheritedWidget* 中的数据发生变化时，依赖于该数据的子 *Widget* 会自动重新构建，以便更新显示；
-* 虽然 *InheritedWidget* 是一个非常强大且灵活的工具，但在某些情况下，它可能不够方便或者不够适用，特别是在需要大量共享数据或需要更复杂的数据传递逻辑的情况下。在这种情况下，您可能需要考虑使用其他状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、Riverpod 或 [***GetX***](# DartFlutter.GetX)；
-* `_inheritedWidgets` 一般情况下是空的，只有当父控件是 `InheritedWidget` 或者本身是 `InheritedWidgets` 时才会有被初始化，而当父控件是 `InheritedWidget` 时，这个Map会被**一级一级往下传递与合并** ;
+* 虽然 *InheritedWidget* 是一个非常强大且灵活的工具，但在某些情况下，它可能不够方便或者不够适用，特别是在需要大量共享数据或需要更复杂的数据传递逻辑的情况下。在这种情况下，您可能需要考虑使用其他状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、Riverpod 或 [***GetX***](# Dart.Flutter.GetX)；
+* *_inheritedWidgets*一般情况下是空的，只有当父控件是*InheritedWidget*或者本身是*InheritedWidgets*时才会有被初始化，而当父控件是*InheritedWidget*时，这个Map会被**一级一级往下传递与合并** ;
 * **所以当我们通过 `context` 调用 `inheritFromWidgetOfExactType` 时，就可以往上查找到父控件的*Widget*，从在 `scoped_model` 获取到 `_InheritedModel` 中的`Model` **;
 * *InheritedWidget*共享的是*Widget*，只是这个*Widget*是一个*ProxyWidget*，它自己本身并不绘制什么。但共享这个*Widget*内保存有的值，却达到了共享状态的目的；
-* 状态共享是常见的需求，比如用户信息和登陆状态等等；
+* 状态共享是常见的需求，比如用户信息和登陆状态等；
 
 *演示了如何使用 InheritedWidget 在 Flutter 中共享数据*
 ```dart
