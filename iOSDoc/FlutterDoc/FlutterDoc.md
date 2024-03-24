@@ -2492,11 +2492,312 @@ class PageBloc {
 
 ### flutter_redux
 
+*redux：【adj.】被带回的；复活的*
+
+*reducer：【n.】[助剂] 还原剂；减径管*
+
+*  可以看做是利用了 ***Stream*** 特性的 ***scope_model*** 升级版，通过 ***redux*** 设计模式来完成解耦和拓展；
+
+* 在 *Redux* 架构中，***Store***、***Action*** 、***Reducer***以及 ***Middleware***。它们分别承担着不同的角色，协同工作**以实现状态管理和数据流控制**；
+
+  * **Store**：
+    - ***Store***是整个 **Redux 应用程序的核心**。<span style="color:red; font-weight:bold;">*它负责存储应用程序的状态，并提供了一种方式来访问和更新这个状态*</span>；
+    - ***Store*** 保存了应用程序的状态树，并通过 `getState()` 方法提供对当前状态的访问。它还提供了 `dispatch(action)` 方法来分发（*dispatch*）操作（*Action*）到 ***Reducer*** 中进行处理，并更新状态；
+    - 在 *Redux* 中，只能有一个全局的 ***Store*** 存在，这使得整个应用程序的状态变得易于管理和追踪；
+  * **Action**：
+    - 一个**普通的 JavaScript 对象，描述了发生了什么事情**。<span style="color:red; font-weight:bold;">*它是改变应用程序状态的唯一途径*</span>；
+    - ***Action*** 对象必须包含一个 `type` 属性，用来表示操作类型，通常以***字符串***的形式表示。除了 `type` 属性外，***Action*** 对象还可以携带一些附加数据，这些数据会传递给 ***Reducer*** 来更新状态。
+  * **Reducer**：
+    - `Reducer` 是一个**纯函数**，负责处理来自 ***Action*** 的操作，<span style="color:red; font-weight:bold;">*更新应用程序的状态，并返回一个新的状态*</span>；
+    - `Reducer` 接收当前的状态和一个操作（***Action***）作为参数，并根据操作的类型来决定如何更新状态。它应该返回一个全新的状态对象，而不是修改原始的状态对象；
+    - 在 *Redux* 中，可能有多个***Reducer***，但每个 ***Reducer*** 只负责管理状态树的一部分，它们一起构成了应用程序的整体状态管理；
+  * **Middleware**：
+    * 中间件（ 是一个函数链），允许你在发送一个 `action` 到 ***Reducer*** 之前，对 `action` 进行一些处理。***Middleware*** 提供了一个扩展 *Redux* 功能的机制，例如日志记录、异步操作、路由导航等；
+    * 它接收 *Redux* ***store*** 的 `dispatch` 和 `getState` 函数作为参数，并返回一个函数，这个函数接收 next（下一个 ***Middleware*** 的 `dispatch` 方法）和 ***action*** 作为参数，并返回一个函数，这个函数接收 ***action*** 作为参数；
+    * 通过使用 Middleware，可以轻松地添加各种功能到 *Redux* 应用程序中，而不需要修改 `reducer` 或者组件代码，
+
+  *用于在每次分派（dispatch）action 时打印日志👇🏻*
+
+  ```dart
+  void loggingMiddleware(Store<AppState> store, action, NextDispatcher next) {
+    print('Action: $action');
+    print('Current State: ${store.state}');
+  
+    // 调用下一个 Middleware 或者 reducer
+    next(action);
+  
+    print('Next State: ${store.state}');
+  }
+  ```
+
+  *在创建 Redux store 时，可以将 Middleware 添加到 Middleware 链中👇🏻*
+
+  ```dart
+  final store = Store<AppState>(
+    reducer,
+    initialState: AppState.initial(),
+    middleware: [loggingMiddleware],
+  );
+  ```
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  redux: ^5.0.0
+  flutter_redux: ^0.8.2
+```
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+
+// Action:表示操作类型
+enum ActionType { increment, decrement }
+// 来保存应用程序的状态，这里只有一个计数器
+class AppState {
+  final int counter;
+  AppState({required this.counter});
+  factory AppState.initial() => AppState(counter: 0);
+}
+// Reducer:处理不同的操作类型，并更新状态。
+AppState reducer(AppState state, dynamic action) {
+  if (action == ActionType.increment) {
+    return AppState(counter: state.counter + 1);
+  } else if (action == ActionType.decrement) {
+    return AppState(counter: state.counter - 1);
+  }return state;
+}
+
+void main() {
+  final Store<AppState> store = Store<AppState>(
+    reducer,
+    initialState: AppState.initial(),
+  );
+
+  runApp(MyApp(store: store));
+}
+
+class MyApp extends StatelessWidget {
+  final Store<AppState> store;
+
+  MyApp({required this.store});
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreProvider(
+      store: store,
+      child: MaterialApp(
+        title: 'Flutter Redux Demo',
+        home: MyHomePage(),
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter Redux Demo'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Counter:',
+              style: TextStyle(fontSize: 24),
+            ),
+            // 关键代码:使用 StoreConnector 将 Redux store 和 UI 连接起来
+            StoreConnector<AppState, int>(
+              converter: (store) => store.state.counter,
+              builder: (context, counter) {
+                return Text(
+                  '$counter',
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: () {
+              StoreProvider.of<AppState>(context).dispatch(ActionType.increment);// 关键代码：分派不同的操作类型到 Redux store
+            },
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: () {
+              StoreProvider.of<AppState>(context).dispatch(ActionType.decrement);// 关键代码：分派不同的操作类型到 Redux store
+            },
+            tooltip: 'Decrement',
+            child: Icon(Icons.remove),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+
 ### fish_redux
 
+* 基于*Redux*架构，旨在简化复杂应用程序的状态管理和 UI 构建过程；
+* 支持插件化架构：持久化插件、路由插件、国际化插件等；
+* 提供异步支持：Effect 的机制。可以在 ***Action***的生命周期中执行异步操作，并将结果发送回***Reducer***进行状态更新
 
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  fish_redux: ^0.5.4
+```
 
+***创建一个名为 `counter_page` 的文件夹，并在其中创建以下文件*** <span style="color:red; font-weight:bold;">*简单的计数器应用程序*</span>
 
+*`state.dart`：定义页面状态*
+
+```dart
+import 'package:fish_redux/fish_redux.dart';
+
+class CounterState implements Cloneable<CounterState> {
+  int count;
+
+  CounterState({this.count = 0});
+
+  @override
+  CounterState clone() {
+    return CounterState()..count = count;
+  }
+}
+```
+
+*`action.dart`：定义页面操作（Action）*
+
+```dart
+import 'package:fish_redux/fish_redux.dart';
+
+enum CounterAction { increment, decrement }
+
+class CounterActionCreator {
+  static Action increment() {
+    return const Action(CounterAction.increment);
+  }
+
+  static Action decrement() {
+    return const Action(CounterAction.decrement);
+  }
+}
+```
+
+*`reducer.dart`：定义状态更新函数（Reducer）*
+
+```dart
+import 'package:fish_redux/fish_redux.dart';
+import 'action.dart';
+import 'state.dart';
+
+Reducer<CounterState> buildReducer() {
+  return asReducer(
+    <Object, Reducer<CounterState>>{
+      CounterAction.increment: _onIncrement,
+      CounterAction.decrement: _onDecrement,
+    },
+  );
+}
+
+CounterState _onIncrement(CounterState state, Action action) {
+  final newState = state.clone();
+  newState.count += 1;
+  return newState;
+}
+
+CounterState _onDecrement(CounterState state, Action action) {
+  final newState = state.clone();
+  newState.count -= 1;
+  return newState;
+}
+```
+
+*`view.dart`：定义页面视图*
+
+```dart
+import 'package:fish_redux/fish_redux.dart';
+import 'state.dart';
+
+Widget buildView(CounterState state, Dispatch dispatch, ViewService viewService) {
+  return Scaffold(
+    appBar: AppBar(title: Text('Counter')),
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Counter:',
+            style: TextStyle(fontSize: 24),
+          ),
+          Text(
+            '${state.count}',
+            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    ),
+    floatingActionButton: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        FloatingActionButton(
+          onPressed: () => dispatch(CounterActionCreator.increment()),
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
+        SizedBox(height: 10),
+        FloatingActionButton(
+          onPressed: () => dispatch(CounterActionCreator.decrement()),
+          tooltip: 'Decrement',
+          child: Icon(Icons.remove),
+        ),
+      ],
+    ),
+  );
+}
+```
+
+*`page.dart`：将状态、操作和视图整合在一起*
+
+```dart
+import 'package:fish_redux/fish_redux.dart';
+import 'action.dart';
+import 'state.dart';
+import 'view.dart';
+
+class CounterPage extends Page<CounterState, Map<String, dynamic>> {
+  CounterPage()
+      : super(
+          initState: initState,
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<CounterState>(
+              adapter: null, slots: <String, Dependent<CounterState>>{}),
+          middleware: <Middleware<CounterState>>[],
+        );
+}
+
+void initState(CounterState state, Context<CounterState> ctx) {
+  // 初始化状态
+  state.count = 0;
+}
+```
 
 ## ***Dart.Flutter.InheritedWidget***
 
