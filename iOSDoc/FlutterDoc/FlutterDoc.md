@@ -2,12 +2,10 @@
 
 [toc]
 ## 相关资料
-
-[***[Flutter 面试知识点集锦· GitBook](https://guoshuyu.cn/home/wx/Flutter-msjj.html)***](https://guoshuyu.cn/home/wx/Flutter-msjj.html)
-
+[***Flutter 面试知识点集锦· GitBook***](https://guoshuyu.cn/home/wx/Flutter-msjj.html)
+[***Dart/Flutter社区生态：Pub.dev***](https://pub.dev/)
 ## **`var`**、**`dynamic`**、**`object`**
-
-* `var`定义的类型是不可变的；
+* `var`定义的类型是不可变的；pub.dev
 * `dynamic`和`object`类型是可以变的，而`dynamic` 与`object`的区别是在静态类型检查上；
   * `dynamic`：编译时**不**进行静态类型检查的类型（更灵活），而是在运行期间进行类型检查。（被编译后，实际是一个 `object` 类型）
   * `object`：编译时会进行类型检查（更安全）
@@ -85,95 +83,7 @@
      myConstObject.printValues();
    }
    ```
-## `Diff` 算法
-* 在 Dart.Flutter 中，`Diff` 算法指的是用于**比较新旧 *Widget* 树的差异，并确定哪些部分需要更新**的算法。这个算法被称为 "Diff" 是因为它会找出两个树之间的差异，并尽可能地最小化更新的成本，**只更新必要的部分**。
-* `Diff` 算法的基本思想是递归地比较新旧 *Widget* 树的每个节点，找出它们之间的差异。这个比较是根据节点的类型、属性、以及子节点的情况来进行的。当发现节点之间存在差异时，`Diff` 算法会尝试**尽可能地复用已有的节点，并更新其属性**，而不是直接销毁和重建节点。
-* 以下是 `Diff` 算法的基本步骤：
-  * **比较节点类型**：首先比较新旧节点的类型。如果它们的类型不同，则说明节点需要被替换；
-  * **比较属性**：如果节点的类型相同，那么就比较它们的属性。如果属性有变化，则需要更新节点的属性；
-  * **比较子节点**：如果节点是容器类节点（比如 `Row`、`Column`、`ListView` 等），则需要递归地比较它们的子节点。如果子节点有变化，则需要更新子节点；
-  * **更新差异部分**：根据比较的结果，确定哪些部分需要更新，并执行相应的更新操作；
-  通过这种方式，`Diff` 算法可以高效地找出新旧 *Widget* 树之间的差异，并尽可能地减少更新的成本。这种优化可以帮助 Flutter 在处理复杂 UI 结构时保持良好的性能。
-## `MyHomePage`和`_MyHomePageState`的分离
-* **MyHomePage**类(*StatefulWidget*)：这个类负责定义页面的外观结构，例如页面的布局、UI元素等。它是一个不可变的*Widget*，一旦创建就不能修改，因此通常用于定义页面的静态部分；
-* **MyHomePageState**类(*State*)：这个类负责管理页面的状态和动态部分。它包含了在页面生命周期内可能会变化的数据和逻辑。*_MyHomePageState*，类是可变的，并且可以通过调用`setState`方法来触发页面的重建；
-```
-在 Flutter 中，将 StatefulWidget 的 Widget 部分和其关联的 State 部分分开定义的主要原因是为了分离 UI 描述和状态管理，以便更好地组织代码、提高可读性，并遵循 Flutter 的设计模式。
-```
-虽然理论上你可以将 *Widget* 和其关联的 *State* 写在同一个类中，但是将它们分开的做法有以下几个优点：
-* **分离关注点**：将 UI 描述和状态管理分开放置，可以让代码更加清晰明了。*Widget* 类负责描述 UI 的外观和布局，而 *State* 类负责管理 *Widget* 的状态。这样做使得代码结构更加清晰，每个类都专注于自己的职责；
-* **代码重用**：通过将状态提取到单独的 *State* 类中，可以方便地将同一份状态在多个 *Widget* 之间共享，从而实现代码的重用。如果 *Widget* 和 *State* 写在同一个类中，可能会导致代码重复或难以重用；
-* **状态管理**：将状态和 UI 描述分离可以更好地管理状态的生命周期。*StatefulWidget* 和 *State* 之间的分离允许状态在 UI 生命周期中保持一致，并在需要时通知框架更新 UI；
-* **框架要求**：***Dart.Flutter 框架本身也要求 StatefulWidget 和其关联的 State 必须是分开的，这是 Dart.Flutter 设计的一部分。***Dart.Flutter 的设计哲学是将 UI 描述和状态管理分开，以便更好地实现代码的组织和管理；
-  <span style="color:red; font-weight:bold;">**综上所述，尽管在某些情况下将 *Widget* 和其关联的 *State* 写在同一个类中是可行的，但是将它们分开定义通常更利于代码的组织、可读性和维护性。**</span>
-## 关于`const MyApp({Key? key}) : super(key: key);`
-
-* 是一个常量构造函数，用于创建一个名为*MyApp*的小部件，并将一个可选的`Key`作为参数传递给父类的构造函数；
-
-* 在某些情况下，可以省略`const MyApp({Key? key}) : super(key: key);`，具体取决于你的需求和代码结构。这取决于以下几个因素：
-  * **默认行为：** 如果你的 *MyApp* 小部件不需要任何特殊的构造函数行为，并且不需要传递`key`参数给父类构造函数，那么你可以省略这个构造函数，因为Dart会提供一个默认构造函数；
-  * **Key的需要：** 如果你的小部件需要在小部件树中唯一标识自己，那么你通常需要传递一个`Key`给父类构造函数。在这种情况下，你可能需要保留这个构造函数，并传递`key`参数给父类；
-  * **const构造函数的需求：** 如果你的小部件需要作为常量构造函数使用（例如，当你希望在编译时计算小部件时），那么你需要保留`const`关键字并保留该构造函数；
-* `const MyApp`：这是构造函数的名称，表示创建一个名为 *MyApp* 的*Widget*；
-  * `const`关键字表示此构造函数是一个**常量**构造函数，即在编译时将其计算为常量；
-  * 这意味着如果 *MyApp*的实例在代码中的多个位置都是相同的，那么Dart.Flutter**只会创建一个实例**，并在需要时重复使用它。
-* `({Key? key})`：这是构造函数的**参数列表**；
-  * 在这种情况下，它只有一个参数`key`，它是一个`Key`类型的可选参数；
-  * `Key`是Dart.Flutter中**用于识别小部件的一种方式**；
-  * `key`参数通常用于在小部件树中唯一标识小部件，以便在更新小部件树时进行识别和比较。在这里，`Key?`表示`key`参数可以是空值。
-* `: super(key: key);`：这表示调用父类构造函数，并将`key`参数传递给父类构造函数；
-  * 在这里，`super`关键字用于调用父类的构造函数；
-  * 这里的父类可能是*StatefulWidget*或其子类。这是因为通常在Dart.中，自定义小部件会继承自*StatefulWidget*或其子类以便管理状态；
-  * 传递`key`参数给父类构造函数是为了让父类能够正确地处理此小部件的唯一标识符；
-  
-
-<span style="color:red; font-weight:bold;">*使用`key`的demo*</span>
-
-```dart
-import 'package:flutter/material.dart';
-
-void main() {
-	runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  
-  const MyApp({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Demo'),
-        ),
-        body: MyWidget(
-          /// UniqueKey是一个自动生成的用于在小部件树中唯一标识小部件的特殊Key子类;
-          /// 在这种情况下，我们确保了每次MyWidget实例化时都会得到一个不同的key，这对于确保在小部件树中的每个小部件都是唯一标识的非常重要。
-          key: UniqueKey(), // 使用UniqueKey作为MyWidget的key
-        ),
-      ),
-    );
-  }
-}
-
-class MyWidget extends StatefulWidget {
-  MyWidget({Key? key}) : super(key: key);
-
-  @override
-  _MyWidgetState createState() => _MyWidgetState();
-}
-
-class _MyWidgetState extends State<MyWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Hello, World!'),
-    );
-  }
-}
-```
 ## ***Dart.级联操作符***
-
 ```dart
 var person = Person()
   ..setName('Bob')
@@ -183,9 +93,7 @@ var person = Person();
 person.setName('Bob');
 person.setAge(25);
 ```
-
 ## ***Dart.调用C***
-
 在Dart中，你可以通过使用`dart:ffi`库来调用C语言的函数。以下是一个简单的步骤概述：
 * **定义C语言库的接口：** 在Dart中使用`dart:ffi`库，你需要定义C语言库的接口。这包括函数声明、结构体定义等。
 ```c
@@ -355,48 +263,11 @@ print(obj.x) // 输出: 10
   * **重建顶级节点**：虽然 *Widget* 树中的大部分节点可能保持不变，但在某些情况下，比如状态变化或路由导航等，顶级节点可能会发生变化。在这种情况下，Dart.Flutter 会重新构建整个 *Widget* 树，从根节点开始，而不是从变化的节点开始；
   * **重用已构建的部分**：为了提高性能，Dart.Flutter 会尽可能地重用已构建的部分 *Widget* 树。如果某些节点在新旧 *Widget* 树中是相同的（例如，它们具有相同的类型和属性），Dart.Flutter 将重用已构建的节点，而不是重新创建它们；
     *虽然重新构建 Widget 树看起来像是创建一个全新的树，但实际上 Flutter 会**尽可能地重用已有的节点**，并仅在必要时更新变化的部分，以提高性能和效率*
-## ***Dart..State***的生命周期
-
-<span style="color:red; font-weight:bold;">***State* 生命周期是指 *StatefulWidget* 对象的状态变化和生命周期方法调用的过程**</span>；
-* `createState()`
-  - 调用时机：在 *StatefulWidget* 首次被创建时调用。
-  - 作用：用于创建 *StatefulWidget* 的关联 *State* 对象。
-* `initState()`
-  - 调用时机：在与 *State*对象关联的 *StatefulWidget* 被插入到树中时调用，即在 *Widget* 的生命周期中只会被调用一次。
-  - 作用：通常用于执行一次性的初始化操作，比如订阅流、初始化变量等。
-* `didChangeDependencies()`
-  - 调用时机：在 *State*对象依赖的对象发生变化时被调用，例如在 `initState()` 之后，*Widget* 的依赖关系发生变化时调用。
-  - 作用：通常用于获取依赖关系的变化，并执行相应的操作。
-* `build()`
-  - 调用时机：每次 *State* 对象的状态发生变化时都会被调用，用于构建 *Widget* 树。
-  - 作用：用于构建当前 *State* 对象所对应的 *Widget* 树。
-* `didUpdateWidget()`
-  - 调用时机：在 *Widget* 树中的一个已存在的子树，发生变化时，会调用旧的 *Widget* 的 `didUpdateWidget` 方法。
-  - 作用：通常用于在 *Widget* 重新构建时执行一些操作，例如对比新旧 *Widget* 的属性值，并做相应的处理。
-* `setState()`
-  - 调用时机：当调用此方法时，Dart.Flutter 会重新调用 `build()` 方法，从而更新 *Widget* 树。
-  - 作用：用于通知 Dart.Flutter 框架，*State* 对象的状态发生了变化，需要重新构建 *Widget* 树。
-* `dispose()`
-  - 调用时机：在 *State* 对象从 *Widget* 树中被永久移除时调用。
-  - 作用：通常用于执行一些清理操作，比如取消订阅、释放资源等。
-## ***Dart.Flutter.MaterialApp*** 和 ***Dart.Flutter.CupertinoApp*** 的生命周期方法
-
-***MaterialApp*** 和 ***CupertinoApp*** 都有各自的生命周期方法，它们继承自 ***WidgetsApp***，因此具有相似的生命周期
-
-* `createState()`：用于创建小部件的状态对象。这个方法在小部件第一次被创建时调用，通常用于初始化状态；
-* `initState()`：在小部件被插入到小部件树中时调用。通常在这个方法中执行一些初始化操作，比如订阅流、初始化控制器等；
-* `didChangeDependencies()`：当小部件依赖的对象发生变化时调用。通常用于处理依赖关系发生变化时的逻辑；
-* `build()`：构建小部件的UI结构，这个方法会在小部件需要被构建时调用；
-* `didUpdateWidget()`：当小部件的配置发生变化时调用。通常用于处理小部件的状态变化；
-* `deactivate()`：当小部件被移除时调用。通常用于释放资源或取消订阅；
-* `dispose()`：在小部件被销毁时调用。通常用于释放资源、取消订阅以及清理工作；
 ## ***Dart.Flutter.依赖注入***
-
 * ***Dart.Flutter 框架本身没有内置的依赖注入机制***，但由于依赖注入在 Dart.Flutter 开发中非常常见，因此有许多第三方库提供了依赖注入的功能：
-  
-  * *[GetX](# Flutter.GetX)*：*[GetX](# Flutter.Dart.Flutter.GetX)* 的依赖注入功能通常与 `GetxController`、`GetxService` 和 `Get.put()` 方法一起使用：
+  * [*GetX*](# Flutter.GetX)：[*GetX*](# Flutter.GetX)的依赖注入功能通常与 `GetxController`、`GetxService` 和 `Get.put()` 方法一起使用：
     
-    * 需要在 *pubspec.yaml* 文件中添加 ***[GitHub.GetX](https://github.com/jonataslaw/getx)***  包的依赖：
+    * 需要在 *pubspec.yaml* 文件中添加 [***GitHub.GetX***](https://github.com/jonataslaw/getx)  包的依赖：
     ```yaml
     dependencies:
       flutter:
@@ -453,7 +324,7 @@ print(obj.x) // 输出: 10
       }
     }
     ```
-  * *[get_it](https://github.com/fluttercommunity/get_it)*：是其中一个流行的依赖注入库，它提供了一种简单的、易于使用的方式来管理依赖关系。虽然它不是官方的 Dart.Flutter 库，但由于其简洁和灵活的设计，以及在社区中的广泛应用；
+  * [*get_it*](https://github.com/fluttercommunity/get_it)：是其中一个流行的依赖注入库，它提供了一种简单的、易于使用的方式来管理依赖关系。虽然它不是官方的 Dart.Flutter 库，但由于其简洁和灵活的设计，以及在社区中的广泛应用；
     
     * 在 *pubspec.yaml* 文件中添加 `get_it` 依赖：
     ```yaml
@@ -512,6 +383,530 @@ print(obj.x) // 输出: 10
       ));
     }
     ```
+## ***Dart.Flutter.State***
+
+* 用于管理部件状态的类（实例对象）；
+* 每个*Widget*状态都代表了一帧。在每次*Widget*重绘的时候，通过*State*重新赋予*Widget*需要的绘制信息；
+* **BuildContext**：有关当前*Widget*及其祖先*Widget*的一些元数据（比如位置信息）；
+  * **Element**：是构建*Widget*树的基本单位（具体部件实例）。它负责管理该部件及其子部件的生命周期、布局、绘制等操作；
+    * *RenderObject*：通过*Element*转化为*RenderObject*去实现*Widget*绘制；
+    * *Widget*：每个*Widget*对应一个*Element*；
+    * *Element*是不可变的。当*Widget*需要更新时，Dart.Flutter 会销毁旧的*Element*，并创建一个新的*Element*来代表更新后的部件；
+    * *Element* 是**BuildContext**的实现类，同时*Element*持有*RenderObject*和*Widget*；
+    * `Widget build(BuildContext context) {}` ，就是被 `Element` 调用的；
+  * **RenderObjectElement**：管理渲染对象的*Element*类型；
+* 事实上*State*实现跨帧共享，就是将*State*保存在*Element*中；
+  * 这样*Element*每次调用 `Widget build()` 时，是通过 `state.build(this)`； 
+  * 得到的新*Widget* ，所以写在*State*的数据就得以复用了；
+* ***StatefulWidget* 的 `createState` 是在*StatefulElement*的构建方法里创建的**。这就保证了只要*Element*不被重新创建，*State*就一直被复用；
+* `setState` ，其实是调用了 `markNeedsBuild` ，**`markNeedsBuild` 内部会标记 `element` 为 `diry`，然后在下一帧 `WidgetsBinding.drawFrame` 才会被绘制，这可以也看出**<span style="color:red; font-weight:bold;">**`setState` 并不是立即生效的**</span>；
+* ***Dart.Flutter.State***的生命周期：<span style="color:red; font-weight:bold;">**是指 *StatefulWidget* 对象的状态变化和生命周期方法调用的过程**</span>；
+  * `createState()`
+    - 调用时机：在 *StatefulWidget* 首次被创建时调用。
+    - 作用：用于创建 *StatefulWidget* 的关联 *State* 对象。
+  * `initState()`
+    - 调用时机：在与 *State*对象关联的 *StatefulWidget* 被插入到树中时调用，即在 *Widget* 的生命周期中只会被调用一次。
+    - 作用：通常用于执行一次性的初始化操作，比如订阅流、初始化变量等。
+  * `didChangeDependencies()`
+    - 调用时机：在 *State*对象依赖的对象发生变化时被调用，例如在 `initState()` 之后，*Widget* 的依赖关系发生变化时调用。
+    - 作用：通常用于获取依赖关系的变化，并执行相应的操作。
+  * `build()`
+    - 调用时机：每次 *State* 对象的状态发生变化时都会被调用，用于构建 *Widget* 树。
+    - 作用：用于构建当前 *State* 对象所对应的 *Widget* 树。
+  * `didUpdateWidget()`
+    - 调用时机：在 *Widget* 树中的一个已存在的子树，发生变化时，会调用旧的 *Widget* 的 `didUpdateWidget` 方法。
+    - 作用：通常用于在 *Widget* 重新构建时执行一些操作，例如对比新旧 *Widget* 的属性值，并做相应的处理。
+  * `setState()`
+    - 调用时机：当调用此方法时，Dart.Flutter 会重新调用 `build()` 方法，从而更新 *Widget* 树。
+    - 作用：用于通知 Dart.Flutter 框架，*State* 对象的状态发生了变化，需要重新构建 *Widget* 树。
+  * `dispose()`
+    - 调用时机：在 *State* 对象从 *Widget* 树中被永久移除时调用。
+    - 作用：通常用于执行一些清理操作，比如取消订阅、释放资源等。
+* [***InheritedWidget***](# Dart.Flutter.InheritedWidget)
+
+## ***Dart.Flutter.状态管理***
+* 在所有 **响应式编程** 中，状态管理一直老生常谈的话题，而在 Flutter 中，目前主流的有 `scope_model` 、`BloC 设计模式` 、`flutter_redux` 、`fish_redux` 等四种设计；
+* 它们的 *复杂度* 和 *上手难度* 是逐步递增的，但同时 **可拓展性** 、**解耦度** 和 **复用能力** 也逐步提升。
+### scoped_model
+* 是 Dart.Flutter 最为简单的状态管理框架，它充分利用了 Dart.Flutter 中的一些特性，只有一个 dart 文件的它，极简的实现了一般场景下的状态管理；
+* 内部实现借助***AnimatedBuildler***利用了[*InheritedWidget*](# Dart.Flutter.InheritedWidget)：
+  * 在 `scoped_model` 中，可以通过 `ScopedModel.of<CountModel>(context)` 获取我们的 Model 。其中最主要是因为其内部的 build 的时候，包裹了一个 `_InheritedModel` 控件，而它继承了 `InheritedWidget` 
+  * 业务处理流程总结：
+    * `AnimatedBuildler` 继承了 `AnimatedWidget` ，在 `AnimatedWidget` 的生命周期中会对 `Listenable` 接口添加监听，而 `Model` 恰好就实现了 `Listenable` 接口；
+    * `Model` 实现了 `Listenable` 接口，内部维护一个 `Set<VoidCallback> _listeners` ；
+    * 当 `Model` 设置给 `AnimatedBuildler` 时， `Listenable` 的 `addListener` 会被调用，然后添加一个 `_handleChange` 监听到 `_listeners` 这个 Set 中；
+    * 当 `Model` 调用 `notifyListeners` 时，会通过异步方法 `scheduleMicrotask` 去从头到尾执行一遍 `_listeners` 中的 `_handleChange`；
+    * `_handleChange` 监听被调用，执行了 `setState({})` ；
+
+![image.png](./assets/image1.png)
+
+* 利用 `scoped_model` 实现状态管理只需要三步:
+  * 定义 `Model` 的实现，如 `CountModel` ，并且在状态改变时执行 `notifyListeners()` 方法；
+  * 使用 `ScopedModel` Widget 加载 `Model` ；
+  * 使用 `ScopedModelDescendant` 或者 `ScopedModel.of<CountModel>(context)` 加载 `Model` 内状态数据；
+```dart
+class ScopedPage extends StatelessWidget {
+  final CountModel _model = new CountModel();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: new Text("scoped"),
+        ),
+        body: Container(
+          child: new ScopedModel<CountModel>(
+            model: _model,
+            child: CountWidget(),
+          ),
+        ));
+  }
+}
+
+class CountWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new ScopedModelDescendant<CountModel>(
+        builder: (context, child, model) {
+        return new Column(
+          children: <Widget>[
+            new Expanded(child: new Center(child: new Text(model.count.toString()))),
+            new Center(
+              child: new FlatButton(
+                  onPressed: () {
+                    model.add();
+                  },
+                  color: Colors.blue,
+                  child: new Text("+")),
+            ),
+          ],
+        );
+      });
+  }
+}
+
+class CountModel extends Model {
+  static CountModel of(BuildContext context) =>
+      ScopedModel.of<CountModel>(context);
+
+  int _count = 0;
+
+  int get count => _count;
+
+  void add() {
+    _count++;
+    notifyListeners();
+  }
+}
+```
+### BloC：<span style="color:red; font-weight:bold;">*B*</span>usiness <span style="color:red; font-weight:bold;">*Lo*</span>gic <span style="color:red; font-weight:bold;">*C*</span>omponent
+* 它属于一种设计模式，在 Dart.Flutter 中它主要是通过 `Stream` 与 `SteamBuilder` 来实现设计的，所以 ***BloC*** 实现起来也相对简单；
+* 当然，如果和 `rxdart` 结合可以简化 `StreamController` 的一些操作，同时如果你需要利用 `BloC` 模式实现状态共享，那么自己也可以封装多一层 `InheritedWidgets` 的嵌套；
+* 业务处理流程总结：
+  * 定义一个 `PageBloc` 对象，利用 `StreamController` 创建 `Sink` 与 `Stream`；
+  * `PageBloc` 对外暴露 `Stream` 用来与 `StreamBuilder` 结合；暴露 add 方法提供外部调用，内部通过 `Sink` 更新 `Stream`；
+  * 利用 `StreamBuilder` 加载监听 `Stream` 数据流，通过 snapShot 中的 data 更新控件；
+```dart
+class _BlocPageState extends State<BlocPage> {
+  final PageBloc _pageBloc = new PageBloc();
+  @override
+  void dispose() {
+    _pageBloc.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: new StreamBuilder(
+            initialData: 0,
+            stream: _pageBloc.stream,
+            builder: (context, snapShot) {
+              return new Column(
+                children: <Widget>[
+                  new Expanded(
+                      child: new Center(
+                          child: new Text(snapShot.data.toString()))),
+                  new Center(
+                    child: new FlatButton(
+                        onPressed: () {
+                          _pageBloc.add();
+                        },
+                        color: Colors.blue,
+                        child: new Text("+")),
+                  ),
+                  new SizedBox(
+                    height: 100,
+                  )
+                ],
+              );
+            }),
+      ),
+    );
+  }
+}
+class PageBloc {
+  int _count = 0;
+  ///StreamController
+  StreamController<int> _countController = StreamController<int>();
+  ///对外提供入口
+  StreamSink<int> get _countSink => _countController.sink;
+  ///提供 stream StreamBuilder 订阅
+  Stream<int> get stream => _countController.stream;
+  void dispose() {
+    _countController.close();
+  }
+  void add() {
+    _count++;
+    _countSink.add(_count);
+  }
+}
+```
+
+### flutter_redux
+*redux：【adj.】被带回的；复活的*
+*reducer：【n.】[助剂] 还原剂；减径管*
+*  可以看做是利用了 ***Stream*** 特性的 ***scope_model*** 升级版，通过 ***redux*** 设计模式来完成解耦和拓展；
+* 在 *Redux* 架构中，***Store***、***Action*** 、***Reducer***以及 ***Middleware***。它们分别承担着不同的角色，协同工作**以实现状态管理和数据流控制**；
+  * **Store**：
+    - ***Store***是整个 **Redux 应用程序的核心**。<span style="color:red; font-weight:bold;">*它负责存储应用程序的状态，并提供了一种方式来访问和更新这个状态*</span>；
+    - ***Store*** 保存了应用程序的状态树，并通过 `getState()` 方法提供对当前状态的访问。它还提供了 `dispatch(action)` 方法来分发（*dispatch*）操作（*Action*）到 ***Reducer*** 中进行处理，并更新状态；
+    - 在 *Redux* 中，只能有一个全局的 ***Store*** 存在，这使得整个应用程序的状态变得易于管理和追踪；
+  * **Action**：
+    - 一个**普通的 JavaScript 对象，描述了发生了什么事情**。<span style="color:red; font-weight:bold;">*它是改变应用程序状态的唯一途径*</span>；
+    - ***Action*** 对象必须包含一个 `type` 属性，用来表示操作类型，通常以***字符串***的形式表示。除了 `type` 属性外，***Action*** 对象还可以携带一些附加数据，这些数据会传递给 ***Reducer*** 来更新状态。
+  * **Reducer**：
+    - `Reducer` 是一个**纯函数**，负责处理来自 ***Action*** 的操作，<span style="color:red; font-weight:bold;">*更新应用程序的状态，并返回一个新的状态*</span>；
+    - `Reducer` 接收当前的状态和一个操作（***Action***）作为参数，并根据操作的类型来决定如何更新状态。它应该返回一个全新的状态对象，而不是修改原始的状态对象；
+    - 在 *Redux* 中，可能有多个***Reducer***，但每个 ***Reducer*** 只负责管理状态树的一部分，它们一起构成了应用程序的整体状态管理；
+  * **Middleware**：
+    * 中间件（ 是一个函数链），允许你在发送一个 `action` 到 ***Reducer*** 之前，对 `action` 进行一些处理。***Middleware*** 提供了一个扩展 *Redux* 功能的机制，例如日志记录、异步操作、路由导航等；
+    * 它接收 *Redux* ***store*** 的 `dispatch` 和 `getState` 函数作为参数，并返回一个函数，这个函数接收 next（下一个 ***Middleware*** 的 `dispatch` 方法）和 ***action*** 作为参数，并返回一个函数，这个函数接收 ***action*** 作为参数；
+    * 通过使用 Middleware，可以轻松地添加各种功能到 *Redux* 应用程序中，而不需要修改 `reducer` 或者组件代码，
+    *用于在每次分派（dispatch）action 时打印日志👇🏻*
+  ```dart
+  void loggingMiddleware(Store<AppState> store, action, NextDispatcher next) {
+    print('Action: $action');
+    print('Current State: ${store.state}');
+  
+    // 调用下一个 Middleware 或者 reducer
+    next(action);
+  
+    print('Next State: ${store.state}');
+  }
+  ```
+
+  *在创建 Redux store 时，可以将 Middleware 添加到 Middleware 链中👇🏻*
+
+  ```dart
+  final store = Store<AppState>(
+    reducer,
+    initialState: AppState.initial(),
+    middleware: [loggingMiddleware],
+  );
+  ```
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  redux: ^5.0.0
+  flutter_redux: ^0.8.2
+```
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+
+// Action:表示操作类型
+enum ActionType { increment, decrement }
+// 来保存应用程序的状态，这里只有一个计数器
+class AppState {
+  final int counter;
+  AppState({required this.counter});
+  factory AppState.initial() => AppState(counter: 0);
+}
+// Reducer:处理不同的操作类型，并更新状态。
+AppState reducer(AppState state, dynamic action) {
+  if (action == ActionType.increment) {
+    return AppState(counter: state.counter + 1);
+  } else if (action == ActionType.decrement) {
+    return AppState(counter: state.counter - 1);
+  }return state;
+}
+
+void main() {
+  final Store<AppState> store = Store<AppState>(
+    reducer,
+    initialState: AppState.initial(),
+  );
+
+  runApp(MyApp(store: store));
+}
+
+class MyApp extends StatelessWidget {
+  final Store<AppState> store;
+
+  MyApp({required this.store});
+
+  @override
+  Widget build(BuildContext context) {
+    return StoreProvider(
+      store: store,
+      child: MaterialApp(
+        title: 'Flutter Redux Demo',
+        home: MyHomePage(),
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter Redux Demo'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Counter:',
+              style: TextStyle(fontSize: 24),
+            ),
+            // 关键代码:使用 StoreConnector 将 Redux store 和 UI 连接起来
+            StoreConnector<AppState, int>(
+              converter: (store) => store.state.counter,
+              builder: (context, counter) {
+                return Text(
+                  '$counter',
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: () {
+              StoreProvider.of<AppState>(context).dispatch(ActionType.increment);// 关键代码：分派不同的操作类型到 Redux store
+            },
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+          ),
+          SizedBox(height: 10),
+          FloatingActionButton(
+            onPressed: () {
+              StoreProvider.of<AppState>(context).dispatch(ActionType.decrement);// 关键代码：分派不同的操作类型到 Redux store
+            },
+            tooltip: 'Decrement',
+            child: Icon(Icons.remove),
+          ),
+        ],
+      ),
+    );
+  }
+}
+```
+### fish_redux
+* 基于*Redux*架构，旨在简化复杂应用程序的状态管理和 UI 构建过程；
+* 支持插件化架构：持久化插件、路由插件、国际化插件等；
+* 提供异步支持：Effect 的机制。可以在 ***Action***的生命周期中执行异步操作，并将结果发送回***Reducer***进行状态更新
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  fish_redux: ^0.5.4
+```
+***创建一个名为 `counter_page` 的文件夹，并在其中创建以下文件*** <span style="color:red; font-weight:bold;">*简单的计数器应用程序*</span>
+*`state.dart`：定义页面状态*
+```dart
+import 'package:fish_redux/fish_redux.dart';
+
+class CounterState implements Cloneable<CounterState> {
+  int count;
+
+  CounterState({this.count = 0});
+
+  @override
+  CounterState clone() {
+    return CounterState()..count = count;
+  }
+}
+```
+*`action.dart`：定义页面操作（Action）*
+```dart
+import 'package:fish_redux/fish_redux.dart';
+
+enum CounterAction { increment, decrement }
+
+class CounterActionCreator {
+  static Action increment() {
+    return const Action(CounterAction.increment);
+  }
+
+  static Action decrement() {
+    return const Action(CounterAction.decrement);
+  }
+}
+```
+*`reducer.dart`：定义状态更新函数（Reducer）*
+```dart
+import 'package:fish_redux/fish_redux.dart';
+import 'action.dart';
+import 'state.dart';
+
+Reducer<CounterState> buildReducer() {
+  return asReducer(
+    <Object, Reducer<CounterState>>{
+      CounterAction.increment: _onIncrement,
+      CounterAction.decrement: _onDecrement,
+    },
+  );
+}
+
+CounterState _onIncrement(CounterState state, Action action) {
+  final newState = state.clone();
+  newState.count += 1;
+  return newState;
+}
+
+CounterState _onDecrement(CounterState state, Action action) {
+  final newState = state.clone();
+  newState.count -= 1;
+  return newState;
+}
+```
+*`view.dart`：定义页面视图*
+```dart
+import 'package:fish_redux/fish_redux.dart';
+import 'state.dart';
+
+Widget buildView(CounterState state, Dispatch dispatch, ViewService viewService) {
+  return Scaffold(
+    appBar: AppBar(title: Text('Counter')),
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Counter:',
+            style: TextStyle(fontSize: 24),
+          ),
+          Text(
+            '${state.count}',
+            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    ),
+    floatingActionButton: Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        FloatingActionButton(
+          onPressed: () => dispatch(CounterActionCreator.increment()),
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
+        SizedBox(height: 10),
+        FloatingActionButton(
+          onPressed: () => dispatch(CounterActionCreator.decrement()),
+          tooltip: 'Decrement',
+          child: Icon(Icons.remove),
+        ),
+      ],
+    ),
+  );
+}
+```
+*`page.dart`：将状态、操作和视图整合在一起*
+```dart
+import 'package:fish_redux/fish_redux.dart';
+import 'action.dart';
+import 'state.dart';
+import 'view.dart';
+
+class CounterPage extends Page<CounterState, Map<String, dynamic>> {
+  CounterPage()
+      : super(
+          initState: initState,
+          reducer: buildReducer(),
+          view: buildView,
+          dependencies: Dependencies<CounterState>(
+              adapter: null, slots: <String, Dependent<CounterState>>{}),
+          middleware: <Middleware<CounterState>>[],
+        );
+}
+
+void initState(CounterState state, Context<CounterState> ctx) {
+  // 初始化状态
+  state.count = 0;
+}
+```
+## ***Dart.Flutter.对象间传值***
+* **构造函数参数传值：**在创建对象时，通过构造函数参数将数据传递给新对象。这是一种简单直接的方式，适用于需要传递初始数据的情况。
+* **Setter 方法传值：**在创建对象后，通过调用对象的 `setter` 方法来设置数据。这种方式允许您在对象创建后随时更新数据;
+```dart
+class MyWidget extends StatelessWidget {
+  String data;
+
+  void setData(String newData) {
+    data = newData;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(data ?? '');
+  }
+}
+```
+* **全局状态管理：** 使用一些全局状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、***[GetX](# Dart.Flutter.GetX)***、***Riverpod*** 等，来管理数据的全局状态，以便在应用程序的不同部分共享数据。
+* <span style="color:red; font-weight:bold;">**传递回调函数**</span>：在创建子组件时，通过传递回调函数来实现父组件向子组件传递数据。子组件可以调用回调函数来更新父组件的状态。
+```dart
+class ParentWidget extends StatefulWidget {
+  @override
+  _ParentWidgetState createState() => _ParentWidgetState();
+}
+
+class _ParentWidgetState extends State<ParentWidget> {
+  String data = '';
+
+  void updateData(String newData) {
+    setState(() {
+      data = newData;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChildWidget(updateData);
+  }
+}
+
+class ChildWidget extends StatelessWidget {
+  final Function(String) callback;
+
+  ChildWidget(this.callback);
+
+  @override
+  Widget build(BuildContext context) {
+    // Some UI to trigger callback
+    return ElevatedButton(
+      onPressed: () {
+        callback('New Data');
+      },
+      child: Text('Update Parent Data'),
+    );
+  }
+}
+```
+
 ## ***Dart.Flutter.key***
 
 * key是**`Widgets`**，**`Elements`**和**`SemanticsNodes`**的标识符；
@@ -644,68 +1039,101 @@ print(obj.x) // 输出: 10
       * **无需传递引用**：通过 `GlobalKey`，你可以直接通过键来访问 *Widget* 的状态，而不需要手动将对象引用传递到需要的地方。这样可以**减少代码的耦合度**，使代码更加清晰简洁；
       * **组件状态管理**：`GlobalKey` 还可以用于管理 *Widget* 的状态。例如，你可以使用 `GlobalKey` 来保存和恢复 *Widget* 的状态，或者在需要时重新构建 *Widget*；
       * **重建 Widget**：使用 `GlobalKey` 可以在需要时重新构建整个 *Widget*，而不必手动保存和重新创建 *Widget* 的状态。这在一些场景下可能会更加方便；
-## ***Dart.Flutter.对象间传值***
-
-* **构造函数参数传值：**在创建对象时，通过构造函数参数将数据传递给新对象。这是一种简单直接的方式，适用于需要传递初始数据的情况。
-* **Setter 方法传值：**在创建对象后，通过调用对象的 `setter` 方法来设置数据。这种方式允许您在对象创建后随时更新数据;
-```dart
-class MyWidget extends StatelessWidget {
-  String data;
-
-  void setData(String newData) {
-    data = newData;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(data ?? '');
-  }
-}
+## ***Dart.Flutter.UI***
+### ***Dart.Flutter.MaterialApp*** 和 ***Dart.Flutter.CupertinoApp*** 的生命周期方法
+***MaterialApp*** 和 ***CupertinoApp*** 都有各自的生命周期方法，它们继承自 ***WidgetsApp***，因此具有相似的生命周期
+* `createState()`：用于创建小部件的状态对象。这个方法在小部件第一次被创建时调用，通常用于初始化状态；
+* `initState()`：在小部件被插入到小部件树中时调用。通常在这个方法中执行一些初始化操作，比如订阅流、初始化控制器等；
+* `didChangeDependencies()`：当小部件依赖的对象发生变化时调用。通常用于处理依赖关系发生变化时的逻辑；
+* `build()`：构建小部件的UI结构，这个方法会在小部件需要被构建时调用；
+* `didUpdateWidget()`：当小部件的配置发生变化时调用。通常用于处理小部件的状态变化；
+* `deactivate()`：当小部件被移除时调用。通常用于释放资源或取消订阅；
+* `dispose()`：在小部件被销毁时调用。通常用于释放资源、取消订阅以及清理工作；
+### `MyHomePage`和`_MyHomePageState`的分离
+* **MyHomePage**类(*StatefulWidget*)：这个类负责定义页面的外观结构，例如页面的布局、UI元素等。它是一个不可变的*Widget*，一旦创建就不能修改，因此通常用于定义页面的静态部分；
+* **MyHomePageState**类(*State*)：这个类负责管理页面的状态和动态部分。它包含了在页面生命周期内可能会变化的数据和逻辑。*_MyHomePageState*，类是可变的，并且可以通过调用`setState`方法来触发页面的重建；
 ```
-* **全局状态管理：** 使用一些全局状态管理工具，如 ***Provider***、***[GetX](# Dart.Flutter.GetX)***、***Riverpod*** 等，来管理数据的全局状态，以便在应用程序的不同部分共享数据。
-* <span style="color:red; font-weight:bold;">**传递回调函数**</span>：在创建子组件时，通过传递回调函数来实现父组件向子组件传递数据。子组件可以调用回调函数来更新父组件的状态。
+在 Flutter 中，将 StatefulWidget 的 Widget 部分和其关联的 State 部分分开定义的主要原因是为了分离 UI 描述和状态管理，以便更好地组织代码、提高可读性，并遵循 Flutter 的设计模式。
+```
+虽然理论上你可以将 *Widget* 和其关联的 *State* 写在同一个类中，但是将它们分开的做法有以下几个优点：
+* **分离关注点**：将 UI 描述和状态管理分开放置，可以让代码更加清晰明了。*Widget* 类负责描述 UI 的外观和布局，而 *State* 类负责管理 *Widget* 的状态。这样做使得代码结构更加清晰，每个类都专注于自己的职责；
+* **代码重用**：通过将状态提取到单独的 *State* 类中，可以方便地将同一份状态在多个 *Widget* 之间共享，从而实现代码的重用。如果 *Widget* 和 *State* 写在同一个类中，可能会导致代码重复或难以重用；
+* **状态管理**：将状态和 UI 描述分离可以更好地管理状态的生命周期。*StatefulWidget* 和 *State* 之间的分离允许状态在 UI 生命周期中保持一致，并在需要时通知框架更新 UI；
+* **框架要求**：***Dart.Flutter 框架本身也要求 StatefulWidget 和其关联的 State 必须是分开的，这是 Dart.Flutter 设计的一部分。***Dart.Flutter 的设计哲学是将 UI 描述和状态管理分开，以便更好地实现代码的组织和管理；
+  <span style="color:red; font-weight:bold;">**综上所述，尽管在某些情况下将 *Widget* 和其关联的 *State* 写在同一个类中是可行的，但是将它们分开定义通常更利于代码的组织、可读性和维护性。**</span>
+### 关于`const MyApp({Key? key}) : super(key: key);`
+* 是一个常量构造函数，用于创建一个名为*MyApp*的小部件，并将一个可选的`Key`作为参数传递给父类的构造函数；
+* 在某些情况下，可以省略`const MyApp({Key? key}) : super(key: key);`，具体取决于你的需求和代码结构。这取决于以下几个因素：
+  * **默认行为：** 如果你的 *MyApp* 小部件不需要任何特殊的构造函数行为，并且不需要传递`key`参数给父类构造函数，那么你可以省略这个构造函数，因为Dart会提供一个默认构造函数；
+  * **Key的需要：** 如果你的小部件需要在小部件树中唯一标识自己，那么你通常需要传递一个`Key`给父类构造函数。在这种情况下，你可能需要保留这个构造函数，并传递`key`参数给父类；
+  * **const构造函数的需求：** 如果你的小部件需要作为常量构造函数使用（例如，当你希望在编译时计算小部件时），那么你需要保留`const`关键字并保留该构造函数；
+* `const MyApp`：这是构造函数的名称，表示创建一个名为 *MyApp* 的*Widget*；
+  * `const`关键字表示此构造函数是一个**常量**构造函数，即在编译时将其计算为常量；
+  * 这意味着如果 *MyApp*的实例在代码中的多个位置都是相同的，那么Dart.Flutter**只会创建一个实例**，并在需要时重复使用它。
+* `({Key? key})`：这是构造函数的**参数列表**；
+  * 在这种情况下，它只有一个参数`key`，它是一个`Key`类型的可选参数；
+  * `Key`是Dart.Flutter中**用于识别小部件的一种方式**；
+  * `key`参数通常用于在小部件树中唯一标识小部件，以便在更新小部件树时进行识别和比较。在这里，`Key?`表示`key`参数可以是空值。
+* `: super(key: key);`：这表示调用父类构造函数，并将`key`参数传递给父类构造函数；
+  * 在这里，`super`关键字用于调用父类的构造函数；
+  * 这里的父类可能是*StatefulWidget*或其子类。这是因为通常在Dart.中，自定义小部件会继承自*StatefulWidget*或其子类以便管理状态；
+  * 传递`key`参数给父类构造函数是为了让父类能够正确地处理此小部件的唯一标识符；
+  
+
+<span style="color:red; font-weight:bold;">*使用`key`的demo*</span>
 ```dart
-class ParentWidget extends StatefulWidget {
-  @override
-  _ParentWidgetState createState() => _ParentWidgetState();
+import 'package:flutter/material.dart';
+
+void main() {
+	runApp(MyApp());
 }
 
-class _ParentWidgetState extends State<ParentWidget> {
-  String data = '';
-
-  void updateData(String newData) {
-    setState(() {
-      data = newData;
-    });
-  }
-
+class MyApp extends StatelessWidget {
+  
+  const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ChildWidget(updateData);
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Demo'),
+        ),
+        body: MyWidget(
+          /// UniqueKey是一个自动生成的用于在小部件树中唯一标识小部件的特殊Key子类;
+          /// 在这种情况下，我们确保了每次MyWidget实例化时都会得到一个不同的key，这对于确保在小部件树中的每个小部件都是唯一标识的非常重要。
+          key: UniqueKey(), // 使用UniqueKey作为MyWidget的key
+        ),
+      ),
+    );
   }
 }
 
-class ChildWidget extends StatelessWidget {
-  final Function(String) callback;
-
-  ChildWidget(this.callback);
+class MyWidget extends StatefulWidget {
+  MyWidget({Key? key}) : super(key: key);
 
   @override
+  _MyWidgetState createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  @override
   Widget build(BuildContext context) {
-    // Some UI to trigger callback
-    return ElevatedButton(
-      onPressed: () {
-        callback('New Data');
-      },
-      child: Text('Update Parent Data'),
+    return Center(
+      child: Text('Hello, World!'),
     );
   }
 }
 ```
-## ***Dart.Flutter.UI***
-
+### `Diff` 算法
+* 在 Dart.Flutter 中，`Diff` 算法指的是用于**比较新旧 *Widget* 树的差异，并确定哪些部分需要更新**的算法。这个算法被称为 "Diff" 是因为它会找出两个树之间的差异，并尽可能地最小化更新的成本，**只更新必要的部分**。
+* `Diff` 算法的基本思想是递归地比较新旧 *Widget* 树的每个节点，找出它们之间的差异。这个比较是根据节点的类型、属性、以及子节点的情况来进行的。当发现节点之间存在差异时，`Diff` 算法会尝试**尽可能地复用已有的节点，并更新其属性**，而不是直接销毁和重建节点。
+* 以下是 `Diff` 算法的基本步骤：
+  * **比较节点类型**：首先比较新旧节点的类型。如果它们的类型不同，则说明节点需要被替换；
+  * **比较属性**：如果节点的类型相同，那么就比较它们的属性。如果属性有变化，则需要更新节点的属性；
+  * **比较子节点**：如果节点是容器类节点（比如 `Row`、`Column`、`ListView` 等），则需要递归地比较它们的子节点。如果子节点有变化，则需要更新子节点；
+  * **更新差异部分**：根据比较的结果，确定哪些部分需要更新，并执行相应的更新操作；
+  通过这种方式，`Diff` 算法可以高效地找出新旧 *Widget* 树之间的差异，并尽可能地减少更新的成本。这种优化可以帮助 Flutter 在处理复杂 UI 结构时保持良好的性能。
 ### 系统.其他
-
 * 获取手机可视化区域
 ```dart
 // 获取屏幕宽高
@@ -1213,38 +1641,100 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
-## ***Dart.Flutter.音视频***
+## ***Dart.Flutter.Provider***
+* 主要用于解决 Flutter 应用程序中的***数据共享和管理***问题；
+* [***Scoped Model***](# scoped_model)： *Provider* 提供了一种称为 [***Scoped Model***](# scoped_model) 的模式，允许开发者将状态和逻辑组织成可重用的模块，并将其嵌入到应用程序的组件树中；
+* *ChangeNotifier*： ChangeNotifier是一个Dart.Flutter提供的***用于管理状态并通知侦听器的类***；
+* *ChangeNotifierProvider*：用于在Dart.Flutter应用程序中向子部件传递一个*ChangeNotifier*对象，并在该对象发生更改时重新构建依赖于它的子部件；
+* `Provider.of`：从任何位置获取已提供的值（通常是状态），而不需要将*Widget* 。`Build`方法作为中间人。
+  * 工作原理是查找 *Widget* 树中最近的一个匹配类型的*Provider*，并返回其值。如果找不到匹配的*Provider*，则会引发异常。因此，使用`Provider.of` 时，确保在 *Widget* 树中存在匹配的*Provider*；
+  * 过度使用`Provider.of`可能会导致代码难以理解和维护，因为它使得部件的依赖关系不明确；
+* *Consumer*：在Dart.Flutter应用程序中监听***特定的*** *Provider*，并在*Provider*的值发生变化时重新构建部件树的一部分；
+  * 使用*Consumer*是一种更加推荐的方法，特别是当您需要在*Provider*的值发生变化时只重新构建部分部件树时；
 
-*  ***[flutter_ffmpeg](https://github.com/tanersener/flutter-ffmpeg):***
-  * ***开源项目*** <span style="color:red; font-weight:bold;">**（停止维护）**</span>；
-  * 这是一个基于 *FFmpeg* 的 Dart.Flutter 插件，它提供了一种在 Dart.Flutter 应用程序中执行音视频处理和转码的方式。
-  * 使用 *[flutter_ffmpeg](https://github.com/tanersener/flutter-ffmpeg)*，您可以执行各种音视频处理任务，如裁剪、合并、转码等  * 它是一个功能强大的音视频处理解决方案，但***需要对 FFmpeg 的使用和命令行参数有一定的了解***。
-* ***[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK):***
-  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)* <span style="color:red; font-weight:bold;">*****是不开源的*****</span>。*[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*是由 *Agora* 公司开发和维护的，用于***实时音视频通信的 SDK***；
-  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*是一个专门用于实时音视频通信的 SDK，它提供了丰富的功能和强大的性能，包括音视频通话、直播、互动白板等功能；
-  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*提供了 Dart.Flutter 插件，可以方便地在 Dart.Flutter 应用程序中集成实时音视频通信功能；
-* ***[Flutter_webrtc](https://github.com/flutter-webrtc/flutter-webrtc):***
-  * ***开源项目***；
-  * 这是一个 *WebRTC* 的 Dart.Flutter 插件，用于实现***实时音视频通信功能***；
-  * 提供了一种在 Web 浏览器和移动应用程序中实现实时通信的标准化解决方案；
-  * *Flutter_webrtc* 插件使得在 Dart.Flutter 应用程序中集成 *WebRTC* 功能变得易；
-* ***[flutter_vlc_player](https://github.com/solid-software/flutter_vlc_player):***
-  * ***开源项目***<span style="color:red; font-weight:bold;">**（停止维护）**</span>；
-  * 这是一个基于 *[libVLC](https://github.com/videolan/libvlcpp)* 的 Flutter 插件，用于在 Dart.Flutter 应用程序中播放本地或网络上的视频文件；
-  * 它提供了一种简单的方式来集成 VLC 播放器功能，并支持各种视频格式和网络流媒体协议；
-* ***[flutter_exoplayer](https://github.com/danielR2001/flutter_exoplayer)：***
-  * ***开源项目***；
-  * 这是一个基于 *[ExoPlayer](https://github.com/google/ExoPlayer)* 的 Dart.Flutter 插件，用于在 Dart.Flutter 应用程序中播放音频和视频文件；
-  * *ExoPlayer* 是一个功能强大的跨平台媒体播放器，***支持 Android、iOS 和 Web 平台***；
-  * 使用 *flutter_exoplayer*，您可以方便地在 Dart.Flutter 应用程序中实现高性能的音视频播放功能；
-## ***Dart.Flutter.原生Api调用交互***（未完）
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^5.0.0
+```
 
-* 设备判定
+```dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+void main() {
+  runApp(MyApp());
+}
+// Model
+class CounterModel extends ChangeNotifier {
+  int _counter = 0;
+  int get counter => _counter;
+  void increment() {
+    _counter++;
+    notifyListeners(); // 通知监听者状态已更新
+  }
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => CounterModel(), // 创建 CounterModel 的实例
+      child: MaterialApp(
+        title: 'Provider Demo',
+        home: MyHomePage(),
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Provider Demo'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Counter:',
+              style: TextStyle(fontSize: 24),
+            ),
+            Consumer<CounterModel>(
+              builder: (context, counter, child) {
+                return Text(
+                  '${counter.counter}',
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // 使用 Provider.of<T>(context, listen: false) 来获取 CounterModel 实例
+          Provider.of<CounterModel>(context, listen: false).increment();
+        },
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+```
+
 ## ***Dart.Flutter.GetX***
 
 ### 资料来源
 ***[Flutter状态管理GetX使用详解](https://juejin.cn/post/7020598013986865182)***
+
 ### 安装
+
 * 将 [***GitHub.GetX***](https://github.com/jonataslaw/getx)添加到您的 *pubspec.yaml* 文件中：
 ```yaml
 dependencies:
@@ -1731,7 +2221,8 @@ void main() {
     factory Template.fromJson(Map<String, dynamic> json) => _$TemplateFromJson(json);
   }
   ```
-## 事件循环（Event Loop）
+## ***Dart.事件循环（Event Loop）***
+
 * Microtask Queue（微服务队列）
   * 优先级别高于Event Queue（事件队列）<span style="color:red; font-weight:bold;">***等于VIP***</span>；
   * 只有当Microtask Queue（微服务队列）全部执行完成以后，系统才会有机会执行Event Queue（事件队列）里面的代码；
@@ -2344,472 +2835,17 @@ controller.stream.map((event) => event * 2).where((event) => event is int).disti
 ```dart
 final controller = StreamController.broadcast();
 ```
-## ***Dart.Flutter.状态管理***
-
-* 在所有 **响应式编程** 中，状态管理一直老生常谈的话题，而在 Flutter 中，目前主流的有 `scope_model` 、`BloC 设计模式` 、`flutter_redux` 、`fish_redux` 等四种设计；
-* 它们的 *复杂度* 和 *上手难度* 是逐步递增的，但同时 **可拓展性** 、**解耦度** 和 **复用能力** 也逐步提升。
-
-### scoped_model
-
-* 是 Dart.Flutter 最为简单的状态管理框架，它充分利用了 Dart.Flutter 中的一些特性，只有一个 dart 文件的它，极简的实现了一般场景下的状态管理；
-* 内部实现借助***AnimatedBuildler***利用了[*InheritedWidget*](# Dart.Flutter.InheritedWidget)：
-  * 在 `scoped_model` 中，可以通过 `ScopedModel.of<CountModel>(context)` 获取我们的 Model 。其中最主要是因为其内部的 build 的时候，包裹了一个 `_InheritedModel` 控件，而它继承了 `InheritedWidget` 
-  * 业务处理流程总结：
-    * `AnimatedBuildler` 继承了 `AnimatedWidget` ，在 `AnimatedWidget` 的生命周期中会对 `Listenable` 接口添加监听，而 `Model` 恰好就实现了 `Listenable` 接口；
-    * `Model` 实现了 `Listenable` 接口，内部维护一个 `Set<VoidCallback> _listeners` ；
-    * 当 `Model` 设置给 `AnimatedBuildler` 时， `Listenable` 的 `addListener` 会被调用，然后添加一个 `_handleChange` 监听到 `_listeners` 这个 Set 中；
-    * 当 `Model` 调用 `notifyListeners` 时，会通过异步方法 `scheduleMicrotask` 去从头到尾执行一遍 `_listeners` 中的 `_handleChange`；
-    * `_handleChange` 监听被调用，执行了 `setState({})` ；
-
-![image.png](./assets/image1.png)
-
-* 利用 `scoped_model` 实现状态管理只需要三步:
-  * 定义 `Model` 的实现，如 `CountModel` ，并且在状态改变时执行 `notifyListeners()` 方法；
-  * 使用 `ScopedModel` Widget 加载 `Model` ；
-  * 使用 `ScopedModelDescendant` 或者 `ScopedModel.of<CountModel>(context)` 加载 `Model` 内状态数据；
-
-```dart
-class ScopedPage extends StatelessWidget {
-  final CountModel _model = new CountModel();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: new Text("scoped"),
-        ),
-        body: Container(
-          child: new ScopedModel<CountModel>(
-            model: _model,
-            child: CountWidget(),
-          ),
-        ));
-  }
-}
-
-class CountWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new ScopedModelDescendant<CountModel>(
-        builder: (context, child, model) {
-        return new Column(
-          children: <Widget>[
-            new Expanded(child: new Center(child: new Text(model.count.toString()))),
-            new Center(
-              child: new FlatButton(
-                  onPressed: () {
-                    model.add();
-                  },
-                  color: Colors.blue,
-                  child: new Text("+")),
-            ),
-          ],
-        );
-      });
-  }
-}
-
-class CountModel extends Model {
-  static CountModel of(BuildContext context) =>
-      ScopedModel.of<CountModel>(context);
-
-  int _count = 0;
-
-  int get count => _count;
-
-  void add() {
-    _count++;
-    notifyListeners();
-  }
-}
-```
-
-### BloC：<span style="color:red; font-weight:bold;">*B*</span>usiness <span style="color:red; font-weight:bold;">*Lo*</span>gic <span style="color:red; font-weight:bold;">*C*</span>omponent
-
-* 它属于一种设计模式，在 Dart.Flutter 中它主要是通过 `Stream` 与 `SteamBuilder` 来实现设计的，所以 ***BloC*** 实现起来也相对简单；
-* 当然，如果和 `rxdart` 结合可以简化 `StreamController` 的一些操作，同时如果你需要利用 `BloC` 模式实现状态共享，那么自己也可以封装多一层 `InheritedWidgets` 的嵌套；
-* 业务处理流程总结：
-  * 定义一个 `PageBloc` 对象，利用 `StreamController` 创建 `Sink` 与 `Stream`；
-  * `PageBloc` 对外暴露 `Stream` 用来与 `StreamBuilder` 结合；暴露 add 方法提供外部调用，内部通过 `Sink` 更新 `Stream`；
-  * 利用 `StreamBuilder` 加载监听 `Stream` 数据流，通过 snapShot 中的 data 更新控件；
-
-```dart
-class _BlocPageState extends State<BlocPage> {
-  final PageBloc _pageBloc = new PageBloc();
-  @override
-  void dispose() {
-    _pageBloc.dispose();
-    super.dispose();
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: new StreamBuilder(
-            initialData: 0,
-            stream: _pageBloc.stream,
-            builder: (context, snapShot) {
-              return new Column(
-                children: <Widget>[
-                  new Expanded(
-                      child: new Center(
-                          child: new Text(snapShot.data.toString()))),
-                  new Center(
-                    child: new FlatButton(
-                        onPressed: () {
-                          _pageBloc.add();
-                        },
-                        color: Colors.blue,
-                        child: new Text("+")),
-                  ),
-                  new SizedBox(
-                    height: 100,
-                  )
-                ],
-              );
-            }),
-      ),
-    );
-  }
-}
-class PageBloc {
-  int _count = 0;
-  ///StreamController
-  StreamController<int> _countController = StreamController<int>();
-  ///对外提供入口
-  StreamSink<int> get _countSink => _countController.sink;
-  ///提供 stream StreamBuilder 订阅
-  Stream<int> get stream => _countController.stream;
-  void dispose() {
-    _countController.close();
-  }
-  void add() {
-    _count++;
-    _countSink.add(_count);
-  }
-}
-```
-
-### flutter_redux
-
-*redux：【adj.】被带回的；复活的*
-
-*reducer：【n.】[助剂] 还原剂；减径管*
-
-*  可以看做是利用了 ***Stream*** 特性的 ***scope_model*** 升级版，通过 ***redux*** 设计模式来完成解耦和拓展；
-
-* 在 *Redux* 架构中，***Store***、***Action*** 、***Reducer***以及 ***Middleware***。它们分别承担着不同的角色，协同工作**以实现状态管理和数据流控制**；
-
-  * **Store**：
-    - ***Store***是整个 **Redux 应用程序的核心**。<span style="color:red; font-weight:bold;">*它负责存储应用程序的状态，并提供了一种方式来访问和更新这个状态*</span>；
-    - ***Store*** 保存了应用程序的状态树，并通过 `getState()` 方法提供对当前状态的访问。它还提供了 `dispatch(action)` 方法来分发（*dispatch*）操作（*Action*）到 ***Reducer*** 中进行处理，并更新状态；
-    - 在 *Redux* 中，只能有一个全局的 ***Store*** 存在，这使得整个应用程序的状态变得易于管理和追踪；
-  * **Action**：
-    - 一个**普通的 JavaScript 对象，描述了发生了什么事情**。<span style="color:red; font-weight:bold;">*它是改变应用程序状态的唯一途径*</span>；
-    - ***Action*** 对象必须包含一个 `type` 属性，用来表示操作类型，通常以***字符串***的形式表示。除了 `type` 属性外，***Action*** 对象还可以携带一些附加数据，这些数据会传递给 ***Reducer*** 来更新状态。
-  * **Reducer**：
-    - `Reducer` 是一个**纯函数**，负责处理来自 ***Action*** 的操作，<span style="color:red; font-weight:bold;">*更新应用程序的状态，并返回一个新的状态*</span>；
-    - `Reducer` 接收当前的状态和一个操作（***Action***）作为参数，并根据操作的类型来决定如何更新状态。它应该返回一个全新的状态对象，而不是修改原始的状态对象；
-    - 在 *Redux* 中，可能有多个***Reducer***，但每个 ***Reducer*** 只负责管理状态树的一部分，它们一起构成了应用程序的整体状态管理；
-  * **Middleware**：
-    * 中间件（ 是一个函数链），允许你在发送一个 `action` 到 ***Reducer*** 之前，对 `action` 进行一些处理。***Middleware*** 提供了一个扩展 *Redux* 功能的机制，例如日志记录、异步操作、路由导航等；
-    * 它接收 *Redux* ***store*** 的 `dispatch` 和 `getState` 函数作为参数，并返回一个函数，这个函数接收 next（下一个 ***Middleware*** 的 `dispatch` 方法）和 ***action*** 作为参数，并返回一个函数，这个函数接收 ***action*** 作为参数；
-    * 通过使用 Middleware，可以轻松地添加各种功能到 *Redux* 应用程序中，而不需要修改 `reducer` 或者组件代码，
-
-  *用于在每次分派（dispatch）action 时打印日志👇🏻*
-
-  ```dart
-  void loggingMiddleware(Store<AppState> store, action, NextDispatcher next) {
-    print('Action: $action');
-    print('Current State: ${store.state}');
-  
-    // 调用下一个 Middleware 或者 reducer
-    next(action);
-  
-    print('Next State: ${store.state}');
-  }
-  ```
-
-  *在创建 Redux store 时，可以将 Middleware 添加到 Middleware 链中👇🏻*
-
-  ```dart
-  final store = Store<AppState>(
-    reducer,
-    initialState: AppState.initial(),
-    middleware: [loggingMiddleware],
-  );
-  ```
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  redux: ^5.0.0
-  flutter_redux: ^0.8.2
-```
-
-```dart
-import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-
-// Action:表示操作类型
-enum ActionType { increment, decrement }
-// 来保存应用程序的状态，这里只有一个计数器
-class AppState {
-  final int counter;
-  AppState({required this.counter});
-  factory AppState.initial() => AppState(counter: 0);
-}
-// Reducer:处理不同的操作类型，并更新状态。
-AppState reducer(AppState state, dynamic action) {
-  if (action == ActionType.increment) {
-    return AppState(counter: state.counter + 1);
-  } else if (action == ActionType.decrement) {
-    return AppState(counter: state.counter - 1);
-  }return state;
-}
-
-void main() {
-  final Store<AppState> store = Store<AppState>(
-    reducer,
-    initialState: AppState.initial(),
-  );
-
-  runApp(MyApp(store: store));
-}
-
-class MyApp extends StatelessWidget {
-  final Store<AppState> store;
-
-  MyApp({required this.store});
-
-  @override
-  Widget build(BuildContext context) {
-    return StoreProvider(
-      store: store,
-      child: MaterialApp(
-        title: 'Flutter Redux Demo',
-        home: MyHomePage(),
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Flutter Redux Demo'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Counter:',
-              style: TextStyle(fontSize: 24),
-            ),
-            // 关键代码:使用 StoreConnector 将 Redux store 和 UI 连接起来
-            StoreConnector<AppState, int>(
-              converter: (store) => store.state.counter,
-              builder: (context, counter) {
-                return Text(
-                  '$counter',
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            onPressed: () {
-              StoreProvider.of<AppState>(context).dispatch(ActionType.increment);// 关键代码：分派不同的操作类型到 Redux store
-            },
-            tooltip: 'Increment',
-            child: Icon(Icons.add),
-          ),
-          SizedBox(height: 10),
-          FloatingActionButton(
-            onPressed: () {
-              StoreProvider.of<AppState>(context).dispatch(ActionType.decrement);// 关键代码：分派不同的操作类型到 Redux store
-            },
-            tooltip: 'Decrement',
-            child: Icon(Icons.remove),
-          ),
-        ],
-      ),
-    );
-  }
-}
-```
-
-### fish_redux
-
-* 基于*Redux*架构，旨在简化复杂应用程序的状态管理和 UI 构建过程；
-* 支持插件化架构：持久化插件、路由插件、国际化插件等；
-* 提供异步支持：Effect 的机制。可以在 ***Action***的生命周期中执行异步操作，并将结果发送回***Reducer***进行状态更新
-
-```yaml
-dependencies:
-  flutter:
-    sdk: flutter
-  fish_redux: ^0.5.4
-```
-
-***创建一个名为 `counter_page` 的文件夹，并在其中创建以下文件*** <span style="color:red; font-weight:bold;">*简单的计数器应用程序*</span>
-
-*`state.dart`：定义页面状态*
-
-```dart
-import 'package:fish_redux/fish_redux.dart';
-
-class CounterState implements Cloneable<CounterState> {
-  int count;
-
-  CounterState({this.count = 0});
-
-  @override
-  CounterState clone() {
-    return CounterState()..count = count;
-  }
-}
-```
-
-*`action.dart`：定义页面操作（Action）*
-
-```dart
-import 'package:fish_redux/fish_redux.dart';
-
-enum CounterAction { increment, decrement }
-
-class CounterActionCreator {
-  static Action increment() {
-    return const Action(CounterAction.increment);
-  }
-
-  static Action decrement() {
-    return const Action(CounterAction.decrement);
-  }
-}
-```
-
-*`reducer.dart`：定义状态更新函数（Reducer）*
-
-```dart
-import 'package:fish_redux/fish_redux.dart';
-import 'action.dart';
-import 'state.dart';
-
-Reducer<CounterState> buildReducer() {
-  return asReducer(
-    <Object, Reducer<CounterState>>{
-      CounterAction.increment: _onIncrement,
-      CounterAction.decrement: _onDecrement,
-    },
-  );
-}
-
-CounterState _onIncrement(CounterState state, Action action) {
-  final newState = state.clone();
-  newState.count += 1;
-  return newState;
-}
-
-CounterState _onDecrement(CounterState state, Action action) {
-  final newState = state.clone();
-  newState.count -= 1;
-  return newState;
-}
-```
-
-*`view.dart`：定义页面视图*
-
-```dart
-import 'package:fish_redux/fish_redux.dart';
-import 'state.dart';
-
-Widget buildView(CounterState state, Dispatch dispatch, ViewService viewService) {
-  return Scaffold(
-    appBar: AppBar(title: Text('Counter')),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'Counter:',
-            style: TextStyle(fontSize: 24),
-          ),
-          Text(
-            '${state.count}',
-            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    ),
-    floatingActionButton: Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: <Widget>[
-        FloatingActionButton(
-          onPressed: () => dispatch(CounterActionCreator.increment()),
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ),
-        SizedBox(height: 10),
-        FloatingActionButton(
-          onPressed: () => dispatch(CounterActionCreator.decrement()),
-          tooltip: 'Decrement',
-          child: Icon(Icons.remove),
-        ),
-      ],
-    ),
-  );
-}
-```
-
-*`page.dart`：将状态、操作和视图整合在一起*
-
-```dart
-import 'package:fish_redux/fish_redux.dart';
-import 'action.dart';
-import 'state.dart';
-import 'view.dart';
-
-class CounterPage extends Page<CounterState, Map<String, dynamic>> {
-  CounterPage()
-      : super(
-          initState: initState,
-          reducer: buildReducer(),
-          view: buildView,
-          dependencies: Dependencies<CounterState>(
-              adapter: null, slots: <String, Dependent<CounterState>>{}),
-          middleware: <Middleware<CounterState>>[],
-        );
-}
-
-void initState(CounterState state, Context<CounterState> ctx) {
-  // 初始化状态
-  state.count = 0;
-}
-```
-
 ## ***Dart.Flutter.InheritedWidget***
-
-* 是 Dart.Flutter 中的概念 <span style="color:red; font-weight:bold;">*（Dart.Flutter 的特性控件）*</span>，而不是 Dart 语言本身的特性；
+* 是 Dart.Flutter 中的概念<span style="color:red; font-weight:bold;">*（Dart.Flutter 的特性控件）*</span>，而不是Dart语言本身的特性；
 * 是 Dart.Flutter 中用于在 *Widget* 树中共享数据的一种机制，它允许数据在 *Widget* 树中向下传递，而不需要显式地在每个 *Widget* 中进行传递；
 * 当 *InheritedWidget* 中的数据发生变化时，依赖于该数据的子 *Widget* 会自动重新构建，以便更新显示；
-* 虽然 *InheritedWidget* 是一个非常强大且灵活的工具，但在某些情况下，它可能不够方便或者不够适用，特别是在需要大量共享数据或需要更复杂的数据传递逻辑的情况下。在这种情况下，您可能需要考虑使用其他状态管理工具，如 Provider、Riverpod 或 [***GetX***](# DartFlutter.GetX)；
-* `_inheritedWidgets` 一般情况下是空的，只有当父控件是 `InheritedWidget` 或者本身是 `InheritedWidgets` 时才会有被初始化，而当父控件是 `InheritedWidget` 时，这个 Map 会被**一级一级往下传递与合并** 。
-* **所以当我们通过 `context` 调用 `inheritFromWidgetOfExactType` 时，就可以往上查找到父控件的 Widget，从在 `scoped_model` 获取到 `_InheritedModel` 中的`Model` 。**
+* 虽然 *InheritedWidget* 是一个非常强大且灵活的工具，但在某些情况下，它可能不够方便或者不够适用，特别是在需要大量共享数据或需要更复杂的数据传递逻辑的情况下。在这种情况下，您可能需要考虑使用其他状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、Riverpod 或 [***GetX***](# DartFlutter.GetX)；
+* `_inheritedWidgets` 一般情况下是空的，只有当父控件是 `InheritedWidget` 或者本身是 `InheritedWidgets` 时才会有被初始化，而当父控件是 `InheritedWidget` 时，这个Map会被**一级一级往下传递与合并** ;
+* **所以当我们通过 `context` 调用 `inheritFromWidgetOfExactType` 时，就可以往上查找到父控件的*Widget*，从在 `scoped_model` 获取到 `_InheritedModel` 中的`Model` **;
+* *InheritedWidget*共享的是*Widget*，只是这个*Widget*是一个*ProxyWidget*，它自己本身并不绘制什么。但共享这个*Widget*内保存有的值，却达到了共享状态的目的；
+* 状态共享是常见的需求，比如用户信息和登陆状态等等；
 
 *演示了如何使用 InheritedWidget 在 Flutter 中共享数据*
-
 ```dart
 import 'package:flutter/material.dart';
 
@@ -2859,7 +2895,6 @@ class CounterWidget extends StatelessWidget {
     );
   }
 }
-
 // 应用程序的主界面
 class MyApp extends StatelessWidget {
   @override
@@ -2889,9 +2924,7 @@ void main() {
   runApp(MyApp());
 }
 ```
-
 ## ***Dart.Flutter.路由***
-
 用于导航到不同的屏幕或页面。主要区别在于路由的创建方式和传递参数的方式。
 * 静态路由：
   * 是指在应用程序启动时就确定好的路由映射关系，通常在应用程序的主要入口处（例如`MaterialApp`的`routes`属性）设置好路由表。
@@ -3040,6 +3073,32 @@ class DetailsScreen extends StatelessWidget {
   }
 }
 ```
+## ***Dart.Flutter.音视频***
+*  ***[flutter_ffmpeg](https://github.com/tanersener/flutter-ffmpeg):***
+  * ***开源项目*** <span style="color:red; font-weight:bold;">**（停止维护）**</span>；
+  * 这是一个基于 *FFmpeg* 的 Dart.Flutter 插件，它提供了一种在 Dart.Flutter 应用程序中执行音视频处理和转码的方式。
+  * 使用 *[flutter_ffmpeg](https://github.com/tanersener/flutter-ffmpeg)*，您可以执行各种音视频处理任务，如裁剪、合并、转码等  * 它是一个功能强大的音视频处理解决方案，但***需要对 FFmpeg 的使用和命令行参数有一定的了解***。
+* ***[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK):***
+  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)* <span style="color:red; font-weight:bold;">*****是不开源的*****</span>。*[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*是由 *Agora* 公司开发和维护的，用于***实时音视频通信的 SDK***；
+  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*是一个专门用于实时音视频通信的 SDK，它提供了丰富的功能和强大的性能，包括音视频通话、直播、互动白板等功能；
+  * *[Agora SDK](https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK)*提供了 Dart.Flutter 插件，可以方便地在 Dart.Flutter 应用程序中集成实时音视频通信功能；
+* ***[Flutter_webrtc](https://github.com/flutter-webrtc/flutter-webrtc):***
+  * ***开源项目***；
+  * 这是一个 *WebRTC* 的 Dart.Flutter 插件，用于实现***实时音视频通信功能***；
+  * 提供了一种在 Web 浏览器和移动应用程序中实现实时通信的标准化解决方案；
+  * *Flutter_webrtc* 插件使得在 Dart.Flutter 应用程序中集成 *WebRTC* 功能变得易；
+* ***[flutter_vlc_player](https://github.com/solid-software/flutter_vlc_player):***
+  * ***开源项目***<span style="color:red; font-weight:bold;">**（停止维护）**</span>；
+  * 这是一个基于 *[libVLC](https://github.com/videolan/libvlcpp)* 的 Flutter 插件，用于在 Dart.Flutter 应用程序中播放本地或网络上的视频文件；
+  * 它提供了一种简单的方式来集成 VLC 播放器功能，并支持各种视频格式和网络流媒体协议；
+* ***[flutter_exoplayer](https://github.com/danielR2001/flutter_exoplayer)：***
+  * ***开源项目***；
+  * 这是一个基于 *[ExoPlayer](https://github.com/google/ExoPlayer)* 的 Dart.Flutter 插件，用于在 Dart.Flutter 应用程序中播放音频和视频文件；
+  * *ExoPlayer* 是一个功能强大的跨平台媒体播放器，***支持 Android、iOS 和 Web 平台***；
+  * 使用 *flutter_exoplayer*，您可以方便地在 Dart.Flutter 应用程序中实现高性能的音视频播放功能；
+## ***Dart.Flutter.原生Api调用交互***（未完）
+* 设备判定
+
 ## ***Dart.Flutter.其他功能***
 
 ### ***返回按键监听***
