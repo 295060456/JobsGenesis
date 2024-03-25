@@ -1071,26 +1071,28 @@ class ChildWidget extends StatelessWidget {
 * **状态管理**：将状态和 UI 描述分离可以更好地管理状态的生命周期。*StatefulWidget* 和 *State* 之间的分离允许状态在 UI 生命周期中保持一致，并在需要时通知框架更新 UI；
 * **框架要求**：***Dart.Flutter 框架本身也要求 StatefulWidget 和其关联的 State 必须是分开的，这是 Dart.Flutter 设计的一部分。***Dart.Flutter 的设计哲学是将 UI 描述和状态管理分开，以便更好地实现代码的组织和管理；
   <span style="color:red; font-weight:bold;">**综上所述，尽管在某些情况下将 *Widget* 和其关联的 *State* 写在同一个类中是可行的，但是将它们分开定义通常更利于代码的组织、可读性和维护性。**</span>
-### 关于`const MyApp({Key? key}) : super(key: key);`
+### 关于<span style="color:red; font-weight:bold;">*const*</span> *MyApp({Key? key})* : <span style="color:red; font-weight:bold;">*super*</span> *(key: key)*;
+
 * 是一个常量构造函数，用于创建一个名为*MyApp*的小部件，并将一个可选的`Key`作为参数传递给父类的构造函数；
 * 在某些情况下，可以省略`const MyApp({Key? key}) : super(key: key);`，具体取决于你的需求和代码结构。这取决于以下几个因素：
   * **默认行为：** 如果你的 *MyApp* 小部件不需要任何特殊的构造函数行为，并且不需要传递`key`参数给父类构造函数，那么你可以省略这个构造函数，因为Dart会提供一个默认构造函数；
   * **Key的需要：** 如果你的小部件需要在小部件树中唯一标识自己，那么你通常需要传递一个`Key`给父类构造函数。在这种情况下，你可能需要保留这个构造函数，并传递`key`参数给父类；
   * **const构造函数的需求：** 如果你的小部件需要作为常量构造函数使用（例如，当你希望在编译时计算小部件时），那么你需要保留<span style="color:red; font-weight:bold;">*const*</span>关键字并保留该构造函数；
-* `const MyApp`：这是构造函数的名称，表示创建一个名为 *MyApp* 的*Widget*；
+* <span style="color:red; font-weight:bold;">*const*</span> *MyApp({Key? key})*：这是构造函数的名称，表示创建一个名为 *MyApp* 的*Widget*；
   * <span style="color:red; font-weight:bold;">*const*</span>关键字表示此构造函数是一个**常量**构造函数，即在编译时将其计算为常量；
   * 这意味着如果 *MyApp*的实例在代码中的多个位置都是相同的，那么Dart.Flutter**只会创建一个实例**，并在需要时重复使用它。
 * `({Key? key})`：这是构造函数的**参数列表**；
   * 在这种情况下，它只有一个参数`key`，它是一个`Key`类型的可选参数；
   * `Key`是Dart.Flutter中**用于识别小部件的一种方式**；
   * `key`参数通常用于在小部件树中唯一标识小部件，以便在更新小部件树时进行识别和比较。在这里，`Key?`表示`key`参数可以是空值。
-* `: super(key: key);`：这表示调用父类构造函数，并将`key`参数传递给父类构造函数；
+* <span style="color:red; font-weight:bold;">*super*</span> *(key: key)*：这表示调用父类构造函数，并将`key`参数传递给父类构造函数；
   * 在这里，<span style="color:red; font-weight:bold;">*super*</span>关键字用于调用父类的构造函数；
   * 这里的父类可能是*StatefulWidget*或其子类。这是因为通常在Dart.中，自定义小部件会继承自*StatefulWidget*或其子类以便管理状态；
   * 传递`key`参数给父类构造函数是为了让父类能够正确地处理此小部件的唯一标识符；
   
 
 <span style="color:red; font-weight:bold;">*使用`key`的demo*</span>
+
 ```dart
 import 'package:flutter/material.dart';
 
@@ -1135,6 +1137,7 @@ class _MyWidgetState extends State<MyWidget> {
 }
 ```
 ### `Diff` 算法
+
 * 在 Dart.Flutter 中，`Diff` 算法指的是用于**比较新旧 *Widget* 树的差异，并确定哪些部分需要更新**的算法。这个算法被称为 "Diff" 是因为它会找出两个树之间的差异，并尽可能地最小化更新的成本，**只更新必要的部分**。
 * `Diff` 算法的基本思想是递归地比较新旧 *Widget* 树的每个节点，找出它们之间的差异。这个比较是根据节点的类型、属性、以及子节点的情况来进行的。当发现节点之间存在差异时，`Diff` 算法会尝试**尽可能地复用已有的节点，并更新其属性**，而不是直接销毁和重建节点。
 * 以下是 `Diff` 算法的基本步骤：
