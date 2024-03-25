@@ -5,20 +5,22 @@
 [***Flutter 面试知识点集锦· GitBook***](https://guoshuyu.cn/home/wx/Flutter-msjj.html)
 [***Dart/Flutter社区生态：Pub.dev***](https://pub.dev/)
 
-## **`var`**、**`dynamic`**、**`object`**
-* `var`定义的类型是不可变的；pub.dev
-* `dynamic`和`object`类型是可以变的，而`dynamic` 与`object`的区别是在静态类型检查上；
-  * `dynamic`：编译时**不**进行静态类型检查的类型（更灵活），而是在运行期间进行类型检查。（被编译后，实际是一个 `object` 类型）
-  * `object`：编译时会进行类型检查（更安全）
-## **`const`**和**`final`**
-* ***相同点***
+## <span style="color:red; font-weight:bold;">***var***</span>、<span style="color:red; font-weight:bold;">***dynamic***</span>、<span style="color:red; font-weight:bold;">***object***</span>
+
+* <span style="color:red; font-weight:bold;">***var***</span>定义的类型是不可变的；
+* <span style="color:red; font-weight:bold;">***dynamic***</span>和<span style="color:red; font-weight:bold;">***object***</span>类型是可以变的，而<span style="color:red; font-weight:bold;">***dynamic***</span>与<span style="color:red; font-weight:bold;">***object***</span>的区别是在静态类型检查上；
+  * <span style="color:red; font-weight:bold;">***dynamic***</span>：编译时**不**进行静态类型检查的类型（更灵活），而是在运行期间进行类型检查。（被编译后，实际是一个<span style="color:red; font-weight:bold;">***object***</span>类型）
+  * <span style="color:red; font-weight:bold;">***object***</span>：编译时会进行类型检查（更安全）
+## <span style="color:red; font-weight:bold;">***const***</span>和<span style="color:red; font-weight:bold;">***final***</span>
+
+* ***相同点***  <span style="color:red; font-weight:bold;">***final***</span>
   
-  * `final`、`const`必须初始化；
-  *  `final`、`const`只能赋值一次；
+  * <span style="color:red; font-weight:bold;">***final***</span>、<span style="color:red; font-weight:bold;">***const***</span>必须初始化；
+  *  <span style="color:red; font-weight:bold;">***final***</span>、<span style="color:red; font-weight:bold;">***const***</span>只能赋值一次；
   * 均表示不可被修改  
 *  ***不同点***
-  * `final`可修饰实例变量、`const`不可以修饰实例变量；
-  * 访问类中`const`修饰的变量需要`static`修饰；
+  * <span style="color:red; font-weight:bold;">***final***</span>可修饰实例变量、<span style="color:red; font-weight:bold;">***const***</span>不可以修饰实例变量；
+  * 访问类中<span style="color:red; font-weight:bold;">***const***</span>修饰的变量需要<span style="color:red; font-weight:bold;">***static***</span>修饰；
   ```dart
   class MyClass {
     // 如果要声明一个类中的静态变量，并且希望它是编译时常量，可以使用 static const：
@@ -37,7 +39,7 @@
     print('Accessing const variable via class: ${MyClass.myConstVar}');
   }
   ```
-  * `const`修饰的List集合任意索引不可修改，`final`修饰的可以修改；
+  * <span style="color:red; font-weight:bold;">***const***</span>修饰的List集合任意索引不可修改，<span style="color:red; font-weight:bold;">***final***</span>修饰的可以修改；
   ```dart
   void main() {
     // 使用 const 修饰的 List，其中的元素是编译时常量，不可修改
@@ -57,10 +59,10 @@
     print('Final List: $finalList');
   }
   ```
-  *  `const` 用来修饰变量 只能被赋值一次，在**编译**时赋值；**仅用于标识编译时常量**
-     `final` 用来修饰变量 只能被赋值一次，在**运行**时赋值；
-  *  `final` **只可用来修饰变量**；
-  * `const`关键字即可修饰变量也可用来修饰常量构造函数；当 `const` 修饰类的构造函数时，它要求该类的所有成员都必须是`final`的；
+  *  <span style="color:red; font-weight:bold;">***const***</span>用来修饰变量 只能被赋值一次，在**编译**时赋值；**仅用于标识编译时常量**
+     <span style="color:red; font-weight:bold;">***final***</span>用来修饰变量 只能被赋值一次，在**运行**时赋值；
+  *  <span style="color:red; font-weight:bold;">***final***</span>**只可用来修饰变量**；
+  * <span style="color:red; font-weight:bold;">***const***</span>关键字即可修饰变量也可用来修饰常量构造函数；当<span style="color:red; font-weight:bold;">***const***</span>修饰类的构造函数时，它要求该类的所有成员都必须是<span style="color:red; font-weight:bold;">***final***</span>的；
    ```dart
    class MyClass {
      final int x;
@@ -128,13 +130,14 @@ void main() {
 gcc -shared -o libexample.so example.c
 ```
 然后运行Dart代码，确保Dart可以找到并加载生成的共享库。请注意，这只是一个简单的示例，实际应用可能需要更复杂的接口定义和错误处理。
-## ***Dart.`part`***
-* 用于将一个源文件分割成多个部分，每个部分被称为一个`part`。通常情况下，一个库（库是Dart中代码组织的单元）可以由多个源文件组成，这些源文件通过`part`关键字进行引入;
+## ***Dart*.<span style="color:red; font-weight:bold;">*part*</span>**
+
+* 用于将一个源文件分割成多个部分，每个部分被称为一个<span style="color:red; font-weight:bold;">*part*</span>。通常情况下，一个库（库是Dart中代码组织的单元）可以由多个源文件组成，这些源文件通过<span style="color:red; font-weight:bold;">*part*</span>关键字进行引入;
 * 注意事项：
   * 一个库可以有多个部分文件，但是每个部分文件只能属于一个库；
-  * `part`关键字只能在源文件的最顶部使用，并且必须是文件的第一个非空白、非注释行；
-* 使用`part`关键字的两个关键点：
-  * **主文件**：包含库的声明以及引入其他部分的声明。通常以`.dart`作为文件扩展名。主文件使用`library`关键字声明库；
+  * <span style="color:red; font-weight:bold;">*part*</span>关键字只能在源文件的最顶部使用，并且必须是文件的第一个非空白、非注释行；
+* 使用<span style="color:red; font-weight:bold;">*part*</span>关键字的两个关键点：
+  * **主文件**：包含库的声明以及引入其他部分的声明。通常以`.dart`作为文件扩展名。主文件使用<span style="color:red; font-weight:bold;">*library*</span>关键字声明库；
   ```dart
   // main.dart
   library my_library;
@@ -145,8 +148,8 @@ gcc -shared -o libexample.so example.c
   // 主文件中的其他代码
   ```
   * **部分文件**：
-    * 部分文件包含库的一部分代码，它们不包含库的声明，而是使用`part of`关键字引入到主文件中。通常也以`.dart`作为文件扩展名；
-    * 使用`part of`关键字，将部分文件与主文件关联起来，形成一个完整的库；
+    * 部分文件包含库的一部分代码，它们不包含库的声明，而是使用<span style="color:red; font-weight:bold;">*part of*</span>关键字引入到主文件中。通常也以`.dart`作为文件扩展名；
+    * 使用<span style="color:red; font-weight:bold;">*part of*</span>关键字，将部分文件与主文件关联起来，形成一个完整的库；
     * 这种方式可以将大型代码库拆分成更小的模块，提高代码的可维护性和可读性；
   ```dart
   // part1.dart
@@ -167,7 +170,7 @@ gcc -shared -o libexample.so example.c
 * *Mixin* 是Dart 2.1 加入的特性，以前版本通常使用*abstract class*代替；
 * 为了解决继承方面的问题而引入的机制，Dart为了支持多重继承；
 * *Mixin*的对象是类，*Mixin*绝不是继承，也不是接口，而是一种全新的特性，可以*Mixin*多个类，*Mixin*的使用需要满足一定条件；
-  * **不支持构造函数**（<span style="color:red; font-weight:bold;">***最大的特殊处***</span>）：*Mixin* 类***不能有构造函数***，因为它们**不能被实例化**（可以避免继承多个类而产生的父类构造方法冲突）。如果需要在 *Mixin* 中初始化状态，则可以使用初始化列表或 `on` 关键字来解决；
+  * **不支持构造函数**（<span style="color:red; font-weight:bold;">***最大的特殊处***</span>）：*Mixin* 类***不能有构造函数***，因为它们**不能被实例化**（可以避免继承多个类而产生的父类构造方法冲突）。如果需要在 *Mixin* 中初始化状态，则可以使用初始化列表或<span style="color:red; font-weight:bold;">*on*</span>关键字来解决；
   * **可以有字段**：*Mixin* 类可以有字段，但只能是**静态字段**；
   * **可以调用父类方法**：*Mixin* 类可以调用目标类的父类的方法，这使得 *Mixin* 更加灵活；
   * **可以组合多个 Mixin**：一个类可以同时使用多个 *Mixin*，通过逗号分隔。*Mixin* 的组合顺序很重要，因为如果多个 *Mixin* 中有相同的方法或属性，那么最后一个 *Mixin* 中的方法或属性会覆盖前面的；
@@ -194,7 +197,7 @@ void main() {
 ```
 ## 懒加载（Dart.Flutter vs Swift）
 
-* Dart.Flutter懒加载关键字`late`
+* Dart.Flutter懒加载关键字<span style="color:red; font-weight:bold;">*late*</span>
 ```dart
 import 'package:flutter/material.dart';
 
@@ -236,7 +239,7 @@ class MyApp extends StatelessWidget {
   }
 }
 ```
-* Swift懒加载关键字`lazy`
+* Swift懒加载关键字<span style="color:red; font-weight:bold;">*lazy*</span>
 ```swift
 class MyClass {
     // 使用懒加载延迟初始化 x 变量
@@ -385,7 +388,7 @@ print(obj.x) // 输出: 10
       ));
     }
     ```
-## ***Dart.Flutter.State***
+## <span style="color:red; font-weight:bold;">***Dart.Flutter.State***</span>
 
 * ***Widget***=> ***Element***（*BuildContext*）=>***RenderObject*** =>***Layer***=>***Layer Tree***
 * ***Layer***的组成由*RenderObject*中的 `isRepaintBoundary` 标志位决定；
@@ -505,6 +508,7 @@ class CountModel extends Model {
 
 * 它属于一种设计模式，在 Dart.Flutter 中它主要是通过 `Stream` 与 `SteamBuilder` 来实现设计的，所以 ***BloC*** 实现起来也相对简单；
 * 当然，如果和 `rxdart` 结合可以简化 `StreamController` 的一些操作，同时如果你需要利用 `BloC` 模式实现状态共享，那么自己也可以封装多一层 `InheritedWidgets` 的嵌套；
+* **BloC**没实现路由管理；
 * 业务处理流程总结：
   * 定义一个 `PageBloc` 对象，利用 `StreamController` 创建 `Sink` 与 `Stream`；
   * `PageBloc` 对外暴露 `Stream` 用来与 `StreamBuilder` 结合；暴露 add 方法提供外部调用，内部通过 `Sink` 更新 `Stream`；
@@ -915,7 +919,7 @@ class ChildWidget extends StatelessWidget {
 
 ## ***Dart.Flutter.key***
 
-* key是**`Widgets`**，**`Elements`**和**`SemanticsNodes`**的标识符；
+* key是***Widgets***，***Elements***和***SemanticsNodes***的标识符；
 * key有**`LocalKey`** 和 **`GlobalKey`**两种；
   * **`LocalKey`**  是一个*抽象类*，用于标识和区分[***Widget树***](# Widget 树)中的不同节点。它是***所有用于本地（局部）标识的关键类的基类***。常见的用法是在需要在同一父级下修改控件顺序或数量时使用 `LocalKey`
     *演示了如何使用 `LocalKey` 来标识 `Container` 和 `Text` Widget，并在它们之间交换位置👇🏻*
@@ -1041,7 +1045,7 @@ class ChildWidget extends StatelessWidget {
     // GlobalKey 提供了一种方便的机制来跨 Widget 访问和管理 Widget 的状态，同时也可以提高代码的灵活性和可维护性。
     ```
     * 使用 `GlobalKey` 相比直接持有对象的引用，有一些区别和优势：
-      * **跨 Widget 访问**：`GlobalKey` 允许你在整个应用程序中引用特定的 *Widget* 实例。这意味着你可以在任何地方访问这个 *Widget* 的状态并对其进行操作，而不受 *Widget* 树结构的限制。**而直接持有对象的引用通常限制在同一** *Widget* **树中**；
+      * **跨 *Widget* 访问**：`GlobalKey` 允许你在整个应用程序中引用特定的 *Widget* 实例。这意味着你可以在任何地方访问这个 *Widget* 的状态并对其进行操作，而不受 *Widget* 树结构的限制。**而直接持有对象的引用通常限制在同一** *Widget* **树中**；
       * **无需传递引用**：通过 `GlobalKey`，你可以直接通过键来访问 *Widget* 的状态，而不需要手动将对象引用传递到需要的地方。这样可以**减少代码的耦合度**，使代码更加清晰简洁；
       * **组件状态管理**：`GlobalKey` 还可以用于管理 *Widget* 的状态。例如，你可以使用 `GlobalKey` 来保存和恢复 *Widget* 的状态，或者在需要时重新构建 *Widget*；
       * **重建 Widget**：使用 `GlobalKey` 可以在需要时重新构建整个 *Widget*，而不必手动保存和重新创建 *Widget* 的状态。这在一些场景下可能会更加方便；
@@ -1072,16 +1076,16 @@ class ChildWidget extends StatelessWidget {
 * 在某些情况下，可以省略`const MyApp({Key? key}) : super(key: key);`，具体取决于你的需求和代码结构。这取决于以下几个因素：
   * **默认行为：** 如果你的 *MyApp* 小部件不需要任何特殊的构造函数行为，并且不需要传递`key`参数给父类构造函数，那么你可以省略这个构造函数，因为Dart会提供一个默认构造函数；
   * **Key的需要：** 如果你的小部件需要在小部件树中唯一标识自己，那么你通常需要传递一个`Key`给父类构造函数。在这种情况下，你可能需要保留这个构造函数，并传递`key`参数给父类；
-  * **const构造函数的需求：** 如果你的小部件需要作为常量构造函数使用（例如，当你希望在编译时计算小部件时），那么你需要保留`const`关键字并保留该构造函数；
+  * **const构造函数的需求：** 如果你的小部件需要作为常量构造函数使用（例如，当你希望在编译时计算小部件时），那么你需要保留<span style="color:red; font-weight:bold;">*const*</span>关键字并保留该构造函数；
 * `const MyApp`：这是构造函数的名称，表示创建一个名为 *MyApp* 的*Widget*；
-  * `const`关键字表示此构造函数是一个**常量**构造函数，即在编译时将其计算为常量；
+  * <span style="color:red; font-weight:bold;">*const*</span>关键字表示此构造函数是一个**常量**构造函数，即在编译时将其计算为常量；
   * 这意味着如果 *MyApp*的实例在代码中的多个位置都是相同的，那么Dart.Flutter**只会创建一个实例**，并在需要时重复使用它。
 * `({Key? key})`：这是构造函数的**参数列表**；
   * 在这种情况下，它只有一个参数`key`，它是一个`Key`类型的可选参数；
   * `Key`是Dart.Flutter中**用于识别小部件的一种方式**；
   * `key`参数通常用于在小部件树中唯一标识小部件，以便在更新小部件树时进行识别和比较。在这里，`Key?`表示`key`参数可以是空值。
 * `: super(key: key);`：这表示调用父类构造函数，并将`key`参数传递给父类构造函数；
-  * 在这里，`super`关键字用于调用父类的构造函数；
+  * 在这里，<span style="color:red; font-weight:bold;">*super*</span>关键字用于调用父类的构造函数；
   * 这里的父类可能是*StatefulWidget*或其子类。这是因为通常在Dart.中，自定义小部件会继承自*StatefulWidget*或其子类以便管理状态；
   * 传递`key`参数给父类构造函数是为了让父类能够正确地处理此小部件的唯一标识符；
   
@@ -1740,20 +1744,45 @@ class MyHomePage extends StatelessWidget {
 ## ***Dart.Flutter.GetX***
 
 ### 资料来源
+
 [***Flutter状态管理GetX使用详解***](https://juejin.cn/post/7020598013986865182)
+
+### 作用
+
+* 跨页面交互、路由管理、全局BuildContext、国际化，主题实现
 
 ### 安装
 
 * 将 [***GitHub.GetX***](https://github.com/jonataslaw/getx)添加到您的 *pubspec.yaml* 文件中：
 ```yaml
 dependencies:
-  get:
+  # getx 状态管理框架 https://pub.flutter-io.cn/packages/get
+  # 非空安全最后一个版本（flutter 2.0之前版本）
+  get: ^3.26.0
+  # 空安全版本 最新版本请查看  https://pub.flutter-io.cn/packages/get
+  get: ^4.3.8
 ```
 * 导入将要使用的文件：
 ```dart
 import 'package:get/get.dart';
 ```
+* 主入口配置：需要将*MaterialApp*改成*GetMaterialApp*即可
+```dart
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      home: CounterGetPage(),
+    );
+  }
+}
+```
 ### `Obx`
+
 * `Obx`：数据的**单向绑定**（数据的改变👉🏻UI更新）。是用于观察**可观察对象**（通常是`Rx`变量或`GetxController`中的`Rx`变量）的小部件。
 * ***三种***声明响应式：<span style="color:blue; font-weight:bold;">***只有当响应式变量的值发生变化时，才会会执行刷新操作，如当变量从“a”再变为“a”，是不会执行刷新操作***</span>
   * <span style="color:red; font-weight:bold;">使用 `Rx{Type}`</span>
@@ -2491,9 +2520,9 @@ getFuture(){
   return Future.value(100);
 }
 ```
-#### Dart.await 和 Dart.async
+#### ***Dart***.<span style="color:red; font-weight:bold;">*await*</span> 和 ***Dart***.<span style="color:red; font-weight:bold;">*async*</span>
 
-* 通过`async`关键字标记的函数可以使用`await`关键字来等待*Future*的完成，而不必使用`then()`方法注册回调函数
+* 通过<span style="color:red; font-weight:bold;">*async*</span>关键字标记的函数可以使用<span style="color:red; font-weight:bold;">*await*</span>关键字来等待*Future*的完成，而不必使用`then()`方法注册回调函数
 *  <span style="color:red; font-weight:bold;">***`await`是`async`的反义词***</span>
 
 ```dart

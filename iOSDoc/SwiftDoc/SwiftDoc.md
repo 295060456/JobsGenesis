@@ -70,14 +70,14 @@
 ```
 ## 堆和栈
 ### *堆(**Heap**)*
-* <span style="color:red; font-weight:bold;">***程序员手动控制；***</span>
+* <span style="color:red; font-weight:bold;">***程序员手动控制***</span>；
 * 在堆上分配的内存由 **ARC**（**A**utomatic **R**eference **C**ounting）管理；
 * 存储：类实例.方法、类实例.属性；
 * **存放引用类型**：Class类型、闭包和函数；
   * 浅拷贝；
   * **堆操作牵涉到合并、移位、重新链接等**；
 ### *栈(**Stack**)*
-* <span style="color:red; font-weight:bold;">***栈上的内存分配和释放由编译器自动管理；***</span>
+* <span style="color:red; font-weight:bold;">***栈上的内存分配和释放由编译器自动管理***</span>；
 * 将String，Array，Dictionary设计成值类型，**大幅减少了堆上的内存分配和回收的次数**。同时[**C**opy-**O**n-**W**rite](# Copy-On-Write)又将值传递和复制的开销降到了最低；
 * **存放值类型**：结构体（struct）、枚举（enum）、元祖（tuple）；
   * 深拷贝：可以确保在函数内部或者在其他变量中修改值类型的值时，不会影响到原始值；
@@ -120,42 +120,48 @@ print("MyStruct 步幅为 \(stride) 字节")
 * ### static
   
   * #### C/C++
-    * 在函数内部，`static` 关键字用于**声明静态局部变量**。这些变量**在整个程序的生命周期内保持其值，但只在声明它们的函数内可见**；
-    * 在全局作用域，`static` 关键字用于限制变量和函数的可见性。使用 `static` 关键字声明的全局变量和函数**只在当前源文件中可见，对其他源文件不可见**；
+    
+    * 在函数内部，<span style="color:red; font-weight:bold;">***static***</span> 关键字用于**声明静态局部变量**。这些变量**在整个程序的生命周期内保持其值，但只在声明它们的函数内可见**；
+    * 在全局作用域，<span style="color:red; font-weight:bold;">***static***</span>关键字用于限制变量和函数的可见性。使用<span style="color:red; font-weight:bold;">***static***</span>关键字声明的全局变量和函数**只在当前源文件中可见，对其他源文件不可见**；
     * 存储在数据段中的**静态存储区**；
   * #### Java
-    - 在 Java 中，`static` 关键字用于**声明静态成员**（静态变量和静态方法）。静态成员属于类而不是类的实例，可以通过类名直接访问，而不需要创建类的实例；
+    
+    - 在 Java 中，<span style="color:red; font-weight:bold;">***static***</span>关键字用于**声明静态成员**（静态变量和静态方法）。静态成员属于类而不是类的实例，可以通过类名直接访问，而不需要创建类的实例；
     - 静态成员**在整个程序的生命周期内保持其值**，并且可以被类的所有实例共享；
     - 存储在**方法区（Method Area）**中；
   * #### Swift
-    * 在 Swift 中，`static` 关键字用于定义类型范围的属性和方法。这些属性和方法属于类型本身，而不是类的实例或结构体的实例；
+    * 在 Swift 中，<span style="color:red; font-weight:bold;">***static***</span>关键字用于定义类型范围的属性和方法。这些属性和方法属于类型本身，而不是类的实例或结构体的实例；
     * 这些属性和方法**在整个程序的生命周期内保持其值**，并且可以通过类型名来访问，而不需要创建实例；
-    * [定义单例](# Swift单例的写法和用法)
+    * [***定义单例***](# Swift单例的写法和用法)
     * 在 Swift 中，静态成员的存储位置**取决于具体的上下文**；
-      * 在类中，静态属性和方法通常存储在类的元类型中，而元类型本身**存储在[堆](# 堆(Heap))上**；
+      * 在类中，静态属性和方法通常存储在类的元类型中，而元类型本身**存储在[*堆*](# 堆(Heap))上**；
       * 而在结构体或枚举中，静态属性和方法**存储在静态数据区**中；
 * ### final
+  
   * #### C/C++
-    * **没有 `final` 关键字的概念**。如果要限制变量的值不可修改，可以使用 `const` 关键字来声明常量
+    
+    * **没有 <span style="color:red; font-weight:bold;">*final*</span> 关键字的概念**。如果要限制变量的值不可修改，可以使用 `const` 关键字来声明常量
     ```c
     const int constantValue = 10; // 声明一个常量
     ```
   * #### Java
-    * 当一个类被声明为 `final` 时，它**不能被其他类继承**；
-    * 当一个方法被声明为 `final` 时，它**不能被子类重写**；
-    * 当一个变量被声明为 `final` 时，它的**值不能被修改，相当于常量**（**内存分布：常量池**）；
-    * 在内存中，`final` 类的对象和成员变量**存储在*[堆(Heap)](# 堆(Heap))*上**，和普通类的对象存储位置相同；
+    
+    * 当一个类被声明为<span style="color:red; font-weight:bold;">***final***</span>时，它**不能被其他类继承**；
+    * 当一个方法被声明为<span style="color:red; font-weight:bold;">***final***</span>时，它**不能被子类重写**；
+    * 当一个变量被声明为<span style="color:red; font-weight:bold;">***final***</span>时，它的**值不能被修改，相当于常量**（**内存分布：常量池**）；
+    * 在内存中，<span style="color:red; font-weight:bold;">***final***</span>类的对象和成员变量**存储在*[堆(Heap)](# 堆(Heap))*上**，和普通类的对象存储位置相同；
   * #### Swift
-    - 在 Swift 中，`final` 关键字用于限制类、方法或者属性**不可被继承或者重写**；
-    - 当一个类被声明为 `final` 时，它**不能被其他类继承**；
-    - 当一个方法或者属性被声明为 `final` 时，它**不能被子类重写**；
-    - 在内存中，`final` 方法或属性的存储位置和普通方法或属性相同，取决于具体的上下文环境；
-      * **堆（Heap）**：如果方法或属性属于类的实例，则它们通常**存储在[堆](# 堆(Heap))上**（ARC）；
-      * **栈（Stack）**：如果方法或属性属于结构体的实例或是局部变量，则它们通常存储在[栈](# 栈(Stack))上（编译器自动）；
+    - 在 Swift 中，<span style="color:red; font-weight:bold;">***final***</span>关键字用于限制类、方法或者属性**不可被继承或者重写**；
+    - 当一个类被声明为<span style="color:red; font-weight:bold;">***final***</span> 时，它**不能被其他类继承**；
+    - 当一个方法或者属性被声明为<span style="color:red; font-weight:bold;">***final***</span>时，它**不能被子类重写**；
+    - 在内存中，<span style="color:red; font-weight:bold;">***final***</span>方法或属性的存储位置和普通方法或属性相同，取决于具体的上下文环境；
+      * **堆（Heap）**：如果方法或属性属于类的实例，则它们通常**存储在[*堆*](# 堆(Heap))上**（ARC）；
+      * **栈（Stack）**：如果方法或属性属于结构体的实例或是局部变量，则它们通常存储在[*栈*](# 栈(Stack))上（编译器自动）；
       * **常量池（Constant Pool）**：对于某些特定的常量或静态变量，它们可能被存储在常量池中，这取决于编译器的优化和实现方式；
 ## Swift里面可否用var来接受一个func？
 
-**不能直接使用`var`关键字来声明一个变量来接受一个函数。但是可以变通处理（转变为类型）👇🏻**
+**不能直接使用<span style="color:red; font-weight:bold;">*var*</span>关键字来声明一个变量来接受一个函数。但是可以变通处理（转变为类型）👇🏻**
+
 ````swift
 // 声明一个函数类型
 typealias MyFunctionType = (Int, Int) -> Int
@@ -222,8 +228,8 @@ let flattenedArray = nestedArray.joined().map { $0 * 2 }
 // flattenedArray 现在是 [2, 4, 6, 8, 10, 12]
 ```
 ## ***Swift.where***
-* 在Swift中，`where` 关键字主要用于**对泛型提供额外的条件约束**，以确保在特定条件下的类型兼容性；
-* 它在泛型参数列表之后，可以用于指定一些条件，以限制泛型的类型。`where` 子句通常在函数、结构体、类、枚举的定义中出现；
+* 在Swift中，<span style="color:red; font-weight:bold;">***where***</span> 关键字主要用于**对泛型提供额外的条件约束**，以确保在特定条件下的类型兼容性；
+* 它在泛型参数列表之后，可以用于指定一些条件，以限制泛型的类型。<span style="color:red; font-weight:bold;">***where***</span> 子句通常在函数、结构体、类、枚举的定义中出现；
 例如，考虑以下泛型函数的声明：
 ```swift
 // 泛型类型 `T` 必须符合 `Equatable` 协议，这样函数就可以使用 `==` 运算符比较 `value` 的相等性。
@@ -231,7 +237,8 @@ func someFunction<T>(value: T) where T: Equatable {
     // 函数体
 }
 ```
-`where` 子句也可以在扩展（extension）中使用，例如：
+<span style="color:red; font-weight:bold;">***where***</span> 子句也可以在扩展（extension）中使用，例如：
+
 ```swift
 extension Array where Element: Equatable {
     // 扩展适用于数组元素是 Equatable 的情况。这使得在特定条件下对类型进行泛型扩展成为可能。
@@ -243,9 +250,11 @@ extension Array where Element: Equatable {
 【v】产生（收益、效益等），产生（结果）；出产（天然产品，农产品，工业产品）；屈服，让步；放弃，让出；给（大路上的车辆）让路；（受压）活动，弯曲，折断；<正式>被……替代；请（某人）讲话；停止争论
 【n】产量；收益，利润，红利（或股息）率
 
-* 在Dart中，`yield`关键字通常与`Iterable`相关的函数一起使用，例如`Iterable`或`Stream`；
+* 在Dart中，<span style="color:red; font-weight:bold;">***yield***</span> 关键字通常与`Iterable`相关的函数一起使用，例如`Iterable`或`Stream`；
 * `yield`用于**在迭代中产生值，而不是一次性返回所有值**。这使得函数可以在需要时生成值，而不必一次性生成所有值，这在**处理大量数据或无限数据流**时非常有用。
-*以下是一个简单的示例，演示了如何使用`yield`在Dart中创建一个生成器函数：*
+
+*以下是一个简单的示例，演示了如何使用  <span style="color:red; font-weight:bold;">yield</span> 在Dart中创建一个生成器函数：*
+
 ```dart
 // 默认情况下，Dart 中的生成器函数是同步的，即使不显式地使用 sync* 关键字声明。
 // 这意味着生成器函数会在需要时立即生成值，但不会涉及异步操作
@@ -267,19 +276,19 @@ void main() {
   }
 }
 ```
-* 在这个示例中，`generateEvenNumbers`函数是一个生成器函数，它使用`sync*`关键字（显式）声明；
-* 在循环中，如果`i`是偶数，则通过`yield`语句产生该值；
+* 在这个示例中，`generateEvenNumbers`函数是一个生成器函数，它使用<span style="color:red; font-weight:bold;">sync*</span>关键字（显式）声明；
+* 在循环中，如果`i`是偶数，则通过<span style="color:red; font-weight:bold;">*yield*</span>语句产生该值；
 * 在`main`函数中，我们使用`generateEvenNumbers`生成前10个偶数，并通过`for-in`循环逐个打印这些偶数；
-* **需要注意的是，生成器函数中的`yield`语句并不会立即执行，而是在调用生成器函数的迭代器时才执行；**
+* **需要注意的是，生成器函数中的<span style="color:red; font-weight:bold;">*yield*</span> 语句并不会立即执行，而是在调用生成器函数的迭代器时才执行；**
 
 ## ***Swift.mutating***
 
-【vi.】突变，变异（mutate 的现在分词）
+*【vi.】突变，变异（mutate 的现在分词）*
 
-【vt.】使突变（mutate 的现在分词）
+*【vt.】使突变（mutate 的现在分词）*
 
 * 用于结构体（struct）和枚举（enum）中的**方法声明**中，*表示该方法可以修改该结构体或枚举的属性值*，即使该方法在实例被声明为常量（`let`）时调用也可以；
-* 对于类（class）中的方法，不需要使用`mutating`关键字，因为类是引用类型，即使在常量类实例上调用方法，也可以修改其属性；
+* 对于类（class）中的方法，不需要使用<span style="color:red; font-weight:bold;">*mutating*</span>关键字，因为类是引用类型，即使在常量类实例上调用方法，也可以修改其属性；
 ```swift
 struct Point {
     var x = 0.0
@@ -301,10 +310,10 @@ print("After moving: \(point)")
 
 * **inout**
   
-  *  `inout`是Swift中**用于函数参数**的关键字。它**允许函数修改参数**的值，并且这种修改是在函数内部生效并影响到函数外部传入的实际参数；
-  * 使用`inout`时，传入函数的参数被当做可变的，因此函数可以对其进行修改。在函数内部对`inout`参数的任何更改都会反映到调用该函数时传入的原始参数上；
-  * `inout`参数本质上是**传递参数的引用**，因此对参数的任何更改都会影响调用者的原始数据；
-  * 定义函数的时候加`inout`
+  *  <span style="color:red; font-weight:bold;">*inout*</span>是Swift中**用于函数参数**的关键字。它**允许函数修改参数**的值，并且这种修改是在函数内部生效并影响到函数外部传入的实际参数；
+  * 使用<span style="color:red; font-weight:bold;">*inout*</span>时，传入函数的参数被当做可变的，因此函数可以对其进行修改。在函数内部对<span style="color:red; font-weight:bold;">*inout*</span>参数的任何更改都会反映到调用该函数时传入的原始参数上；
+  * <span style="color:red; font-weight:bold;">*inout*</span>参数本质上是**传递参数的引用**，因此对参数的任何更改都会影响调用者的原始数据；
+  * 定义函数的时候加<span style="color:red; font-weight:bold;">*inout*</span>
   * 使用的时候配合取地址符号`&`使用
   ```swift
   // 定义一个函数，接受一个 inout 参数
@@ -327,8 +336,8 @@ print("After moving: \(point)")
   ```
 * **mutating**（***专修结构体和枚举***）
   
-  * `mutating`是Swift中**用于结构体和枚举中方法**的关键字。它**允许方法修改结构体或枚举的实例属性**。由于结构体和枚举是值类型，它们的属性默认是不可变的。因此，如果需要在方法中修改属性，则必须将方法标记为`mutating`；
-  * `mutating`关键字仅用于值类型（结构体和枚举）的方法声明。这样的方法可以修改调用该方法的实例的属性值；
+  * <span style="color:red; font-weight:bold;">*mutating*</span>是Swift中**用于结构体和枚举中方法**的关键字。它**允许方法修改结构体或枚举的实例属性**。由于结构体和枚举是值类型，它们的属性默认是不可变的。因此，如果需要在方法中修改属性，则必须将方法标记为<span style="color:red; font-weight:bold;">*mutating*</span>；
+  * <span style="color:red; font-weight:bold;">*mutating*</span>关键字仅用于值类型（结构体和枚举）的方法声明。这样的方法可以修改调用该方法的实例的属性值；
 ## 内联函数。内联这两个字，我怎么去理解？
 
 ```

@@ -2,7 +2,7 @@
 [toc]
 ## <span style="color:red; font-weight:bold;">***OC/C.Block***</span>
 * **Block 的捕获变量：** 当一个 Block 被创建时，它会捕获在其内部使用的外部变量。  
-  * **对于局部变量，Block 会在创建时将其复制一份，然后在 Block 内部使用。**如果 Block 在定义时没有修改该变量，那么这个变量的值在 Block 内部是不可变的。这被称为值捕获（*Value Capture*），捕获的变量可以是局部变量或全局变量。；
+  * **对于局部变量，Block 会在创建时将其复制一份，然后在 Block 内部使用。**如果 Block 在定义时没有修改该变量，那么这个变量的值在 Block 内部是不可变的。这被称为值捕获（*Value Capture*），捕获的变量可以是局部变量或全局变量；
   ```objective-c
   // 定义一个Block
   typedef void (^SimpleBlock)(void);
