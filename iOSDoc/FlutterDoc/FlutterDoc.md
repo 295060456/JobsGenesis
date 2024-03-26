@@ -4,7 +4,6 @@
 ## 相关资料
 [***Flutter 面试知识点集锦· GitBook***](https://guoshuyu.cn/home/wx/Flutter-msjj.html)
 [***Dart/Flutter社区生态：Pub.dev***](https://pub.dev/)
-
 ## <span style="color:red; font-weight:bold;">***var***</span>、<span style="color:red; font-weight:bold;">***dynamic***</span>、<span style="color:red; font-weight:bold;">***object***</span>
 
 * <span style="color:red; font-weight:bold;">***var***</span>定义的类型是不可变的；
@@ -12,9 +11,7 @@
   * <span style="color:red; font-weight:bold;">***dynamic***</span>：编译时**不**进行静态类型检查的类型（更灵活），而是在运行期间进行类型检查。（被编译后，实际是一个<span style="color:red; font-weight:bold;">***object***</span>类型）
   * <span style="color:red; font-weight:bold;">***object***</span>：编译时会进行类型检查（更安全）
 ## <span style="color:red; font-weight:bold;">***const***</span>和<span style="color:red; font-weight:bold;">***final***</span>
-
 * ***相同点***  <span style="color:red; font-weight:bold;">***final***</span>
-  
   * <span style="color:red; font-weight:bold;">***final***</span>、<span style="color:red; font-weight:bold;">***const***</span>必须初始化；
   *  <span style="color:red; font-weight:bold;">***final***</span>、<span style="color:red; font-weight:bold;">***const***</span>只能赋值一次；
   * 均表示不可被修改  
@@ -388,6 +385,7 @@ print(obj.x) // 输出: 10
       ));
     }
     ```
+
 ## <span style="color:red; font-weight:bold;">***Dart.Flutter.State***</span>
 
 * ***Widget***=> ***Element***（*BuildContext*）=>***RenderObject*** =>***Layer***=>***Layer Tree***
@@ -408,6 +406,7 @@ print(obj.x) // 输出: 10
   * 得到的新*Widget* ，所以写在*State*的数据就得以复用了；
 * ***StatefulWidget* 的 `createState` 是在*StatefulElement*的构建方法里创建的**。这就保证了只要*Element*不被重新创建，*State*就一直被复用；
 * `setState` ，其实是调用了 `markNeedsBuild` ，**`markNeedsBuild` 内部会标记 `element` 为 `diry`，然后在下一帧 `WidgetsBinding.drawFrame` 才会被绘制，这可以也看出**<span style="color:red; font-weight:bold;">**`setState` 并不是立即生效的**</span>；
+* 要避免每次进入数据时都刷新`build`，可以使用`StatefulWidget`来保存状态，并在需要更新时手动调用`setState`方法来触发更新。另外，还可以使用一些状态管理库（如[***Provider***](# Dart.Flutter.Provider)、[***GetX***]( # Dart.Flutter.GetX)、[***Bloc***](# BloC：<span style="color:red; font-weight:bold;">*B*</span>usiness <span style="color:red; font-weight:bold;">*Lo*</span>gic <span style="color:red; font-weight:bold;">*C*</span>omponent)等）来帮助管理状态，以便在需要时更新UI而不必刷新整个`build`。❤️
 * ***Dart.Flutter.State***的生命周期：<span style="color:red; font-weight:bold;">**是指 *StatefulWidget* 对象的状态变化和生命周期方法调用的过程**</span>；
   * `createState()`
     - 调用时机：在 *StatefulWidget* 首次被创建时调用。
@@ -1041,8 +1040,10 @@ class ChildWidget extends StatelessWidget {
         );
       }
     }
-    // 实际上我通过textFieldKey就拿到了textField的一个（状态）引用，可以对textField做一些操作;
-    // GlobalKey 提供了一种方便的机制来跨 Widget 访问和管理 Widget 的状态，同时也可以提高代码的灵活性和可维护性。
+    /**
+    	实际上我通过textFieldKey就拿到了textField的一个（状态）引用，可以对textField做一些操作;
+    	GlobalKey 提供了一种方便的机制来跨 Widget 访问和管理 Widget 的状态，同时也可以提高代码的灵活性和可维护性。
+    */
     ```
     * 使用 `GlobalKey` 相比直接持有对象的引用，有一些区别和优势：
       * **跨 *Widget* 访问**：`GlobalKey` 允许你在整个应用程序中引用特定的 *Widget* 实例。这意味着你可以在任何地方访问这个 *Widget* 的状态并对其进行操作，而不受 *Widget* 树结构的限制。**而直接持有对象的引用通常限制在同一** *Widget* **树中**；
@@ -1111,8 +1112,11 @@ class MyApp extends StatelessWidget {
           title: Text('Demo'),
         ),
         body: MyWidget(
-          /// UniqueKey是一个自动生成的用于在小部件树中唯一标识小部件的特殊Key子类;
-          /// 在这种情况下，我们确保了每次MyWidget实例化时都会得到一个不同的key，这对于确保在小部件树中的每个小部件都是唯一标识的非常重要。
+          
+/**
+  UniqueKey是一个自动生成的用于在小部件树中唯一标识小部件的特殊Key子类;
+  在这种情况下，我们确保了每次MyWidget实例化时都会得到一个不同的key，这对于确保在小部件树中的每个小部件都是唯一标识的非常重要。
+*/
           key: UniqueKey(), // 使用UniqueKey作为MyWidget的key
         ),
       ),
@@ -1285,9 +1289,11 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-使用 Stack 小部件作为父部件，并在其中放置了一个背景图片和三个子部件：两个按钮和一个文本;
-通过使用 Positioned 小部件，我们可以将子部件相对于父部件进行定位;
-在这个示例中，我们将按钮放置在左上角和右上角，将文本放置在底部;
+/**
+  使用 Stack 小部件作为父部件，并在其中放置了一个背景图片和三个子部件：两个按钮和一个文本;
+  通过使用 Positioned 小部件，我们可以将子部件相对于父部件进行定位;
+  在这个示例中，我们将按钮放置在左上角和右上角，将文本放置在底部;
+*/
 ```
 ```dart
 import 'package:flutter/material.dart';
@@ -1328,8 +1334,10 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-在这个示例中，我们使用 Row 组件将 label 和 button 放置在一行中，并使用 SizedBox 组件来创建一个水平间距为 80 的空白区域。
-通过在 label 和 button 之间插入两个宽度为 80 的 SizedBox，可以实现 label 和 button 的水平间距为 80。
+/**
+  在这个示例中，我们使用 Row 组件将 label 和 button 放置在一行中，并使用 SizedBox 组件来创建一个水平间距为 80 的空白区域。
+  通过在 label 和 button 之间插入两个宽度为 80 的 SizedBox，可以实现 label 和 button 的水平间距为 80。
+*/
 ```
 ### 一些常用的UI库
 * [***flutter_staggered_grid_view***](https://github.com/letsar/flutter_staggered_grid_view): 这个库提供了一个瀑布流布局的实现，可以让您以不规则的方式显示列表项。它允许您指定列数和每个列表项的高度，并自动适应布局。
@@ -1743,19 +1751,436 @@ class MyHomePage extends StatelessWidget {
   }
 }
 ```
+## ***Dart.Flutter.手势✋🏻***
+
+[***全面深入了解Flutter的触摸和滑动原理***](https://guoshuyu.cn/home/wx/Flutter-13.html)
+
+* 无论是 Android 还是 IOS ，Dart原生层都只是将所有事件打包下发；
+* Dart：
+  * 是从 `_dispatchPointerDataPacket` 开始的，之后会通过 `Zone` 判断环境回调，会执行 `GestureBinding` 这个胶水类中的 `_handlePointerEvent` 方法；
+* Android：
+  * 所有的事件都是起原生源于*io.flutter.view.FlutterView ： SurfaceView*
+  * 整个触摸手势事件实质上经历了 **JAVA => C++ => Dart** 的一个流程；
+  * 手势信息打包成**ByteBuffer**进行传递，最后在 Dart 层的 `_dispatchPointerDataPacket` 方法中，通过 `_unpackPointerDataPacket` 方法解析成可用的 `PointerDataPacket` 对象使用。
+
+### （轻触）点击手势（Tap Gesture）
+
+* ***GestureDetector***：更通用的手势识别器，可以处理更多类型的手势，如拖动、缩放等；
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('点击手势示例'),
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            print('点击了按钮');
+          },
+          child: Container(
+            padding: EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              '点击我',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
+}
+```
+* ***InkWell***
+  * 只能响应轻触事件；
+  * 触摸时产生涟漪效果；
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('InkWell示例'),
+      ),
+      body: Center(
+        child: InkWell(
+          onTap: () {
+            print('点击了InkWell');
+          },
+          child: Container(
+            padding: EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              '点击我',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
+}
+```
+
+* ***InkResponse***：
+  * 触摸时产生涟漪效果；
+  * 与 `InkWell` 类似，但具有更多的自定义选项（`highlightColor`、`splashColor`、`radius`...）;
+  * 可以直接添加到*widget*树中的任何位置，而不仅限于作为子级；
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('InkResponse示例'),
+      ),
+      body: Center(
+        child: InkResponse(
+          onTap: () {
+            print('点击了InkResponse');
+          },
+          child: Container(
+            padding: EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              '点击我',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
+}
+```
+
+### 长按手势（Long Press Gesture）
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('长按手势示例'),
+      ),
+      body: Center(
+        child: GestureDetector(
+          onLongPress: () {
+            print('长按了按钮');
+          },
+          child: Container(
+            padding: EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Text(
+              '长按我',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
+}
+```
+### 拖动手势（Drag Gesture）
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: DraggableDemo(),
+  ));
+}
+
+class DraggableDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('拖动手势示例'),
+      ),
+      body: Center(
+        child: Draggable(
+          child: Container(
+            width: 100.0,
+            height: 100.0,
+            color: Colors.blue,
+            child: Center(
+              child: Text(
+                '拖动我',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          feedback: Container(
+            width: 100.0,
+            height: 100.0,
+            color: Colors.blue.withOpacity(0.5),
+            child: Center(
+              child: Text(
+                '拖动中...',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          childWhenDragging: Container(
+            width: 100.0,
+            height: 100.0,
+            color: Colors.blue.withOpacity(0.5),
+          ),
+          onDraggableCanceled: (Velocity velocity, Offset offset) {
+            print('拖动取消');
+          },
+        ),
+      ),
+    );
+  }
+}
+```
+### 缩放手势（Scale Gesture）
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('缩放手势示例'),
+      ),
+      body: Center(
+        child: ScaleGestureDemo(),
+      ),
+    ),
+  ));
+}
+
+class ScaleGestureDemo extends StatefulWidget {
+  @override
+  _ScaleGestureDemoState createState() => _ScaleGestureDemoState();
+}
+
+class _ScaleGestureDemoState extends State<ScaleGestureDemo> {
+  double _scale = 1.0;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onScaleUpdate: (ScaleUpdateDetails details) {
+        setState(() {
+          _scale = details.scale;
+        });
+      },
+      child: Transform.scale(
+        scale: _scale,
+        child: Container(
+          width: 200.0,
+          height: 200.0,
+          color: Colors.blue,
+          child: Center(
+            child: Text(
+              '缩放我',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+### 滑动手势（Swipe Gesture）
+
+* ***GestureDetector***
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('滑动手势示例'),
+      ),
+      body: Center(
+        child: GestureDetector(
+          // onHorizontalDragUpdate 检测水平方向的滑动手势
+          // details.delta.dx 的正负值来确定滑动的方向。
+          onHorizontalDragUpdate: (details) {
+            if (details.delta.dx > 0) {
+              // 向右滑动
+              print('向右滑动');
+            } else if (details.delta.dx < 0) {
+              // 向左滑动
+              print('向左滑动');
+            }
+          },
+          child: Container(
+            width: 200.0,
+            height: 200.0,
+            color: Colors.blue,
+            child: Center(
+              child: Text(
+                '滑动我',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
+}
+```
+* ***Dismissible***
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('滑动手势示例'),
+      ),
+      body: Center(
+        child: Dismissible(
+          key: Key('item_key'),
+          direction: DismissDirection.horizontal,
+          // direction：滑动的方向
+          onDismissed: (direction) {
+            if (direction == DismissDirection.startToEnd) {
+              // 向右滑动
+              print('向右滑动');
+            } else if (direction == DismissDirection.endToStart) {
+              // 向左滑动
+              print('向左滑动');
+            }
+          },
+          // 左滑时的背景内容
+          background: Container(
+            color: Colors.green,
+            alignment: Alignment.centerLeft,
+            child: Icon(Icons.arrow_back),
+          ),
+          // 右滑时的背景内容
+          secondaryBackground: Container(
+            color: Colors.red,
+            alignment: Alignment.centerRight,
+            child: Icon(Icons.arrow_forward),
+          ),
+          child: Container(
+            width: 200.0,
+            height: 200.0,
+            color: Colors.blue,
+            child: Center(
+              child: Text(
+                '滑动我',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
+}
+```
+
+### ***解决手势冲突（控制手势的响应范围以及触发条件）***
+
+* `GestureDetector`
+```dart
+GestureDetector(
+  behavior: HitTestBehavior.deferToChild,
+  child: // Your child widget here
+  onTap: () {
+    // Handle tap
+  },
+)
+```
+* `GestureDetector.behavior`
+* `Listener`：可以监听所有指针事件，可以根据需要处理不同的事件；
+```dart
+Listener(
+  onPointerDown: (PointerDownEvent event) {
+    // Handle pointer down event
+  },
+  onPointerMove: (PointerMoveEvent event) {
+    // Handle pointer move event
+  },
+  child: // Your child widget here
+)
+```
+* `AbsorbPointer`：可以完全吸收（拦截）所有指针事件，防止它们传递到其子树；
+
+```dart
+AbsorbPointer(
+  absorbing: true, // or false depending on your requirement
+  child: // Your child widget here
+)
+```
+
+* `IgnorePointer`：也可以用于阻止其子树接收指针事件，但与`AbsorbPointer`不同，它不会影响手势识别；
+
+```dart
+IgnorePointer(
+  ignoring: true, // or false depending on your requirement
+  child: // Your child widget here
+)
+```
 
 ## ***Dart.Flutter.GetX***
-
 ### 资料来源
-
 [***Flutter状态管理GetX使用详解***](https://juejin.cn/post/7020598013986865182)
-
 ### 作用
-
 * 跨页面交互、路由管理、全局BuildContext、国际化，主题实现
-
 ### 安装
-
 * 将 [***GitHub.GetX***](https://github.com/jonataslaw/getx)添加到您的 *pubspec.yaml* 文件中：
 ```yaml
 dependencies:
@@ -1785,7 +2210,6 @@ class MyApp extends StatelessWidget {
 }
 ```
 ### `Obx`
-
 * `Obx`：数据的**单向绑定**（数据的改变👉🏻UI更新）。是用于观察**可观察对象**（通常是`Rx`变量或`GetxController`中的`Rx`变量）的小部件。
 * ***三种***声明响应式：<span style="color:blue; font-weight:bold;">***只有当响应式变量的值发生变化时，才会会执行刷新操作，如当变量从“a”再变为“a”，是不会执行刷新操作***</span>
   * <span style="color:red; font-weight:bold;">使用 `Rx{Type}`</span>
@@ -2826,8 +3250,9 @@ class _RandomNumberScreenState extends State<RandomNumberScreen> {
     );
   }
 }
-
-在这个示例中，我们创建了一个名为 RandomNumberScreen 的 StatefulWidget，其中包含一个 StreamController<int> 用于生成随机数，并使用 StreamBuilder 来监听这个 Stream。StreamBuilder 根据 Stream 的状态自动构建 Widget，并在 UI 中显示随机数的变化。当 Stream 中有新数据到达时，StreamBuilder 会自动重新构建 UI，显示最新的随机数。
+/**
+  在这个示例中，我们创建了一个名为 RandomNumberScreen 的 StatefulWidget，其中包含一个 StreamController<int> 用于生成随机数，并使用 StreamBuilder 来监听这个 Stream。StreamBuilder 根据 Stream 的状态自动构建 Widget，并在 UI 中显示随机数的变化。当 Stream 中有新数据到达时，StreamBuilder 会自动重新构建 UI，显示最新的随机数。
+*/
 ```
 
 #### StreamController
@@ -2872,16 +3297,15 @@ controller.stream.map((event) => event * 2).where((event) => event is int).disti
 * <span style="color:red; font-weight:bold;">优点：当没有对象进行监听***stream***的时候，数据是有所缓存的</span>（案例：5秒以后发起监听，之前点按的数据可以进行输出）
 * 默认情况下，一个数据流，只允许一个对象进行监听；
 * 如果需要多对象监听数据流，那么需要把***stream***变成广播***broadcast***；
-  * <span style="color:red; font-weight:bold;">缺点：当没有对象进行监听广播***broadcast***的时候，数据是不会有所缓存的</span>案例：5秒以后发起监听，之前点按的数据不能进行输出）
+  * <span style="color:red; font-weight:bold;">缺点：当没有对象进行监**broadcast***的时候，数据是不会有所缓存的</span>案例：5秒以后发起监听，之前点按的数据不能进行输出）
 ```dart
 final controller = StreamController.broadcast();
 ```
 ## ***Dart.Flutter.InheritedWidget***
 * 是 Dart.Flutter 中的概念<span style="color:red; font-weight:bold;">*（Dart.Flutter 的特性控件）*</span>，而不是Dart语言本身的特性；
-* 是 Dart.Flutter 中用于在 *Widget* 树中共享数据的一种机制，它允许数据在 *Widget* 树中向下传递，而不需要显式地在每个 *Widget* 中进行传递；
+* 是 Dart.Flutter 中用于在 *Widget* 树中共享数据的一种机制，它允许数据在*Widget* 树中向下传递，而不需要显式地在每个 *Widget* 中进行传递；
 * 当 *InheritedWidget* 中的数据发生变化时，依赖于该数据的子 *Widget* 会自动重新构建，以便更新显示；
-* 虽然 *InheritedWidget* 是一个非常强大且灵活的工具，但在某些情况下，它可能不够方便或者不够适用，特别是在需要大量共享数据或需要更复杂的数据传递逻辑的情况下。在这种情况下，您可能需要考虑使用其他状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、Riverpod 或 [***GetX***](# Dart.Flutter.GetX)；
-* *_inheritedWidgets*一般情况下是空的，只有当父控件是*InheritedWidget*或者本身是*InheritedWidgets*时才会有被初始化，而当父控件是*InheritedWidget*时，这个Map会被**一级一级往下传递与合并** ;
+* 虽然 *InheritedWidget* 是一个非常强大且灵活的工具，但在某些情况下，它可能不够方便或者不够适用，特别是在需要大量共享数据或需要更复杂的数据传递逻辑的情况下。在这种情况下，您可能需要考虑使用其他状态管理工具，如 [***Provider***](# Dart.Flutter.Provider)、Riverpod 或 [***GetX***](# Dart.Flutter.GetX)；*InheritedWidgets*时才会有被初始化，而当父控件是*InheritedWidget*时，这个Map会被**一级一级往下传递与合并** ;
 * **所以当我们通过 `context` 调用 `inheritFromWidgetOfExactType` 时，就可以往上查找到父控件的*Widget*，从在 `scoped_model` 获取到 `_InheritedModel` 中的`Model` **;
 * *InheritedWidget*共享的是*Widget*，只是这个*Widget*是一个*ProxyWidget*，它自己本身并不绘制什么。但共享这个*Widget*内保存有的值，却达到了共享状态的目的；
 * 状态共享是常见的需求，比如用户信息和登陆状态等；

@@ -52,9 +52,9 @@
    * 在程序启动时，这些变量被自动初始化为零值；
 * [***堆（Heap）***](# 堆(Heap)):
    * 堆是动态分配的内存区域，用于存储**程序运行时动态分配的内存**；
-   * [堆(Heap)](# 堆(Heap))上的内存可以通过函数如 `malloc()`、`calloc()` 或者 `new` 来分配，并通过 `free()` 或者 `delete` 函数来释放；
+   * [***堆(Heap)***](# 堆(Heap))上的内存可以通过函数如 `malloc()`、`calloc()` 或者 `new` 来分配，并通过 `free()` 或者 `delete` 函数来释放；
 * [***栈（Stack）***](# 栈(Stack)):
-   * 栈用于存储函数的局部变量、函数参数、函数的**返回地址**等；
+   * [***栈***](# 栈(Stack))用于存储函数的局部变量、函数参数、函数的**返回地址**等；
    * 每次函数调用时，会在栈上分配一块称为栈帧（Stack Frame）的内存，**函数返回后，栈帧会被销毁**；
    * [***栈***](# 栈(Stack))的大小是有限的，通常比堆的大小小得多（[***栈***](# 栈(Stack))<< [***堆***](# 堆(Heap))）；
 * **常量区（Constant Segment）**：
@@ -81,7 +81,7 @@
 ### *栈(**Stack**)*
 * <span style="color:red; font-weight:bold;">***栈上的内存分配和释放由编译器自动管理***</span>；
 * 栈区相对于堆区更靠内存低字节；（内存先部署栈区）
-* 将String，Array，Dictionary设计成值类型，**大幅减少了堆上的内存分配和回收的次数**。同时[***C**opy-**O**n-**W**rite*](# Copy-On-Write)又将值传递和复制的开销降到了最低；
+* 将*String*，*Array*，*Dictionary*设计成值类型，**大幅减少了堆上的内存分配和回收的次数**。同时[***C**opy-**O**n-**W**rite*](# Copy-On-Write)又将值传递和复制的开销降到了最低；
 * **存放值类型**：结构体（struct）、枚举（enum）、元祖（tuple）；
   * 深拷贝：可以确保在函数内部或者在其他变量中修改值类型的值时，不会影响到原始值；
   * 性能优势：**仅仅是单个指针的上下移动**；
@@ -120,8 +120,9 @@ print("MyStruct 步幅为 \(stride) 字节")
   * 而在修改数据后，修改发生的变量会拷贝一份数据到新的内存空间，然后修改新的内存空间中的数据，这样其他变量不受影响，仍然指向原来的内存空间。
 * **C**opy-**O**n-**W**rite 的优点是在**大部分情况下避免了不必要的数据拷贝**，节省了内存和运行时间。它通常用于处理复杂数据结构，如字符串、数组、字典等，这些数据结构在进行赋值操作时可能需要进行大量的数据拷贝，使用 **C**opy-**O**n-**W**rite技术可以显著提高性能。
 * 在实际应用中，**C**opy-**O**n-**W**rite 技术常见于编程语言的标准库中，如 Swift 中的<span style="color:red; font-weight:bold;">***字符串和数组类型***</span>就采用了**C**opy-**O**n-**W**rite  
-## 【Swift vs Java vs C/C++】static 和 final的区别
-* ### static
+## 【Swift vs Java vs C/C++】<span style="color:red; font-weight:bold;">***static***</span> 和 <span style="color:red; font-weight:bold;">***final***</span>的区别
+
+* ### <span style="color:red; font-weight:bold;">***static***</span>
   
   * #### C/C++
     
@@ -134,13 +135,14 @@ print("MyStruct 步幅为 \(stride) 字节")
     - 静态成员**在整个程序的生命周期内保持其值**，并且可以被类的所有实例共享；
     - 存储在**方法区（Method Area）**中；
   * #### Swift
+    
     * 在 Swift 中，<span style="color:red; font-weight:bold;">***static***</span>关键字用于定义类型范围的属性和方法。这些属性和方法属于类型本身，而不是类的实例或结构体的实例；
     * 这些属性和方法**在整个程序的生命周期内保持其值**，并且可以通过类型名来访问，而不需要创建实例；
     * [***定义单例***](# Swift单例的写法和用法)
     * 在 Swift 中，静态成员的存储位置**取决于具体的上下文**；
       * 在类中，静态属性和方法通常存储在类的元类型中，而元类型本身**存储在[*堆*](# 堆(Heap))上**；
       * 而在结构体或枚举中，静态属性和方法**存储在静态数据区**中；
-* ### final
+* ### <span style="color:red; font-weight:bold;">***final***</span>
   
   * #### C/C++
     
@@ -404,8 +406,8 @@ print("After moving: \(point)")
   *  <span style="color:red; font-weight:bold;">*inout*</span>是Swift中**用于函数参数**的关键字。它**允许函数修改参数**的值，并且这种修改是在函数内部生效并影响到函数外部传入的实际参数；
   * 使用<span style="color:red; font-weight:bold;">*inout*</span>时，传入函数的参数被当做可变的，因此函数可以对其进行修改。在函数内部对<span style="color:red; font-weight:bold;">*inout*</span>参数的任何更改都会反映到调用该函数时传入的原始参数上；
   * <span style="color:red; font-weight:bold;">*inout*</span>参数本质上是**传递参数的引用**，因此对参数的任何更改都会影响调用者的原始数据；
-  * 定义函数的时候加<span style="color:red; font-weight:bold;">*inout*</span>
-  * 使用的时候配合取地址符号`&`使用
+  * 定义函数的时候加<span style="color:red; font-weight:bold;">*inout*</span>;
+  * <u>**使用的时候配合取地址符号`&`使用**</u>
   ```swift
   // 定义一个函数，接受一个 inout 参数
   func increment(value: inout Int) {
@@ -530,7 +532,7 @@ userService.doSomething()
 * 在初始化 `UserService` 实例时，我们通过构造函数将 `ConsoleLogger` 的实例传递给 `UserService`，实现了依赖注入；
 
 这样，`UserService` 就可以使用依赖注入的 `Logger` 对象来记录日志。
-## *UIHostingController* 和一般的控制器，有何特别之处？（向下兼容）
+## *SwiftUI.UIHostingController* 和一般的控制器，有何特别之处？（向下兼容）
 
 * SwiftUI 视图的承载：*UIHostingController*的主要功能是将 SwiftUI 的视图嵌入到 UIKit 中。你可以通过在*UIHostingController*中设置一个 SwiftUI 视图，将 SwiftUI 和 UIKit 进行无缝集成。<span style="color:red; font-weight:bold;">**SwiftUI.view 👉🏻UIKit**</span>
  ```swift
@@ -542,7 +544,7 @@ userService.doSomething()
 * 跨平台兼容性：*UIHostingController*的使用不仅限于 iOS 平台，你也可以在 macOS 上使用*NSHostingController*，在 watchOS 上使用*WKHostingController*，以实现在不同平台上的 SwiftUI 视图承载。
 *总体而言*
 *UIHostingController*提供了一种方便的方式，将 SwiftUI 和 UIKit 结合使用，使得你可以逐步采用 SwiftUI，而无需立即完全迁移到 SwiftUI 构建整个应用程序。这种渐进性迁移对于那些已有的 UIKit 项目而言是非常有帮助的。
-## *UIViewRepresentable* 干嘛的？（向上兼容）
+## *UIKit.UIViewRepresentable* 干嘛的？（向上兼容）
 
 `UIViewRepresentable` 是SwiftUI中的一个协议，用于将 UIKit 中的 `UIView` 集成到 SwiftUI 视图层次结构中。当您想要在SwiftUI中使用一个基于*UIView*的自定义视图或控件时，可以通过遵循 `UIViewRepresentable` 协议来实现这个集成。<span style="color:red; font-weight:bold;">**UIKit.UIView👉🏻SwiftUI**</span>
 `UIViewRepresentable` 要求您实现两个必备的方法：
@@ -966,10 +968,10 @@ struct ContentView: View {
 这样，在整个应用程序中，无需手动传递 userData，所有使用 @EnvironmentObject 的视图都能访问到共享的 UserData 对象。
 ```
 **主要用途和特点：**
-* 传递共享数据： 通过使用 @EnvironmentObject，你可以在整个 *SwiftUI* 视图层次结构中传递一个共享的数据模型，而不必在每个视图中手动传递该数据。
-* 全局访问： 通过在 *SwiftUI* 的 Environment 中存储对象，你可以在整个应用程序中提供对该对象的全局访问。
-* 数据更新时刷新视图： 当通过 @EnvironmentObject 引用的对象发生更改时，相关视图会自动刷新以反映最新的数据。
-* 典型用法是在 @main 函数中设置环境对象，以便在整个应用程序中共享。
+* 传递共享数据： 通过使用 `@EnvironmentObject`，你可以在整个 *SwiftUI* 视图层次结构中传递一个共享的数据模型，而不必在每个视图中手动传递该数据。
+* 全局访问： 通过在 *SwiftUI* 的 **Environment** 中存储对象，你可以在整个应用程序中提供对该对象的全局访问。
+* 数据更新时刷新视图： 当通过 `@EnvironmentObject `引用的对象发生更改时，相关视图会自动刷新以反映最新的数据。
+* 典型用法是在 `@main` 函数中设置环境对象，以便在整个应用程序中共享。
 ### `@Environment`
 
 *在 Swift 中，`@Environment` 是一个属性包装器（property wrapper），用于访问环境值（Environment Values）。*
@@ -1014,10 +1016,11 @@ struct MyApp: App {
 在这个示例中，ContentView 结构体声明了一个 @Environment(\.userDefaults) 属性，该属性将从环境中获取用户偏好设置。
 然后，在 extension EnvironmentValues 中，我们为 userDefaults 创建了一个环境键，并为其提供了默认值（在这里是 UserDefaults.standard）。
 ```
-在应用程序的其他地方，例如在 `AppDelegate` 中，您可以设置用户的偏好设置，然后这些设置将在整个应用程序中自动传递给使用 `@Environment(\.userDefaults)` 的视图。这是一种方便的方式，使得全局设置和共享数据能够轻松地在整个视图层次结构中传递。
+在应用程序的其他地方，例如在 *AppDelegate* 中，您可以设置用户的偏好设置，然后这些设置将在整个应用程序中自动传递给使用 `@Environment(\.userDefaults)` 的视图。这是一种方便的方式，使得全局设置和共享数据能够轻松地在整个视图层次结构中传递。
 ### `@ObservedObject`
 
 *是 SwiftUI 中的一个属性包装器，用于将一个对象标记为可观察的。当被 `@ObservedObject` 标记的对象发生变化时，相关视图将会被刷新以反映这些变化。通常情况下，`@ObservedObject` 用于关联可观察对象和视图，使得 SwiftUI 能够自动响应对象的变化并更新 UI。*
+
 ```swift
 import SwiftUI
 import Combine
@@ -1097,7 +1100,7 @@ struct MyView: View {
    - `@UIApplicationMain` 相对较死板，主要用于传统的iOS应用程序入口点的定义。
    综上所述，如果您在Swift 5.3及更高版本上进行跨平台开发，推荐使用 `@main`。如果您在较早的Swift版本上仅进行iOS开发，可以使用 `@UIApplicationMain`。在实践中，大多数新的Swift项目会选择使用 `@main`，因为它提供更大的灵活性，并且在未来的Swift版本中可能会成为标准的应用程序入口点标识方式。
 
-### Swift中，***Any***和***Anyobject***的区别？
+## Swift中，***Any***和***Anyobject***的区别？
 
 ***Any***：
 
@@ -1131,7 +1134,7 @@ let length = object.length
 2、因此，当你需要处理混合类型的数据时，可以使用 ***Any***。当你知道你要处理的是类对象时，可以使用 ***Anyobject***。
 3、在实践中，尽量避免使用 ***Any*** 和 ***Anyobject***，而是使用具体的类型，因为这样有助于代码的可读性和类型安全。
 
-## var body: some View  这里面的some是什么意思？
+## *var body: some View*  这里面的`some`是什么意思？
 
 * 这是 Swift 5.1 引入的一项功能，用于简化泛型代码中的类型表达；
 * 在 SwiftUI 中，***some View*** 是一个不透明类型（opaque type）；

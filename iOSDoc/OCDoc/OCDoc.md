@@ -1,8 +1,9 @@
 # OC相关经验
 [toc]
 ## <span style="color:red; font-weight:bold;">***OC/C.Block***</span>
-* **Block 的捕获变量：** 当一个 Block 被创建时，它会捕获在其内部使用的外部变量。  
-  * **对于局部变量，Block 会在创建时将其复制一份，然后在 Block 内部使用。**如果 Block 在定义时没有修改该变量，那么这个变量的值在 Block 内部是不可变的。这被称为值捕获（*Value Capture*），捕获的变量可以是局部变量或全局变量；
+* ***Block* 的捕获变量：** 当一个 *Block* 被创建时，它会捕获在其内部使用的外部变量。  
+  
+  * **对于局部变量，*Block* 会在创建时将其复制一份，然后在 *Block* 内部使用。**如果 *Block* 在定义时没有修改该变量，那么这个变量的值在 *Block* 内部是不可变的。这被称为值捕获（*Value Capture*），捕获的变量可以是局部变量或全局变量；
   ```objective-c
   // 定义一个Block
   typedef void (^SimpleBlock)(void);
@@ -23,26 +24,32 @@
   // 输出将会是：
   Count inside block: 10
   
+  /**
   在这个例子中，Block捕获了count变量的值，即使在Block定义之后count的值被修改，Block内部仍然使用了最初捕获的值。
+  */
   ```
-  * **对于全局变量，Block 会直接引用其内存地址，而不会复制**；
+  * **对于全局变量，*Block* 会直接引用其内存地址，而不会复制**；
 * **`__block` 修饰符**
-  * 当需要在 Block 内部修改局部变量的值时，需要使用 `__block` 修饰符来声明该变量。这样，在 Block 内部就可以通过引用来修改外部变量的值；
+  * 当需要在 *Block* 内部修改局部变量的值时，需要使用 `__block` 修饰符来声明该变量。这样，在 *Block* 内部就可以通过引用来修改外部变量的值；
   * <span style="color:red; font-weight:bold;">***使用 `__block` 修饰的变量在 Block 内部会被包装为一个结构体，这个结构体中包含了一个指向原始变量的指针。这样 Block 内部就可以通过这个指针来修改变量的值，而不会影响到原始变量的值；***</span>
 * ❤️**Block 的存储**
-  * Block 是一个**对象**，它在***[堆](# 堆(Heap))上分配***内存；
-  * 当一个 Block 捕获了一个 `__block` 修饰的变量时，Block 不会直接捕获这个变量的值，而是**捕获了一个指向变量的指针**；
-  * 当 Block 在创建时，会检查其所引用的外部变量，如果有被 `__block` 修饰的变量，Block 会将这些变量的地址包装到一个结构体中，然后将这个结构体的指针传递给 Block；
+  * *Block* 是一个**对象**，它在***[堆](# 堆(Heap))上分配***内存；
+  * 当一个 *Block* 捕获了一个 `__block` 修饰的变量时，*Block* 不会直接捕获这个变量的值，而是**捕获了一个指向变量的指针**；
+  * 当 *Block* 在创建时，会检查其所引用的外部变量，如果有被 `__block` 修饰的变量， *Block*将这些变量的地址包装到一个结构体中，然后将这个结构体的指针传递给 *Block*；
 ## OC里面有没有类似于Java里面的`linkedhashset`的东西
-* 在Objective-C中，没有直接类似于Java中LinkedHashSet的数据结构；
-* 但是，你可以使用`NSOrderedSet`，它是一个有序不可变集合，保留了元素的插入顺序；
-* 如果你需要可变版本，可以使用`NSMutableOrderedSet`。这不同于LinkedHashSet，但提供了一种有序且不包含重复元素的选择；
+* 在Objective-C中，没有直接类似于Java中*LinkedHashSet*的数据结构；
+* 但是，你可以使用*NSOrderedSet*，它是一个有序不可变集合，保留了元素的插入顺序；
+* 如果你需要可变版本，可以使用*NSMutableOrderedSet*。这不同于*LinkedHashSet*，但提供了一种有序且不包含重复元素的选择；
+
 ## KVC 和 KVO
-KVC（**K**ey-**V**alue **C**oding）：**键值存储**
-* 通过key->对象属性。不需要通过set/get方法；
+
+### KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储**
+
+* 通过key->对象属性。不需要通过`set/get`方法；
 * 对于支持 KVC 的对象，可以通过 `setValue:forKey:` 和 `valueForKey:` 等方法来设置和获取属性值；
 * KVC 在实现**数据绑定**、**序列化**和其他一些需要**动态地访问属性**的场景中非常有用；
-KVO（**K**ey-**V**alue **O**bserving）：**属性观察**
+### KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察**
+
 * KVO 是一种**观察者模式**的实现，它**允许一个对象监听另一个对象的属性的变化**；
 * 当被监听对象的某个属性发生变化时，注册了观察者的对象会收到通知，从而可以采取相应的操作；
 * KVO的使用步骤：
@@ -57,7 +64,7 @@ KVO（**K**ey-**V**alue **O**bserving）：**属性观察**
 ```
 ### KVO相应的观察方法
 **`observeValueForKeyPath:ofObject:change:context:`**
-- 这是 KVO 观察者对象必须实现的方法之一；
+- 这是 [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察) 观察者对象必须实现的方法之一；
 - 当被观察对象的属性值发生变化时，系统会调用这个方法，并传递一些参数，包括被观察的属性的键路径、被观察的对象、属性的改变信息以及上下文信息；
 - 观察者对象在实现这个方法时，可以根据传递的信息执行相应的操作，比如更新 UI、处理数据等；
 - 观察者对象应该在不需要监听属性变化时取消观察，以防止悬挂指针或野指针的问题；
@@ -92,21 +99,23 @@ KVO（**K**ey-**V**alue **O**bserving）：**属性观察**
 ```
 ### KVC 和 KVO的相互调用问题
 #### <span style="color:red; font-weight:bold;">***在使用KVC的时候会使用的KVO吗？***</span>
-* 虽然在使用 KVC（**K**ey-**V**alue **C**oding）时不会直接用到 KVO（**K**ey-**V**alue **O**bserving），但是它们通常会**结合使用**。特别是在设计模式中的 MVC（Model-View-Controller）中：
-  * Model 层通常会**负责存储应用程序的数据**，并且可能会实现 KVC，以便其他部分可以通过键路径来访问和修改这些数据；
-  * 而 View 层通常**负责显示数据**，并且可能会观察（通过 KVO）Model 层的一些属性，以便在数据发生变化时更新界面；
+* 虽然在使用 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储)时不会直接用到 [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察) ，但是它们通常会**结合使用**。特别是在设计模式中的 MVC（Model-View-Controller）中：
+  * Model 层通常会**负责存储应用程序的数据**，并且可能会实现 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储)，以便其他部分可以通过键路径来访问和修改这些数据；
+  * 而 View 层通常**负责显示数据**，并且可能会观察（通过  [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察) ）Model 层的一些属性，以便在数据发生变化时更新界面；
   * Controller 层则充当了**数据的处理和业务逻辑的中介**；
-* 在这种情况下，当 Model 层的属性通过 KVC 进行更改时，View 层可能会通过 KVO 接收到通知，并相应地更新界面。因此，尽管在直接的语法上并不会在使用 KVC 时调用 KVO 的方法，但在应用程序的整体架构中，它们往往是相辅相成的；
+* 在这种情况下，当 Model 层的属性通过 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储) 进行更改时，View 层可能会通过  [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察)  接收到通知，并相应地更新界面。因此，尽管在直接的语法上并不会在使用 KVC 时调用  [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察)  的方法，但在应用程序的整体架构中，它们往往是相辅相成的；
+
 #### <span style="color:red; font-weight:bold;">***在使用KVO的时候会使用的KVC吗？***</span>
-* 在使用 KVO（**K**ey-**V**alue **O**bserving）时，通常不会直接使用 KVC（**K**ey-**V**alue **C**oding），因为**它们是两个独立的特性**。然而，在某些情况下，它们**可能会间接地结合使用**；
-  * **注册观察者时的键路径**： 在注册观察者时，需要提供要观察的属性的键路径。这个键路径通常是通过 KVC 的方式指定的，因为它需要准确地指定被观察属性的路径;
+
+* 在使用[***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察) 时，通常不会直接使用 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储)，因为**它们是两个独立的特性**。然而，在某些情况下，它们**可能会间接地结合使用**；
+  * **注册观察者时的键路径**： 在注册观察者时，需要提供要观察的属性的键路径。这个键路径通常是通过 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储) 的方式指定的，因为它需要准确地指定被观察属性的路径;
   ```objective-c
   [object addObserver:self 
           forKeyPath:@"propertyName" 
           options:NSKeyValueObservingOptionNew 
           context:nil];
   ```
-  * **观察者获取属性值**： 在观察者对象中，当收到属性变化的通知时，可能会使用 KVC 来获取被观察对象的属性值;
+  * **观察者获取属性值**： 在观察者对象中，当收到属性变化的通知时，可能会使用  [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储) 来获取被观察对象的属性值;
   ```objective-c
   - (void)observeValueForKeyPath:(NSString *)keyPath
           ofObject:(id)object 
@@ -118,8 +127,9 @@ KVO（**K**ey-**V**alue **O**bserving）：**属性观察**
       }
   }
   ```
-    虽然**在实现 KVO 时可能会涉及到使用 KVC 来指定属性路径和获取属性值**，但是它们本质上是两个不同的概念。KVO 是一种观察者模式，用于监听对象属性的变化，而 KVC 则是一种机制，用于通过键（key）来访问对象的属性。
+    虽然**在实现** [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察)  **时可能会涉及到使用**  [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储)  **来指定属性路径和获取属性值**，但是它们本质上是两个不同的概念。 [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察)  是一种观察者模式，用于监听对象属性的变化，而 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储) 则是<u>一种机制</u>，用于通过键（key）来访问对象的属性。
 ## MVP
+
 * MVP（**M**odel-**V**iew-**P**resenter）模式是一种软件架构模式，用于设计和组织用户界面（UI）代码；
 * 它是**基于MVC**（**M**odel-**V**iew-**C**ontroller）模式的变种，***旨在解决 MVC 模式中 Controller 过于臃肿和难以测试的问题***；
 * 在 MVP 模式中，UI 层被分为三个主要组件：
@@ -352,7 +362,6 @@ NSLog(@"Sum: %ld", (long)sum); // 输出: Sum: 30
 @interface UserService : NSObject
 
 @property(nonatomic, strong) Logger *logger;
-
 - (instancetype)initWithLogger:(Logger *)logger;
 - (void)doSomething;
 
@@ -363,9 +372,7 @@ NSLog(@"Sum: %ld", (long)sum); // 输出: Sum: 30
 #import "UserService.h"
 
 @implementation UserService
-
 - (instancetype)initWithLogger:(Logger *)logger {
-
     if (self = [super init]) {
         self.logger = logger;
     }return self;
@@ -375,7 +382,6 @@ NSLog(@"Sum: %ld", (long)sum); // 输出: Sum: 30
     // 使用依赖注入的 Logger 对象记录日志
     [self.logger log:@"Something is done in UserService"];
 }
-
 @end
 ```
 <span style="color:Blue; font-weight:bold;">***在这个示例中，`UserService` 类在构造函数中接受一个 `Logger` 对象作为参数，然后将其存储在实例变量中。这样，调用 `UserService` 的代码可以提供自己的 `Logger` 实例，从而实现了依赖注入。***</span>
@@ -446,37 +452,84 @@ public class OverloadExample {
 }
 ```
 ## <span style="color:red; font-weight:bold;">***OC.多线程***</span>
-### pthread：
+### pthread
+
 * *pthread（**P**OSIX **Thread**s）*是一套<span style="color:red; font-weight:bold;">***C语言编写***</span>的**跨平台多线程API**，**使用难度大**，需要**手动管理线程生命周期**。（需要更加谨慎地处理线程的同步和互斥操作，以避免出现死锁、数据竞争等问题）
   * **线程创建和管理**： pthread 库允许程序员创建、销毁、等待和控制线程的执行。通过调用 pthread_create 函数，程序可以创建新的线程并指定线程执行的函数。程序还可以使用 pthread_join 函数等待线程的结束，并使用 pthread_exit 函数退出当前线程；
   * **线程同步**： pthread 提供了一系列的同步机制，如互斥锁（Mutex）、条件变量（Condition Variable）、信号量（Semaphore）等，可以用于多线程之间的同步和互斥操作。这些同步机制可以帮助程序员避免多个线程同时访问共享资源导致的竞态条件和数据不一致性问题；
   * **线程调度和优先级**： pthread 允许程序员设置线程的调度策略和优先级，以及控制线程的调度行为。程序员可以通过设置线程的属性来指定线程的调度策略和优先级，以及其他相关的属性；
   * **线程取消和退出**： pthread 允许程序员取消线程的执行，并在需要时优雅地退出线程。程序员可以使用 pthread_cancel 函数取消指定线程的执行，并使用 pthread_exit 函数主动退出当前线程；
   * **线程局部存储**： pthread 提供了线程局部存储（Thread-Specific Data，TSD）的机制，允许程序员为每个线程分配独立的存储空间。这些存储空间对于每个线程是私有的，可以用于存储线程特定的数据；
-### NSThread：
+### NSThread
+
 * Cocoa 框架中的一部分<span style="color:red; font-weight:bold;">***（较为底层）***</span>。面向对象操作线程，使用相对简单，需要手动管理线程生命周期；
   * **线程创建和管理**： 使用 `NSThread` 类，您可以创建新的线程，并通过调用 `start` 方法来启动线程的执行。您可以在创建线程时指定线程执行的方法，并传递参数给该方法。通过 `isExecuting` 和 `isFinished` 等属性，您可以查询线程的执行状态；
   * **线程调度和优先级**： `NSThread` 允许您设置线程的调度优先级，以及控制线程的调度行为。您可以使用 `threadPriority` 属性来设置线程的优先级，范围为 0.0 到 1.0，其中 1.0 表示最高优先级。您还可以使用 `sleepForTimeInterval:` 方法来让线程休眠一段时间；
   * **线程同步**： `NSThread` 并没有提供专门的同步机制，但您可以使用其他的同步机制，如互斥锁（`NSLock`）、条件变量（`NSCondition`）等，来确保多个线程之间的同步和互斥操作。您可以在不同的线程中使用这些同步机制来避免竞态条件和数据不一致性问题；
   * **线程退出**： `NSThread` 并没有提供退出线程的方法，但您可以通过让线程执行完其任务后自行退出来实现线程的结束。在线程的执行方法中，您可以使用 `exit` 方法或直接返回来退出线程；
   * **线程局部存储**： `NSThread` 并不直接支持线程局部存储的机制，但您可以使用线程的字典属性来实现类似的功能。每个 `NSThread` 对象都有一个 `threadDictionary` 属性，您可以使用这个属性来存储和访问线程特定的数据；
-### GCD：
-* GCD（**G***rand ***C***entral ***D***ispatch）是苹果（Apple.Inc）多核编程解决方案，使用起来非常方便。需要自己实现如：限制并发数，任务间的依赖等功能。自动管理线程生命周期。
+### GCD
+
+* GCD（***G***rand ***C***entral ***D***ispatch）是苹果（Apple.Inc）多核编程解决方案，使用起来非常方便。需要自己实现如：限制并发数，任务间的依赖等功能。自动管理线程生命周期。
   * **队列（Dispatch Queues）**： GCD 使用队列来管理任务的执行。队列可以是串行队列（Serial Queue）或并发队列（Concurrent Queue）。串行队列中的任务按照 FIFO（先进先出）的顺序依次执行，而并发队列中的任务可以同时执行；
   * **任务（Blocks）**： 在 GCD 中，任务以块（Blocks）的形式表示。块是一段代码，可以在队列中异步或同步执行。您可以使用 GCD 提供的函数来创建并提交任务到队列中执行；
   * **同步和异步执行（Sync vs Async）**： 您可以使用同步（Sync）或异步（Async）的方式将任务提交到队列中执行。同步执行会阻塞当前线程，直到任务执行完毕；而异步执行会立即返回，任务在后台线程执行，不会阻塞当前线程；
   * **主队列和全局队列（Main and Global Queues）**： 主队列是一个串行队列，用于在应用程序的主线程上执行任务。全局队列是一个并发队列，由系统提供，可以用于执行后台任务。全局队列分为多个优先级，从高到低分别是高、默认、低和后台；
   * **信号量（Dispatch Semaphores）**： GCD 提供了***信号量机制***，可以控制并发任务的数量。通过信号量，您可以限制同时执行的任务数量，避免过多的并发导致资源竞争或性能问题；
   * **调度组（Dispatch Groups）**： 调度组是一种用于管理多个任务的机制，它可以让您监视一组任务的完成状态。您可以使用调度组来等待一组任务全部完成后再执行其他操作，或者在一组任务完成时执行特定的处理；
-### NSOperation：
-* <span style="color:red; font-weight:bold;">***基于GCD***</span>的封装，面向对象操作线程，提供了比GCD更丰富的API：限制最大并发数，设置任务依赖关系；
+* 线程组：`dispatch_group_t`
+  * 允许等待一组任务完成后再执行其他操作；
+  * 可以向线程组添加任务，并使用`dispatch_group_notify`方法来设置一个回调，该回调将在所有任务完成后被调用；
+
+```objective-c
+// 导入必要的头文件
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 创建一个串行队列
+        dispatch_queue_t queue = dispatch_queue_create("com.example.queue", DISPATCH_QUEUE_SERIAL);
+        // 创建一个线程组
+        dispatch_group_t group = dispatch_group_create();
+        // 向线程组中添加任务
+        dispatch_group_async(group, queue, ^{
+            // 第一个异步任务
+            NSLog(@"Task 1 started");
+            sleep(2); // 模拟耗时操作
+            NSLog(@"Task 1 completed");
+        });
+        dispatch_group_async(group, queue, ^{
+            // 第二个异步任务
+            NSLog(@"Task 2 started");
+            sleep(3); // 模拟耗时操作
+            NSLog(@"Task 2 completed");
+        });
+        // 设置一个回调，在所有任务完成后执行
+        dispatch_group_notify(group, queue, ^{
+            NSLog(@"All tasks completed");
+        });
+        // 等待线程组中的任务完成
+        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+        NSLog(@"Main thread continues after all tasks completed");
+    }return 0;
+}
+/**
+创建了一个串行队列和一个线程组。
+然后，向线程组中添加了两个异步任务，并设置了一个回调，以便在所有任务完成后执行。
+最后，调用了dispatch_group_wait函数，使当前线程等待线程组中的任务完成。
+*/
+```
+
+### NSOperation
+
+* <span style="color:red; font-weight:bold;">***基于GCD***</span>的封装，面向对象操作线程，提供了比[***GCD***](# GCD)更丰富的API：限制最大并发数，设置任务依赖关系；
 * 但是它<span style="color:red; font-weight:bold;">***它不能直接使用***</span>，因为它是一个抽象类，可以继承它或者使用系统定义*NSInvocationOperation*或*NSBlockOperation*。自动管理线程生命周期；
-  * **任务管理**： `NSOperation` 封装了一个执行任务的对象，可以用于执行各种类型的任务。您可以通过子类化 `NSOperation` 类，实现自定义的任务逻辑，并在其中执行所需的操作。
-  * **任务依赖**： `NSOperation` 提供了任务依赖的机制，允许您指定任务之间的依赖关系。这样，您可以确保某个任务在其依赖的所有任务完成后才开始执行。通过 `addDependency:` 方法，您可以为一个操作添加一个或多个依赖。
-  * **任务队列**： `NSOperationQueue` 是用于管理 `NSOperation` 对象的队列，它负责调度和执行队列中的操作。您可以将操作添加到队列中，并指定执行顺序、并发性等属性。队列可以是串行队列或并发队列，分别用于按顺序执行任务或并行执行任务。
-  * **线程管理**： `NSOperation` 可以自动管理线程，无需手动创建线程。`NSOperationQueue` 内部会自动创建并管理线程池，根据需要创建和回收线程，以确保任务的高效执行。
-  * **取消和暂停**： `NSOperation` 提供了取消和暂停任务的机制。您可以调用 `cancel` 方法取消任务的执行，或者调用 `setSuspended:` 方法暂停队列的执行。取消任务不会立即终止任务的执行，但会在任务执行下一个检查点时提前结束任务。
-  * **KVO 监听**： `NSOperation` 支持 KVO（Key-Value Observing），允许您监视操作的执行状态和属性的变化。通过观察操作的 `isExecuting`、`isFinished` 和 `isCancelled` 等属性，您可以了解操作的执行情况。
+  * **任务管理**： *NSOperation* 封装了一个执行任务的对象，可以用于执行各种类型的任务。您可以通过子类化 *NSOperation* 类，实现自定义的任务逻辑，并在其中执行所需的操作。
+  * **任务依赖**： *NSOperation* 提供了任务依赖的机制，允许您指定任务之间的依赖关系。这样，您可以确保某个任务在其依赖的所有任务完成后才开始执行。通过 `addDependency:` 方法，您可以为一个操作添加一个或多个依赖。
+  * **任务队列**： *NSOperationQueue* 是用于管理 *NSOperation* 对象的队列，它负责调度和执行队列中的操作。您可以将操作添加到队列中，并指定执行顺序、并发性等属性。队列可以是串行队列或并发队列，分别用于按顺序执行任务或并行执行任务。
+  * **线程管理**： *NSOperation* 可以自动管理线程，无需手动创建线程。*NSOperationQueue* 内部会自动创建并管理线程池，根据需要创建和回收线程，以确保任务的高效执行。
+  * **取消和暂停**： *NSOperation* 提供了取消和暂停任务的机制。您可以调用 `cancel` 方法取消任务的执行，或者调用 `setSuspended:` 方法暂停队列的执行。取消任务不会立即终止任务的执行，但会在任务执行下一个检查点时提前结束任务。
+  * **KVO 监听**： *NSOperation* 支持 [***KVO（Key-Value Observing）***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察)，允许您监视操作的执行状态和属性的变化。通过观察操作的 `isExecuting`、`isFinished` 和 `isCancelled` 等属性，您可以了解操作的执行情况。
 ## ***OC.Runtime.消息转发机制***
 
 Objective-C 中的消息转发机制是一种在***运行时动态处理未知消息***的机制：<span style="color:red; font-weight:bold;">***当一个对象接收到一个它无法识别的消息时，Objective-C 运行时系统会通过一系列的步骤来处理这个未知消息，并尝试找到合适的接收者来处理该消息***</span>。
@@ -487,7 +540,7 @@ Objective-C 中的消息转发机制是一种在***运行时动态处理未知�
 2. **备用接收者（Fallback Recipients）**：
    如果动态方法解析失败，Objective-C 运行时会调用 `-forwardingTargetForSelector:` 方法，以寻找备用接收者来处理消息。在这个方法中，对象有机会返回另一个对象来处理该消息。如果返回了一个非空的对象，则消息将被转发到这个对象，而不再继续后续的步骤；
 3. **完整消息转发（Complete Message Forwarding）**：
-   如果备用接收者也无法处理消息，最后的选择是使用完整的消息转发机制。Objective-C 运行时会调用 `-forwardInvocation:` 方法，并将消息包装成一个 `NSInvocation` 对象传递给该方法。在 `-forwardInvocation:` 方法中，对象可以选择将消息发送给其他对象，或者抛出异常，或者其他自定义处理。如果 `-forwardInvocation:` 方法没有被实现，或者在其中没有将消息发送给其他对象，那么将会抛出一个 `NSInvalidArgumentException` 异常。
+   如果备用接收者也无法处理消息，最后的选择是使用完整的消息转发机制。Objective-C 运行时会调用 `-forwardInvocation:` 方法，并将消息包装成一个 *NSInvocation* 对象传递给该方法。在 `-forwardInvocation:` 方法中，对象可以选择将消息发送给其他对象，或者抛出异常，或者其他自定义处理。如果 `-forwardInvocation:` 方法没有被实现，或者在其中没有将消息发送给其他对象，那么将会抛出一个 *NSInvalidArgumentException* 异常。
    通过这三个阶段，Objective-C 运行时可以实现动态消息处理的能力，使得对象能够在运行时动态地处理未知消息，从而增强了语言的灵活性和动态性；
 ## ***OC.database***
 ### ***OC.SQLite***
@@ -562,8 +615,6 @@ if (sqlite3_open([databasePath UTF8String], &database) == SQLITE_OK) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
     // 获取沙盒中数据库文件路径
     NSString *docsDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString *databasePath = [docsDir stringByAppendingPathComponent:@"test.db"];
@@ -649,8 +700,7 @@ int main(int argc, const char * argv[]) {
             // 删除数据
             [realm deleteObject:firstPerson];
         }];
-    }
-    return 0;
+    }return 0;
 }
 ```
 ## 在OC里面NSString用`copy`修饰 还是`Strong`修饰？
@@ -855,20 +905,20 @@ int main(int argc, const char * argv[]) {
     
     - 开发者需要在*[苹果开发者中心](https://developer.apple.com/cn/)*注册应用程序的 ***bundle identifier***，并获取一个 ***APNs 证书***来与 APNs 服务器通信；
     - 通过 APNs 服务，开发者可以向用户设备发送远程通知，并指定通知的内容、声音、标志等参数；
-      ```json
-      {
-        "aps": {
-            "alert": {
-                "title": "远程通知标题",
-                "body": "这是一个远程通知示例"
-            },
-            "badge": 1,// 应用程序图标上要显示的徽章数量
-            "sound": "default",// 系统缺省值声音
-                // 或者
-            "sound": "custom_sound.mp3"// 自定义的声音文件（包括文件名和文件扩展名）。如果通知负载中没有指定声音，系统将使用默认的提示音
-        }
+    ```json
+    {
+      "aps": {
+          "alert": {
+              "title": "远程通知标题",
+              "body": "这是一个远程通知示例"
+          },
+          "badge": 1,// 应用程序图标上要显示的徽章数量
+          "sound": "default",// 系统缺省值声音
+              // 或者
+          "sound": "custom_sound.mp3"// 自定义的声音文件（包括文件名和文件扩展名）。如果通知负载中没有指定声音，系统将使用默认的提示音
       }
-      ```
+    }
+    ```
   * **推送通知的实现**：
     - 在应用程序中配置推送通知的权限，并请求用户允许发送通知；
     - 使用 Apple 提供的 ***UNUserNotificationCenter*** API 来请求用户的推送通知权限，并处理用户对通知的响应；
