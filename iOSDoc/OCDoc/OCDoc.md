@@ -47,7 +47,7 @@
 * 一个例子是使用 `@dynamic` 关键字来声明属性。在使用 Core Data 框架或者实现了自定义的动态属性存取方法时，你可能会使用 `@dynamic` 来告诉编译器，该属性的 `getter` 和 `setter` 方法由运行时或其他方式动态生成，而不是在编译时静态声明。
 * 另一个例子是在 Objective-C 中使用关联对象（Associated Objects）。关联对象允许你向已有的类中添加属性，而无需修改类的源代码。这种情况下，你可能不会显式地声明属性的 getter 和 setter 方法，而是通过关联对象来存取属性值。
 
-## ***OC.AssociatedObjects***
+## ***OC.AssociatedObjects（关联对象）***
 
 * 允许你向已有的类中添加属性，而无需修改类的源代码；
 * 依赖于 Objective-C 运行时机制；
