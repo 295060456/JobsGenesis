@@ -407,6 +407,64 @@ print(obj.x) // 输出: 10
 * ***StatefulWidget* 的 `createState` 是在*StatefulElement*的构建方法里创建的**。这就保证了只要*Element*不被重新创建，*State*就一直被复用；
 * `setState` ，其实是调用了 `markNeedsBuild` ，**`markNeedsBuild` 内部会标记 `element` 为 `diry`，然后在下一帧 `WidgetsBinding.drawFrame` 才会被绘制，这可以也看出**<span style="color:red; font-weight:bold;">**`setState` 并不是立即生效的**</span>；
 * 要避免每次进入数据时都刷新`build`，可以使用`StatefulWidget`来保存状态，并在需要更新时手动调用`setState`方法来触发更新。另外，还可以使用一些状态管理库（如[***Provider***](# Dart.Flutter.Provider)、[***GetX***]( # Dart.Flutter.GetX)、[***Bloc***](# BloC：<span style="color:red; font-weight:bold;">*B*</span>usiness <span style="color:red; font-weight:bold;">*Lo*</span>gic <span style="color:red; font-weight:bold;">*C*</span>omponent)等）来帮助管理状态，以便在需要时更新UI而不必刷新整个`build`。❤️
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MaterialApp(
+    home: CounterWidget(),
+  ));
+}
+
+class CounterWidget extends StatefulWidget {
+  @override
+  _CounterWidgetState createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Counter Demo'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Counter Value:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+/**
+  每次点击按钮时，都会更新计数器的值，并且 UI 会更新以显示新的计数器值，但整个 build 方法不会被重新执行
+  因为状态被保存在 StatefulWidget 中，而不是每次重新创建
+*/
+```
+
 * ***Dart.Flutter.State***的生命周期：<span style="color:red; font-weight:bold;">**是指 *StatefulWidget* 对象的状态变化和生命周期方法调用的过程**</span>；
   * `createState()`
     - 调用时机：在 *StatefulWidget* 首次被创建时调用。
@@ -1340,10 +1398,487 @@ class MyApp extends StatelessWidget {
 */
 ```
 ### 一些常用的UI库
+
 * [***flutter_staggered_grid_view***](https://github.com/letsar/flutter_staggered_grid_view): 这个库提供了一个瀑布流布局的实现，可以让您以不规则的方式显示列表项。它允许您指定列数和每个列表项的高度，并自动适应布局。
 * [***flutter_layout_grid***](https://github.com/shyndman/flutter_layout_grid): 这是一个类似于 `CSS Grid` 的库，允许您使用网格布局来排列子部件。您可以定义网格中的行和列，并使用简单的属性来指定子部件的位置和大小。
 * [***flutter_flow***](https://github.com/Darren-chenchen/flutter_flowermusic): 这个库提供了一种基于流式布局（Flow Layout）的方式来排列子部件。它允许您在水平和垂直方向上动态调整子部件的位置和大小，以适应不同的屏幕尺寸和方向。
 * [***flutter_sliver_grid***](https://github.com/himdeve/flutter-tutorials-1-9-gridview-slivergrid-gallery): 这是一个用于实现网格布局的库，可以与 ***SliverAppBar*** 和 ***CustomScrollView*** 一起使用，以创建具有自定义滚动效果的网格布局。
+### ***Dart.Flutter.动画***
+
+* 隐式动画（Implicit Animations）：
+  * Dart.Flutter提供了一系列的隐式动画组件，如*AnimatedContainer*、*AnimatedOpacity*、*AnimatedAlign*等；
+  * 当这些***组件的属性发生变化***时，它们会自动执行动画效果，而不需要开发者显式地控制动画过程；
+
+***使用了`AnimatedContainer`组件来实现一个简单的颜色和大小变化的动画效果***
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Implicit Animation Demo'),
+        ),
+        body: ImplicitAnimationDemo(),
+      ),
+    );
+  }
+}
+
+class ImplicitAnimationDemo extends StatefulWidget {
+  @override
+  _ImplicitAnimationDemoState createState() => _ImplicitAnimationDemoState();
+}
+
+class _ImplicitAnimationDemoState extends State<ImplicitAnimationDemo> {
+  bool _isBig = false;
+  Color _color = Colors.blue;
+
+  void _toggleSizeAndColor() {
+    setState(() {
+      _isBig = !_isBig;
+      _color = _isBig ? Colors.red : Colors.blue;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+        onTap: _toggleSizeAndColor,
+        child: AnimatedContainer(
+          duration: Duration(seconds: 1),
+          width: _isBig ? 200.0 : 100.0,
+          height: _isBig ? 200.0 : 100.0,
+          color: _color,
+          child: Center(
+            child: Text(
+              _isBig ? 'Big Box' : 'Small Box',
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+/**
+  在这个示例中，通过点击屏幕，可以触发_toggleSizeAndColor函数，该函数会修改_isBig和_color变量的值。
+  AnimatedContainer组件会根据这些值的变化，自动执行动画效果，使容器的大小和颜色在1秒内平滑地过渡。
+*/
+```
+
+***使用了`AnimatedOpacity`组件来实现透明度变化的动画效果***
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Implicit Animation Demo'),
+        ),
+        body: ExplicitAnimationDemo(),
+      ),
+    );
+  }
+}
+
+class ExplicitAnimationDemo extends StatefulWidget {
+  @override
+  _ExplicitAnimationDemoState createState() => _ExplicitAnimationDemoState();
+}
+
+class _ExplicitAnimationDemoState extends State<ExplicitAnimationDemo> {
+  bool _visible = true;
+
+  void _toggleVisibility() {
+    setState(() {
+      _visible = !_visible;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: _toggleVisibility,
+            child: Text(
+              'Toggle Visibility',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
+          SizedBox(height: 20),
+          AnimatedOpacity(
+            opacity: _visible ? 1.0 : 0.0,
+            duration: Duration(seconds: 1),
+            child: Container(
+              width: 200,
+              height: 200,
+              color: Colors.blue,
+              child: Center(
+                child: Text(
+                  'Animated Text',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+/**
+  在这个示例中，点击屏幕上的文字会触发_toggleVisibility函数，该函数会修改_visible变量的值。
+  AnimatedOpacity组件根据_visible的值变化，自动执行动画效果，使容器的透明度在1秒内平滑地过渡。
+*/
+```
+
+* 显式动画（Explicit Animations）：
+  * 需要开发者***显式地控制动画的开始、结束和中间状态***；
+  * Dart.Flutter提供了一些显式动画的类，如*Animation*、*AnimationController*等；
+  * 开发者可以使用这些类来创建自定义的动画效果，并通过控制动画的进度来实现各种复杂的动画效果；
+
+***使用了`AnimationController`和`Tween`来实现一个简单的显式动画，使一个方形在屏幕上左右移动：***
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Explicit Animation Demo'),
+        ),
+        body: ExplicitAnimationDemo(),
+      ),
+    );
+  }
+}
+
+class ExplicitAnimationDemo extends StatefulWidget {
+  @override
+  _ExplicitAnimationDemoState createState() => _ExplicitAnimationDemoState();
+}
+
+class _ExplicitAnimationDemoState extends State<ExplicitAnimationDemo> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+
+    _animation = Tween(begin: 0.0, end: 200.0).animate(_controller);
+    _controller.repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return Transform.translate(
+            offset: Offset(_animation.value, 0),
+            child: Container(
+              width: 100,
+              height: 100,
+              color: Colors.blue,
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+/**
+  在这个示例中，通过AnimationController和Tween创建了一个动画，该动画会在水平方向上移动一个方形。
+  _controller.repeat(reverse: true)指定了动画会循环播放，并在每次播放完成后反向播放，从而使方形在屏幕上来回移动。
+*/
+```
+
+* 物理动画（Physics-based Animations）：
+  * 物理动画是一种模拟物理效果的动画，可以使动画看起来更加真实和自然；
+  * Dart.Flutter提供了一些物理动画的类，如*SpringSimulation*、*ScrollSimulation*等；
+  * 可以使用这些类来创建具有物理效果的动画，如弹簧动画、滚动动画等；
+
+***通过手势操作来实现一个简单的拖拽效果：***
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Physics-based Animation Demo'),
+        ),
+        body: PhysicsAnimationDemo(),
+      ),
+    );
+  }
+}
+
+class PhysicsAnimationDemo extends StatefulWidget {
+  @override
+  _PhysicsAnimationDemoState createState() => _PhysicsAnimationDemoState();
+}
+
+class _PhysicsAnimationDemoState extends State<PhysicsAnimationDemo> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late SpringSimulation _simulation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      lowerBound: -100.0,
+      upperBound: 100.0,
+    );
+
+    _simulation = SpringSimulation(
+      SpringDescription(
+        mass: 1.0,
+        stiffness: 100.0,
+        damping: 10.0,
+      ),
+      _controller.value,
+      0.0,
+      0.0,
+    );
+
+    _animation = _controller.drive(Tween(begin: 0.0, end: 0.0)).drive(CurveTween(curve: Curves.linear));
+
+    _controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _onPanUpdate(DragUpdateDetails details) {
+    _controller.animateWith(_simulation);
+    _controller.value += details.delta.dx / 100;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onPanUpdate: _onPanUpdate,
+      onPanEnd: (_) {
+        _controller.animateWith(SpringSimulation(
+          SpringDescription(
+            mass: 1.0,
+            stiffness: 100.0,
+            damping: 10.0,
+          ),
+          _controller.value,
+          0.0,
+          0.0,
+        ));
+      },
+      child: Center(
+        child: Transform.translate(
+          offset: Offset(_animation.value, 0),
+          child: Container(
+            width: 100,
+            height: 100,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    );
+  }
+}
+/**
+  在这个示例中，使用SpringSimulation创建了一个物理动画模拟，模拟了一个弹簧效果。
+  当用户在屏幕上拖动时，方块会跟随手指移动，同时应用物理模拟来实现弹簧效果。
+*/
+```
+
+* Hero动画（Hero Animations）：
+  * 用于在页面间实现元素的平滑过渡效果；
+  * 当一个元素从一个页面过渡到另一个页面时，可以使用Hero动画使元素的位置、大小和外观平滑地过渡，从而提升用户体验；
+
+***包含两个页面，一个页面上有一个小部件，另一个页面上有相同的小部件，但用Hero动画将它们连接起来，以实现平滑的过渡效果：***
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: FirstPage(),
+    );
+  }
+}
+
+class FirstPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('First Page'),
+      ),
+      body: Center(
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => SecondPage()),
+            );
+          },
+          child: Hero(
+            tag: 'hero-tag',
+            child: Container(
+              width: 100,
+              height: 100,
+              color: Colors.blue,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Second Page'),
+      ),
+      body: Center(
+        child: Hero(
+          tag: 'hero-tag',
+          child: Container(
+            width: 200,
+            height: 200,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    );
+  }
+}
+/**
+  在这个示例中，当用户点击第一个页面上的蓝色方块时，会跳转到第二个页面，并且通过Hero动画将方块平滑地过渡到第二个页面上，并且自动调整大小以适应目标大小。
+*/
+```
+
+* Flare动画（Flare Animations）：
+  * Flare是一种***矢量动画格式***，可以在Dart.Flutter应用中使用；
+  * Dart.Flutter提供了一个`flare_flutter`包，可以使用该包来加载和播放Flare动画，从而实现更加复杂和生动的动画效果；
+  * 需要将Flare文件导入到项目中
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  flare_flutter: ^3.0.0
+```
+
+**将Flare文件（例如`animation.flr`）放置在项目的`assets`目录中**
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flare_flutter/flare_actor.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: FlareAnimationDemo(),
+    );
+  }
+}
+
+class FlareAnimationDemo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flare Animation Demo'),
+      ),
+      body: Center(
+        child: FlareActor(
+          'assets/animation.flr', // Flare动画文件的路径
+          animation: 'idle', // 指定要播放的动画名称
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+}
+/**
+  在这个示例中，FlareActor小部件用于加载和显示Flare动画。
+  通过animation属性指定要播放的动画名称，并使用fit属性控制动画的适应方式。
+
+  确保将Flare文件的路径正确地指定为您项目中的实际路径，并将动画名称设置为您要播放的实际动画名称。
+*/
+```
+
 ## ***Dart.Flutter.database***
 
 <span style="color:red; font-weight:bold;">**Dart.Flutter 官方目前没有提供一个 Dart.Flutter 原生自带的数据库解决方案。**</span>Dart.Flutter 团队的重点是提供一个灵活、高性能的 UI 框架，以便开发人员可以构建跨平台的用户界面。对于数据存储和管理，Dart.Flutter 官方更多地依赖于第三方库和平台特定的解决方案
@@ -2859,10 +3394,10 @@ void _incrementCounter() {
   flutter: event 2
   flutter: event 3
   ```
-#### then()方法
+#### `then()`方法
 
-* 你可以使用***Future对象的then()方法注册回调函数*** 
-* <span style="color:red; font-weight:bold;">**在正常情况下，等待中的*Future*在完成时的瞬间，then()方法会被立即执行，而不会产生Microtask事件**</span>。
+* 你可以使用***Future对象的`then()`方法注册回调函数*** 
+* <span style="color:red; font-weight:bold;">**在正常情况下，等待中的*Future*在完成时的瞬间，`then()`方法会被立即执行，而不会产生Microtask事件**</span>。
 ```dart
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -2931,7 +3466,7 @@ Fetching Number...
 Continuing Execution...
 Error Fetching Number: Exception: Failed To Fetch Number
 ```
-#### Dart.async
+#### ***Dart.async***
 
 *以下3种写法等价*
 ```dart
@@ -2971,6 +3506,7 @@ flutter: 100
 flutter: 200
 ```
 *让抛出异常变得简单*
+
   ```dart
   Future<int> getFuture()async{
     throw "oops";
@@ -2989,7 +3525,7 @@ flutter: 200
   Connecting to VM Service at ws://127.0.0.1:59963/uNDeeaH8Z-0=/ws
   flutter: oops 
   ```
-#### Dart.error
+#### ***Dart.error***
 
 ```dart
 Future<String> getFuture(){
@@ -3039,7 +3575,7 @@ flutter: 100
 flutter: 5
 flutter: complete
 ```
-#### FutureBuilder
+#### ***Dart.Flutter.FutureBuilder***
 
 *  *Future* 提供了一个名为 *FutureBuilder* 的*Widget*，<span style="color:red; font-weight:bold;">***用于在Future完成后构建UI***</span>。使用 *FutureBuilder*，你可以轻松地根据 *Future* 的状态（未完成、完成并成功返回结果、完成但返回错误）来构建不同的UI；
   
@@ -3163,7 +3699,7 @@ Connecting to VM Service at ws://127.0.0.1:61385/ShWG62w8EkE=/ws
 flutter: future complete:42
 53 flutter: steam :42 （源源不断的打印 42）
 ```
-#### StreamBuilder
+#### ***StreamBuilder***
 
 * ***StreamBuilder*** *.builder.snapshot.ConectionState* 比 ***FutureBuilder*** *.builder.snapshot.ConectionState* 多一个 ***active***状态；
 * ***StreamBuilder*** *.builder.snapshot.ConectionState === active* 可以出现无数新的数值（data）和错误（error）；
@@ -3255,7 +3791,7 @@ class _RandomNumberScreenState extends State<RandomNumberScreen> {
 */
 ```
 
-#### StreamController
+#### ***StreamController***
 
 * 借助***StreamController***实现更精确的控制。创建一个***StreamController***的时候，系统会自动帮我们生成一个***水龙头（sink）***和***水流（stream）***，他们是一一对应的关系；
 ```dart

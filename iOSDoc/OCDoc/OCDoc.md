@@ -98,7 +98,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NS
 ```
 ### KVC 和 KVO的相互调用问题
+
 #### <span style="color:red; font-weight:bold;">***在使用KVC的时候会使用的KVO吗？***</span>
+
 * 虽然在使用 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储)时不会直接用到 [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察) ，但是它们通常会**结合使用**。特别是在设计模式中的 MVC（Model-View-Controller）中：
   * Model 层通常会**负责存储应用程序的数据**，并且可能会实现 [***KVC***](# KVC（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***C***</span>oding）：**键值存储)，以便其他部分可以通过键路径来访问和修改这些数据；
   * 而 View 层通常**负责显示数据**，并且可能会观察（通过  [***KVO***](# KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察) ）Model 层的一些属性，以便在数据发生变化时更新界面；
@@ -470,7 +472,7 @@ public class OverloadExample {
   * **线程局部存储**： `NSThread` 并不直接支持线程局部存储的机制，但您可以使用线程的字典属性来实现类似的功能。每个 `NSThread` 对象都有一个 `threadDictionary` 属性，您可以使用这个属性来存储和访问线程特定的数据；
 ### GCD
 
-* GCD（***G***rand ***C***entral ***D***ispatch）是苹果（Apple.Inc）多核编程解决方案，使用起来非常方便。需要自己实现如：限制并发数，任务间的依赖等功能。自动管理线程生命周期。
+* GCD（***G***rand ***C***entral ***D***ispatch）是苹果（Apple.Inc）多核编程解决方案（多线程处理技术），使用起来非常方便。需要自己实现如：限制并发数，任务间的依赖等功能。自动管理线程生命周期。
   * **队列（Dispatch Queues）**： GCD 使用队列来管理任务的执行。队列可以是串行队列（Serial Queue）或并发队列（Concurrent Queue）。串行队列中的任务按照 FIFO（先进先出）的顺序依次执行，而并发队列中的任务可以同时执行；
   * **任务（Blocks）**： 在 GCD 中，任务以块（Blocks）的形式表示。块是一段代码，可以在队列中异步或同步执行。您可以使用 GCD 提供的函数来创建并提交任务到队列中执行；
   * **同步和异步执行（Sync vs Async）**： 您可以使用同步（Sync）或异步（Async）的方式将任务提交到队列中执行。同步执行会阻塞当前线程，直到任务执行完毕；而异步执行会立即返回，任务在后台线程执行，不会阻塞当前线程；
@@ -517,6 +519,94 @@ int main(int argc, const char * argv[]) {
 创建了一个串行队列和一个线程组。
 然后，向线程组中添加了两个异步任务，并设置了一个回调，以便在所有任务完成后执行。
 最后，调用了dispatch_group_wait函数，使当前线程等待线程组中的任务完成。
+*/
+```
+
+* GCD的定时器
+
+*创建了一个定时器，每隔1秒执行一次任务。定时器在10秒后被取消，然后程序退出。可以根据需要调整定时器的间隔时间。*
+
+***OC.GCD.Timer***
+
+```objective-c
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 创建DispatchSourceTimer对象
+        dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 
+                                                         0, 
+                                                         0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+        // 设置定时器的初始时间、间隔时间和精度
+        dispatch_source_set_timer(timer,
+                                  dispatch_time(DISPATCH_TIME_NOW, 0), 
+                                  1ull * NSEC_PER_SEC, 
+                                  100ull * NSEC_PER_MSEC);
+        // 设定定时器的执行任务
+        dispatch_source_set_event_handler(timer, ^{
+            // 这里是定时器触发时执行的任务
+            NSLog(@"Timer fired!");
+        });
+        // 启动定时器
+        dispatch_resume(timer);
+        // 为了让程序不立即结束，可以让主线程等待一段时间
+        // 这里只是为了演示目的，实际中你可能会有其他的需要
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 
+                                     (int64_t)(10.0 * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            // 取消定时器
+            dispatch_source_cancel(timer);
+            NSLog(@"Timer canceled!");
+            // 退出程序
+            exit(EXIT_SUCCESS);
+        });
+        // 让主线程开始运行RunLoop，以便定时器能够工作
+        NSRunLoop.mainRunLoop.run;
+    }return 0;
+}
+```
+
+***Swift.GCD.Timer***
+
+```swift
+import Foundation
+
+// 创建一个DispatchSourceTimer对象
+let timer = DispatchSource.makeTimerSource()
+// 设置定时器的初始时间、间隔时间和队列
+timer.schedule(deadline: .now(),
+               repeating: .seconds(1), 
+               leeway: .milliseconds(100))
+// 设定定时器的执行任务
+timer.setEventHandler {
+    // 这里是定时器触发时执行的任务
+    print("Timer fired!")
+}
+// 获取一个全局队列并将定时器事件处理程序调度到该队列上
+let queue = DispatchQueue.global()
+timer.setEventHandler(handler: {
+    queue.async {
+        print("Timer fired!")
+    }
+})
+// 启动定时器
+timer.activate()
+// 为了让程序不立即结束，可以让主线程等待一段时间
+// 这里只是为了演示目的，实际中你可能会有其他的需要
+let mainQueue = DispatchQueue.main
+mainQueue.asyncAfter(deadline: .now() + .seconds(10)) {
+    // 取消定时器
+    timer.cancel()
+    print("Timer canceled!")
+    // 退出程序
+    exit(EXIT_SUCCESS)
+}
+// 让主线程开始运行RunLoop，以便定时器能够工作
+RunLoop.main.run()
+/**
+  这段代码创建了一个定时器，每隔1秒执行一次任务。
+  你可以根据需要调整定时器的间隔时间。
+  在这个例子中，定时器在10秒后被取消，然后程序退出。
 */
 ```
 
