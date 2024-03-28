@@ -37,9 +37,63 @@
   * 当一个 *Block* 捕获了一个 `__block` 修饰的变量时，*Block* 不会直接捕获这个变量的值，而是**捕获了一个指向变量的指针**；
   * 当 *Block* 在创建时，会检查其所引用的外部变量，如果有被 `__block` 修饰的变量， *Block*将这些变量的地址包装到一个结构体中，然后将这个结构体的指针传递给 *Block*；
 ## OC里面有没有类似于Java里面的`linkedhashset`的东西
+
 * 在Objective-C中，没有直接类似于Java中*LinkedHashSet*的数据结构；
 * 但是，你可以使用*NSOrderedSet*，它是一个有序不可变集合，保留了元素的插入顺序；
 * 如果你需要可变版本，可以使用*NSMutableOrderedSet*。这不同于*LinkedHashSet*，但提供了一种有序且不包含重复元素的选择；
+
+## 可能会存在属性没有对应的 `getter` 和 `setter` 方法的情况
+
+* 一个例子是使用 `@dynamic` 关键字来声明属性。在使用 Core Data 框架或者实现了自定义的动态属性存取方法时，你可能会使用 `@dynamic` 来告诉编译器，该属性的 `getter` 和 `setter` 方法由运行时或其他方式动态生成，而不是在编译时静态声明。
+* 另一个例子是在 Objective-C 中使用关联对象（Associated Objects）。关联对象允许你向已有的类中添加属性，而无需修改类的源代码。这种情况下，你可能不会显式地声明属性的 getter 和 setter 方法，而是通过关联对象来存取属性值。
+
+## ***OC.AssociatedObjects***
+
+* 允许你向已有的类中添加属性，而无需修改类的源代码；
+* 依赖于 Objective-C 运行时机制；
+* 可以动态地将一个对象与一个 key 关联起来，然后可以在运行时根据这个 key 来获取或设置关联的对象；
+* 关联对象***不会影响类的继承体系***，也***不会改变类的实例变量***，而是将额外的数据***存储在一个全局的关联表***中；
+  * 导入 `<objc/runtime.h>` 头文件；
+  * 创建一个 key，作为关联对象的唯一标识符。这个 key 是一个静态变量，通常是一个唯一的地址，你可以使用 `static` 关键字来定义；
+  * 使用 `objc_setAssociatedObject` 函数将对象与 key 关联起来，并设置关联的策略（如 `OBJC_ASSOCIATION_RETAIN` 或 `OBJC_ASSOCIATION_ASSIGN`）以及要关联的对象；
+  * 使用 `objc_getAssociatedObject` 函数根据 key 获取关联的对象；
+  * 如果需要，使用 `objc_removeAssociatedObjects` 函数来移除与对象相关的所有关联对象；
+
+***如何使用关联对象为一个类添加一个动态属性：***
+
+```objective-c
+#import <Foundation/Foundation.h>
+#import <objc/runtime.h>
+
+@interface MyClass : NSObject
+@end
+
+@implementation MyClass
+@end
+
+int main(int argc, const char * argv[]) {
+    @autoreleasepool {
+        // 创建一个 key 作为关联对象的标识符
+        static void *MyKey = &MyKey;
+        
+        // 创建一个 MyClass 的实例
+        MyClass *myObject = [[MyClass alloc] init];
+        
+        // 设置关联对象
+        NSString *associatedObject = @"Associated String";
+        objc_setAssociatedObject(myObject, MyKey, associatedObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+        // 获取关联对象
+        NSString *retrievedObject = objc_getAssociatedObject(myObject, MyKey);
+        NSLog(@"Associated Object: %@", retrievedObject); // 输出：Associated Object: Associated String
+    }return 0;
+}
+/**
+  在这个例子中，我们向 MyClass 类的实例添加了一个动态属性，该属性与一个字符串对象关联;
+  我们使用 objc_setAssociatedObject 函数将字符串对象与 MyClass 实例关联起来;
+  并使用 objc_getAssociatedObject 函数来获取关联的对象。
+*/
+```
 
 ## KVC 和 KVO
 
@@ -48,9 +102,16 @@
 * 通过key->对象属性。不需要通过`set/get`方法；
 * 对于支持 KVC 的对象，可以通过 `setValue:forKey:` 和 `valueForKey:` 等方法来设置和获取属性值；
 * KVC 在实现**数据绑定**、**序列化**和其他一些需要**动态地访问属性**的场景中非常有用；
+* 也有一些特殊情况下的对象不支持 KVC。例如：
+  * 未定义键的属性：如果[***一个属性没有对应的 `getter` 和 `setter` 方法***](# 可能会存在属性没有对应的 `getter` 和 `setter` 方法的情况)，或者不符合 KVC 的命名规范，那么该属性就不支持 KVC。
+
 ### KVO（<span style="color:red; font-weight:bold;">***K***</span>ey-<span style="color:red; font-weight:bold;">***V***</span>alue <span style="color:red; font-weight:bold;">***O***</span>bserving）：**属性观察**
 
-* KVO 是一种**观察者模式**的实现，它**允许一个对象监听另一个对象的属性的变化**；
+* KVO 是一种**观察者模式**的实现，它**允许一个对象（非类）监听另一个对象的属性的变化**；
+* 不是所有的类都支持KVO：
+  * ***类必须直接或间接地继承自NSObject（即，类必须实例为对象）***：这是因为KVO是基于Objective-C runtime系统的，它利用了Objective-C的动态特性来观察对象属性的变化；一个常见的反例是 Core Graphics（Quartz）框架中的许多类型，如 CGPoint、CGSize、CGRect 等。这些类型是 C 语言结构体，而不是 Objective-C 对象，因此它们不继承自 NSObject，并且不支持 KVO。
+  * ***被观察的属性必须是对象的属性，而非标量类型***（例如int、float等）；
+  * ***被观察的属性必须使用属性访问器方法***（通常是getter和setter方法），***而不是直接访问实例变量***；
 * 当被监听对象的某个属性发生变化时，注册了观察者的对象会收到通知，从而可以采取相应的操作；
 * KVO的使用步骤：
   * 先注册观察者
